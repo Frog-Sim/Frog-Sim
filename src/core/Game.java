@@ -65,10 +65,12 @@ public class Game extends BasicGameState
 		else if (key==Input.KEY_A) camX-=300;
 		else if (key==Input.KEY_S) camY+=300;
 		else if (key==Input.KEY_D) camX+=300;
+		if (key==Input.KEY_O) bestFrog.modifyJumpDistance(1.2f);
+		if (key==Input.KEY_P) bestFrog.modifyJumpTimer(0.8f);
 	}
 	public void mousePressed(int button, int x, int y)
 	{
-		bestFrog.startJump(x, y);
+		bestFrog.startJump(x+camX, y+camY);
 		System.out.println("click");
  	}
 	public void mouseWheelMoved(int change)
