@@ -11,8 +11,10 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import entities.Entity;
+import entities.alive.Follower;
 import entities.alive.Frog;
 import entities.alive.PlayerFrog;
+import entities.alive.Wanderer;
 import environment.Map;
 import media.Camera;
 
@@ -24,7 +26,7 @@ public class Game extends BasicGameState
 	private float camX=0;
 	private float camY=0;
 	private Map map;
-	private PlayerFrog bestFrog;
+	public static PlayerFrog bestFrog;
 	//ENTITIES
 	private static ArrayList<Entity> entities;
 	
@@ -37,6 +39,8 @@ public class Game extends BasicGameState
 		cam=new Camera(this);
 		map=new Map(this);
 		bestFrog= new PlayerFrog(200,200);
+		entities.add(bestFrog);
+		entities.add(new Wanderer(500,500));
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
@@ -46,6 +50,7 @@ public class Game extends BasicGameState
 		for(Entity e: entities) {
 			e.update();
 		}
+		System.out.println(entities.size());
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException 
@@ -67,6 +72,12 @@ public class Game extends BasicGameState
 		else if (key==Input.KEY_D) camX+=300;
 		if (key==Input.KEY_O) bestFrog.modifyJumpDistance(1.2f);
 		if (key==Input.KEY_P) bestFrog.modifyJumpTimer(0.8f);
+		if (key==Input.KEY_N) 
+			for(int i=0; i<25; i++)
+			{entities.add(new Wanderer((float)(1000*Math.random()),(float)(1000*Math.random())));}
+		if (key==Input.KEY_B) 
+			for(int i=0; i<5; i++)
+			{entities.add(new Follower((float)(1000*Math.random()),(float)(1000*Math.random())));}
 	}
 	public void mousePressed(int button, int x, int y)
 	{

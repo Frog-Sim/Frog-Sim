@@ -1,21 +1,22 @@
 package entities.alive;
 
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Point;
 
 public class Frog extends Animal{
 
-	private static final int frogSize=100;
-	private float curJumpTime;
-	private float jumpTimer;
-	private float jumpCooldown;
-	private float jumpDistance;
-	private boolean isJumping;
-	private boolean canJump;
+	protected static final int frogSize=100;
+	protected float curJumpTime;
+	protected float jumpTimer;
+	protected float jumpCooldown;
+	protected float jumpDistance;
+	protected boolean isJumping;
+	protected boolean canJump;
+	protected Point destination;
 	public Frog(float x, float y) { super(x, y); jumpTimer=30; jumpDistance=400; canJump=true; }
 	public void update() {
-		System.out.println("is Jumping" + isJumping);
-		System.out.println("can Jump" + canJump);
 		if(isJumping)
 		{
 			jump();
@@ -24,12 +25,11 @@ public class Frog extends Animal{
 			jumpCooldown--;
 			canJump = jumpCooldown<0;
 		}
-		super.update();
-			
-		}
+		super.update();	
+	}
 	private void jump() {
 		curJumpTime++;
-		if(curJumpTime>jumpTimer)
+		if(curJumpTime>jumpTimer || getDistance(destination)<(jumpDistance/jumpTimer)*1.5f)
 		{
 			isJumping = false;
 			xVel=0;
@@ -47,10 +47,11 @@ public class Frog extends Animal{
 	{
 		if(canJump)
 		{
-			canJump=false;;
+			canJump=false;
 			this.angle=angle;
 			curJumpTime=0;
 			isJumping=true;
+			destination= new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
 		}
 	}
 	public void startJump(float targetX, float targetY)
@@ -61,11 +62,12 @@ public class Frog extends Animal{
 			this.angle=getAngleToward(targetX,targetY) ;
 			curJumpTime=0;
 			isJumping=true;
+			destination= new Point(targetX, targetY);
 		}
 	}
 	public void render(Graphics g) {
 		g.setColor(Color.white);
-		g.drawOval(xPos, yPos, frogSize, frogSize);
+		g.fillOval(xPos, yPos, frogSize, frogSize);
 	}
 	public void modifyJumpDistance(float multi)
 	{

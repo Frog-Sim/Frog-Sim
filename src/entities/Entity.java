@@ -1,6 +1,7 @@
 package entities;
 
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Point;
 
 import core.Game;
 
@@ -14,7 +15,6 @@ public abstract class Entity {
 	public abstract void update();
 	public abstract void render(Graphics g);
 	public Entity(float x,float y) { xPos=x; yPos=y; 
-	Game.addEntity(this);
 	}
 	
 	public final float getAngleToward(float targetX, float targetY) 
@@ -30,5 +30,18 @@ public abstract class Entity {
 //		}
 
 		return angle;
+	}
+	
+	public float getX()
+	{
+		return xPos;
+	}
+	public float getY()
+	{
+		return yPos;
+	}
+	public float getDistance(Point p)
+	{
+		return (float) Math.sqrt(Math.pow(xPos-p.getX(), 2)+Math.pow(yPos-p.getY(), 2));
 	}
 }

@@ -23,5 +23,7 @@ public class Camera {
 		xPos += (newX - xPos) * EASING;
 		float newY = g.getCamY();
 		yPos += (newY - yPos) * EASING;
+//		xPos=EASING*Game.bestFrog.getX()-960;
+//		yPos=EASING *Game.bestFrog.getY()-540;
 	}
 }
