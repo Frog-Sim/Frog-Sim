@@ -1,0 +1,98 @@
+Index: FrogSim.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" name=\"libs\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/FrogSim.iml b/FrogSim.iml
+--- a/FrogSim.iml	(revision 2098b67cab996d4cb54c8a9f57f75c1171aa6e9f)
++++ b/FrogSim.iml	(date 1677246052649)
+@@ -8,5 +8,6 @@
+     <orderEntry type="inheritedJdk" />
+     <orderEntry type="sourceFolder" forTests="false" />
+     <orderEntry type="library" name="libs" level="project" />
++    <orderEntry type="library" name="natives" level="project" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: src/environment/Map.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package environment;\r\n\r\nimport java.util.ArrayList;\r\n\r\nimport org.newdawn.slick.Graphics;\r\n\r\nimport core.Game;\r\nimport core.Main;\r\nimport environment.biomes.Grass;\r\n\r\n\r\n\r\npublic class Map {\r\n\tprivate ArrayList<ArrayList<Tile>> tiles;\r\n\tpublic static int TILE_SIZE;\r\n\tpublic int seed;\r\n\tprivate FastNoiseLite noise;\r\n\tprivate Game g;\r\n\tpublic Map(Game g) {\r\n\t\tseed=(int)(Math.random()*2000);\r\n\t\tnoise=new FastNoiseLite(seed);\r\n\t\tTILE_SIZE=50;\r\n\t\ttiles=new ArrayList<ArrayList<Tile>>();\r\n\t\tthis.g=g;\r\n\t\tgenerateMap();\r\n\t}\r\n\tpublic void update() {\r\n\t\tfor(int i = 0; i < getTilesHorizontal(); i++)\r\n\t\t{\r\n\t\t\tfor(int j = 0; j < getTilesVertical(); j++)\r\n\t\t\t{\r\n\t\t\t\ttiles.get(i).get(j).update();\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\tpublic void render(Graphics g) {\r\n\t\tfor(int i = 0; i < getTilesHorizontal(); i++)\r\n\t\t{\r\n\t\t\tfor(int j = 0; j < getTilesVertical(); j++)\r\n\t\t\t{\r\n\t\t\t\ttiles.get(i).get(j).render(g);\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\r\n\tpublic void generateMap()\r\n\t{\r\n\t\tfor(int i = 0; i < getTilesHorizontal(); i++)\r\n\t\t{\r\n//\t\t\tSystem.out.println(\"rows: \"+tiles.size());\r\n\t\t\ttiles.add(new ArrayList<Tile>());\r\n\t\t\tfor(int j = 0; j < getTilesVertical(); j++)\r\n\t\t\t{\r\n//\t\t\t\tSystem.out.println(\"col: \"+tiles.get(i).size());\r\n\t\t\t\ttiles.get(i).add(new Tile(i, j));\r\n\t\t\t\tgenerateTileAdvancedNoise(i,j);\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\tpublic void generateTileAdvancedNoise(int x, int y) {\r\n\t\tfloat SCALE = 1f;\r\n\t\tfloat noiseValue=noise.GetNoise(x*SCALE, y*SCALE);\r\n\t\tif(noiseValue<=1) tiles.get(x).get(y).setBiome(new Grass(tiles.get(x).get(y), noiseValue));\r\n//\t\tif(noiseValue<.1) tiles[x][y].setTerrain(new Grass(noiseValue));\r\n//\t\telse tiles[x][y].setTerrain(new Ocean(noiseValue));\r\n\t}\r\n\tpublic static int getTilesHorizontal()\r\n\t{\r\n\t\treturn Main.getScreenWidth() / TILE_SIZE;\r\n\t}\r\n\t\r\n\tpublic static int getTilesVertical()\r\n\t{\r\n\t\treturn Main.getScreenHeight() / TILE_SIZE;\r\n\t}\r\n\tpublic Tile getTile(int x, int y)\r\n\t{\r\n\treturn tiles.get(x).get(y);\r\n\t}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/environment/Map.java b/src/environment/Map.java
+--- a/src/environment/Map.java	(revision 2098b67cab996d4cb54c8a9f57f75c1171aa6e9f)
++++ b/src/environment/Map.java	(date 1677249327238)
+@@ -25,9 +25,9 @@
+ 		generateMap();
+ 	}
+ 	public void update() {
+-		for(int i = 0; i < getTilesHorizontal(); i++)
++		for(int i = (int) g.getCamX()/TILE_SIZE; i < getTilesHorizontal(); i++)
+ 		{
+-			for(int j = 0; j < getTilesVertical(); j++)
++			for(int j = (int) g.getCamY(); j < getTilesVertical(); j++)
+ 			{
+ 				tiles.get(i).get(j).update();
+ 			}
+@@ -64,6 +64,16 @@
+ //		if(noiseValue<.1) tiles[x][y].setTerrain(new Grass(noiseValue));
+ //		else tiles[x][y].setTerrain(new Ocean(noiseValue));
+ 	}
++
++	public void expandMapLeft() {
++		for(int i = 0; i<getTilesHorizontal()+Math.abs(g.getCamX()); i++) {
++			tiles.add(0, new ArrayList<Tile>());
++			for(int j=0; j<getTilesVertical(); j++) {
++				tiles.get(0  ).add(new Tile(i, j));
++				generateTileAdvancedNoise(i,j);
++			}
++		}
++	}
+ 	public static int getTilesHorizontal()
+ 	{
+ 		return Main.getScreenWidth() / TILE_SIZE;
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 2098b67cab996d4cb54c8a9f57f75c1171aa6e9f)
++++ b/.idea/misc.xml	(date 1677245894410)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_19" project-jdk-name="openjdk-19" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/core/Game.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package core;\r\n\r\nimport java.util.ArrayList;\r\n\r\nimport org.newdawn.slick.Color;\r\nimport org.newdawn.slick.GameContainer;\r\nimport org.newdawn.slick.Graphics;\r\nimport org.newdawn.slick.Input;\r\nimport org.newdawn.slick.SlickException;\r\nimport org.newdawn.slick.state.BasicGameState;\r\nimport org.newdawn.slick.state.StateBasedGame;\r\n\r\nimport entities.Entity;\r\nimport entities.alive.Frog;\r\nimport environment.Map;\r\nimport media.Camera;\r\n\r\npublic class Game extends BasicGameState \r\n{\t\r\n\tprivate int id;\r\n\tprivate StateBasedGame sbg;\r\n\tprivate Camera cam;\r\n\tprivate float camX=0;\r\n\tprivate float camY=0;\r\n\tprivate Map map;\r\n\t//ENTITIES\r\n\tprivate ArrayList<Entity> entities;\r\n\t\r\n\tpublic Game(int id) { this.id = id; }\r\n\t\r\n\tpublic void init(GameContainer gc, StateBasedGame sbg) throws SlickException \r\n\t{\r\n\t\tthis.sbg=sbg;\r\n\t\tentities = new ArrayList<Entity>();\r\n\t\tcam=new Camera(this);\r\n\t\tentities.add(new Frog(200,200));\r\n\t\tmap=new Map(this);\r\n\t}\r\n\r\n\tpublic void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException\r\n\t{\t\r\n\t\tcam.update();\r\n\t\tmap.update();\r\n\t\tfor(Entity e: entities) {\r\n\t\t\te.update();\r\n\t\t}\r\n\t}\r\n\r\n\tpublic void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException \r\n\t{\r\n\t\tg.translate(-cam.getX(), -cam.getY());\r\n\t\tg.drawString(\"GAME\", 100, 100);\r\n\t\tmap.render(g);\r\n\t\tfor(Entity e: entities) {\r\n\t\t\te.render(g);\r\n\t\t}\r\n\t}\r\n\r\n\tpublic void keyPressed(int key, char c)\r\n\t{\r\n\t\tif(key==Input.KEY_M) sbg.enterState(Main.MAP_ID);\r\n\t\tif(key==Input.KEY_W) camY-=300;\r\n\t\telse if (key==Input.KEY_A) camX-=300;\r\n\t\telse if (key==Input.KEY_S) camY+=300;\r\n\t\telse if (key==Input.KEY_D) camX+=300;\r\n\t}\r\n\tpublic void mouseWheelMoved(int change)\r\n\t{\r\n\t\t\r\n\t}\r\n\tpublic int getID() { return id; }\r\n\tpublic float getCamX() { return camX; }\r\n\tpublic float getCamY() { return camY; }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/core/Game.java b/src/core/Game.java
+--- a/src/core/Game.java	(revision 2098b67cab996d4cb54c8a9f57f75c1171aa6e9f)
++++ b/src/core/Game.java	(date 1677246703935)
+@@ -60,7 +60,10 @@
+ 	{
+ 		if(key==Input.KEY_M) sbg.enterState(Main.MAP_ID);
+ 		if(key==Input.KEY_W) camY-=300;
+-		else if (key==Input.KEY_A) camX-=300;
++		else if (key==Input.KEY_A) {
++			camX-=300;
++			map.expandMapLeft();
++		}
+ 		else if (key==Input.KEY_S) camY+=300;
+ 		else if (key==Input.KEY_D) camX+=300;
+ 	}
