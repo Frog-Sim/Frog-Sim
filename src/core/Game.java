@@ -2,6 +2,7 @@ package core;
 
 import java.util.ArrayList;
 
+import media.ImageLoader;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,6 +14,8 @@ import org.newdawn.slick.state.StateBasedGame;
 import entities.Entity;
 import entities.alive.Frog;
 import entities.alive.PlayerFrog;
+import entities.alive.Follower;
+import entities.alive.Wanderer;
 import environment.Map;
 import media.Camera;
 
@@ -30,11 +33,14 @@ public class Game extends BasicGameState
 	
 	public Game(int id) { this.id = id; }
 	
-	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException 
+	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
 	{
 		this.sbg=sbg;
+		ImageLoader.init();
 		entities = new ArrayList<Entity>();
 		bestFrog= new PlayerFrog(Main.getScreenWidth()/2,Main.getScreenHeight()/2);
+		entities.add(bestFrog);
+		entities.add(new Wanderer(500,500));
 		cam=new Camera(this);
 		map=new Map(this);
 
@@ -69,11 +75,15 @@ public class Game extends BasicGameState
 //		else if (key==Input.KEY_D) camX+=300;
 		if (key==Input.KEY_O) bestFrog.modifyJumpDistance(1.2f);
 		if (key==Input.KEY_P) bestFrog.modifyJumpTimer(0.8f);
+		if (key==Input.KEY_N) 
+			for(int i=0; i<25; i++)
+			{entities.add(new Wanderer((float)(1000*Math.random()),(float)(1000*Math.random())));}
+		if (key==Input.KEY_B) 
+			for(int i=0; i<5; i++)
+			{entities.add(new Follower((float)(1000*Math.random()),(float)(1000*Math.random())));}
 	}
 	public void mousePressed(int button, int x, int y)
 	{
-		System.out.println("Mouse Coord: ("+x+","+y+")");
-		System.out.println("Frog Coord: ("+bestFrog.getX()+","+bestFrog.getY()+")");
 		bestFrog.startJump(x+getCamX(), y+getCamY());
  	}
 	public void mouseWheelMoved(int change)

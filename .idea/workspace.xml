@@ -5,20 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8a7fcf2-68d8-440c-aecd-f403a222a693" name="Changes" comment="Do a lot of stuff #2">
+      <change afterPath="$PROJECT_DIR$/res/grassOne.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/environment/biomes/Snow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FrogSim/core/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/core/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/entities/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/entities/Entity.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FrogSim/entities/alive/Frog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/entities/alive/Frog.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FrogSim/entities/alive/PlayerFrog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/entities/alive/PlayerFrog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/entities/alive/Wanderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/entities/alive/Wanderer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FrogSim/environment/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/environment/Map.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/environment/biomes/Grass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/environment/biomes/Grass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/media/Image.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entities/alive/Frog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/Frog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entities/alive/PlayerFrog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/PlayerFrog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/alive/Wanderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/Wanderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/environment/FastNoiseLite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/FastNoiseLite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/environment/biomes/Grass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Grass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/media/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/ImageLoader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -48,6 +67,11 @@
     "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="media" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-19" />

@@ -2,6 +2,7 @@ package environment;
 
 import java.util.ArrayList;
 
+import environment.biomes.Snow;
 import org.newdawn.slick.Graphics;
 
 import core.Game;
@@ -12,16 +13,13 @@ import environment.biomes.Grass;
 
 public class Map {
 	private Tile[][] tiles;
-	public static int TILE_SIZE;
+	public static int TILE_SIZE=10;
 	public int seed;
 	private FastNoiseLite noise;
-	private Game g;
 	public Map(Game g) {
 		seed=(int)(Math.random()*2000);
 		noise=new FastNoiseLite(seed);
-		TILE_SIZE=40;
 		tiles = new Tile[getTilesHorizontal()][getTilesVertical()];
-		this.g=g;
 	}
 	public void update() {
 
@@ -54,9 +52,10 @@ public class Map {
 	}
 
 	public void generateTileAdvancedNoise(int x, int y) {
-		float SCALE = 1f;
+		float SCALE = .2f;
 		float noiseValue=noise.GetNoise(x*SCALE, y*SCALE);
-		tiles[(int) getXMinus(x)][(int) getYMinus(y)].setBiome(new Grass(noiseValue));
+		if(noiseValue<.2) tiles[(int) getXMinus(x)][(int) getYMinus(y)].setBiome(new Grass(noiseValue));
+		else tiles[(int) getXMinus(x)][(int) getYMinus(y)].setBiome(new Snow(noiseValue));
 //		if(noiseValue<.1) tiles[x][y].setTerrain(new Grass(noiseValue));
 //		else tiles[x][y].setTerrain(new Ocean(noiseValue));
 	}
@@ -75,15 +74,15 @@ public class Map {
 	return tiles[x][y];
 	}
 	public float getXPlus(int i) {
-		return (i+g.getCamX()/TILE_SIZE-Main.getScreenWidth()/2);
+		return (i+Game.getCamX()/32-Main.getScreenWidth()/2);
 	}
 	public float getYPlus(int j) {
-		return (j+g.getCamY()/TILE_SIZE-Main.getScreenHeight()/2);
+		return (j+Game.getCamY()/32-Main.getScreenHeight()/2);
 	}
 	public float getXMinus(int i) {
-		return (i-g.getCamX()/TILE_SIZE+Main.getScreenWidth()/2);
+		return (i-Game.getCamX()/32+Main.getScreenWidth()/2);
 	}
 	public float getYMinus(int j) {
-		return (j-g.getCamY()/TILE_SIZE+Main.getScreenHeight()/2);
+		return (j-Game.getCamY()/32+Main.getScreenHeight()/2);
 	}
 }
