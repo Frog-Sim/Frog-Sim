@@ -75,15 +75,15 @@ public class Map {
 	return tiles[x][y];
 	}
 	public float getXPlus(int i) {
-		return (i+Game.bestFrog.getX()/32-Main.getScreenWidth()/2);
+		return (i+g.getCamX()/TILE_SIZE-Main.getScreenWidth()/2);
 	}
 	public float getYPlus(int j) {
-		return (j+Game.bestFrog.getY()/32-Main.getScreenHeight()/2);
+		return (j+g.getCamY()/TILE_SIZE-Main.getScreenHeight()/2);
 	}
 	public float getXMinus(int i) {
-		return (i-Game.bestFrog.getX()/32+Main.getScreenWidth()/2);
+		return (i-g.getCamX()/TILE_SIZE+Main.getScreenWidth()/2);
 	}
 	public float getYMinus(int j) {
-		return (j-Game.bestFrog.getY()/32+Main.getScreenHeight()/2);
+		return (j-g.getCamY()/TILE_SIZE+Main.getScreenHeight()/2);
 	}
 }

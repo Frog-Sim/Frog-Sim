@@ -20,7 +20,7 @@ public class Game extends BasicGameState
 {	
 	private int id;
 	private StateBasedGame sbg;
-	private Camera cam;
+	private static Camera cam;
 //	private float camX=0;
 //	private float camY=0;
 	private Map map;
@@ -34,7 +34,7 @@ public class Game extends BasicGameState
 	{
 		this.sbg=sbg;
 		entities = new ArrayList<Entity>();
-		bestFrog= new PlayerFrog(200,200);
+		bestFrog= new PlayerFrog(Main.getScreenWidth()/2,Main.getScreenHeight()/2);
 		cam=new Camera(this);
 		map=new Map(this);
 
@@ -51,7 +51,7 @@ public class Game extends BasicGameState
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException 
 	{
-//		g.translate(-cam.getX(), -cam.getY());
+		g.translate(-cam.getX(), -cam.getY());
 		map.render(g);
 		for(Entity e: entities) {
 			e.render(g);
@@ -72,8 +72,9 @@ public class Game extends BasicGameState
 	}
 	public void mousePressed(int button, int x, int y)
 	{
-		bestFrog.startJump(x, y);
-		System.out.println("click");
+		System.out.println("Mouse Coord: ("+x+","+y+")");
+		System.out.println("Frog Coord: ("+bestFrog.getX()+","+bestFrog.getY()+")");
+		bestFrog.startJump(x+getCamX(), y+getCamY());
  	}
 	public void mouseWheelMoved(int change)
 	{
@@ -84,6 +85,6 @@ public class Game extends BasicGameState
 		entities.add(guy);
 	}
 	public int getID() { return id; }
-//	public float getCamX() { return camX; }
-//	public float getCamY() { return camY; }
+	public static float getCamX() { return cam.getX(); }
+	public static float getCamY() { return cam.getY(); }
 }

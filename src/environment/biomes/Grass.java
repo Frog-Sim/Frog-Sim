@@ -1,5 +1,6 @@
 package environment.biomes;
 
+import core.Game;
 import core.Main;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -26,6 +27,6 @@ public class Grass extends Biome{
 		int green = (int) (255*elevation);
 		int blue = 30;
 		g.setColor(new Color(red, green, blue));
-		g.fillRect(tile.getX() * Map.TILE_SIZE, tile.getY() * Map.TILE_SIZE, Map.TILE_SIZE, Map.TILE_SIZE);
+		g.fillRect(tile.getX() * Map.TILE_SIZE + Game.getCamX(), tile.getY() * Map.TILE_SIZE + Game.getCamY(), Map.TILE_SIZE, Map.TILE_SIZE);
 	}
 }

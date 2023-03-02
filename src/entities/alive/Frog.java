@@ -14,8 +14,6 @@ public class Frog extends Animal{
 	private boolean canJump;
 	public Frog(float x, float y) { super(x, y); jumpTimer=30; jumpDistance=400; canJump=true; }
 	public void update() {
-		System.out.println("is Jumping" + isJumping);
-		System.out.println("can Jump" + canJump);
 		if(isJumping)
 		{
 			jump();

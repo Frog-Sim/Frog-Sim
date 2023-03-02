@@ -12,6 +12,6 @@ public class PlayerFrog extends Frog{
 	}
 	public void render(Graphics g) {
 		g.setColor(Color.white);
-		g.drawOval((Main.getScreenWidth()-FROG_SIZE)/2, (Main.getScreenHeight()-FROG_SIZE)/2, FROG_SIZE, FROG_SIZE);
+		g.drawOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
 	}
 }
