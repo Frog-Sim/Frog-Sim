@@ -11,7 +11,7 @@ public class PlayerFrog extends Frog{
 	}
 	public void render(Graphics g) {
 		g.setColor(Color.red);
-		g.fillOval(xPos, yPos, frogSize, frogSize);
+		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
 	}
 
 }

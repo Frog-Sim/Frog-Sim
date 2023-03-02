@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Point;
 
 public class Frog extends Animal{
 
-	protected static final int frogSize=100;
+	protected static final int FROG_SIZE=100;
 	protected float curJumpTime;
 	protected float jumpTimer;
 	protected float jumpCooldown;
@@ -15,6 +15,8 @@ public class Frog extends Animal{
 	protected boolean isJumping;
 	protected boolean canJump;
 	protected Point destination;
+//	protected SpriteSheet me;
+	
 	public Frog(float x, float y) { super(x, y); jumpTimer=30; jumpDistance=400; canJump=true; }
 	public void update() {
 		if(isJumping)
@@ -67,7 +69,7 @@ public class Frog extends Animal{
 	}
 	public void render(Graphics g) {
 		g.setColor(Color.white);
-		g.fillOval(xPos, yPos, frogSize, frogSize);
+		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
 	}
 	public void modifyJumpDistance(float multi)
 	{

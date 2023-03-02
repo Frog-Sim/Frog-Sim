@@ -15,6 +15,6 @@ public class Wanderer extends Frog{
 	}
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
-		g.fillOval(xPos, yPos, frogSize, frogSize);
+		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
 	}
 }

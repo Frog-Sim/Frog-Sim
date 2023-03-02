@@ -7,6 +7,9 @@ import core.Game;
 
 public class Follower extends Frog{
 
+	private int orbital;
+	private int direction;
+	
 	public Follower(float x, float y) {
 		super(x, y);
 		// TODO Auto-generated constructor stub
@@ -21,7 +24,7 @@ public class Follower extends Frog{
 	}
 	public void render(Graphics g) {
 		g.setColor(Color.white);
-		g.fillOval(xPos, yPos, frogSize, frogSize);
+		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
 	}
 
 }
