@@ -5,7 +5,7 @@ import org.newdawn.slick.Graphics;
 
 public class Frog extends Animal{
 
-	private static final int frogSize=100;
+	protected static final int FROG_SIZE=100;
 	private float curJumpTime;
 	private float jumpTimer;
 	private float jumpCooldown;
@@ -65,7 +65,7 @@ public class Frog extends Animal{
 	}
 	public void render(Graphics g) {
 		g.setColor(Color.white);
-		g.drawOval(xPos, yPos, frogSize, frogSize);
+		g.drawOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
 	}
 	public void modifyJumpDistance(float multi)
 	{

@@ -51,8 +51,7 @@ public class Game extends BasicGameState
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException 
 	{
-		g.translate(-cam.getX(), -cam.getY());
-		g.drawString("GAME", 100, 100);
+//		g.translate(-cam.getX(), -cam.getY());
 		map.render(g);
 		for(Entity e: entities) {
 			e.render(g);
@@ -73,7 +72,7 @@ public class Game extends BasicGameState
 	}
 	public void mousePressed(int button, int x, int y)
 	{
-		bestFrog.startJump(x-Main.getScreenWidth()/2, y-Main.getScreenHeight()/2);
+		bestFrog.startJump(x, y);
 		System.out.println("click");
  	}
 	public void mouseWheelMoved(int change)

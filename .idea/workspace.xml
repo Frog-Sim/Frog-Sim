@@ -5,10 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8a7fcf2-68d8-440c-aecd-f403a222a693" name="Changes" comment="Do a lot of stuff #2">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/natives.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrogSim.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FrogSim.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/core/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/core/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/entities/alive/Frog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/entities/alive/Frog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/entities/alive/PlayerFrog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/entities/alive/PlayerFrog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/environment/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/environment/Map.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/environment/Tile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/environment/Tile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/environment/biomes/Grass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/environment/biomes/Grass.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/alive/Frog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/Frog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/alive/PlayerFrog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/PlayerFrog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/Map.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/Tile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/biomes/Biome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Biome.java" afterDir="false" />
@@ -35,20 +44,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/BDS062/Documents/GitHub/Frog-Sim/FrogSim/libs/natives&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "jdk.selected.JAVA_MODULE": "openjdk-19",
+    "last_opened_file_path": "C:/Users/BDS062/Documents/GitHub/Frog-Sim/FrogSim/libs/tinylinepp.jar",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-19" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="core.Main" />
       <module name="FrogSim" />
       <extension name="coverage">
@@ -61,11 +73,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Main" />
-      </list>
-    </recent_temporary>
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
