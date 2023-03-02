@@ -16,7 +16,7 @@ public class Main extends StateBasedGame
     public static final int MAP_ID = 3;
     
     private BasicGameState title;
-    private BasicGameState game; 
+    public BasicGameState game; 
     private BasicGameState map;
     
 	public Main(String name) 

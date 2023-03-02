@@ -12,6 +12,9 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import entities.Entity;
 import entities.alive.Frog;
+import entities.alive.PlayerFrog;
+import entities.alive.Follower;
+import entities.alive.Wanderer;
 import environment.Map;
 import media.Camera;
 
@@ -19,12 +22,13 @@ public class Game extends BasicGameState
 {	
 	private int id;
 	private StateBasedGame sbg;
-	private Camera cam;
-	private float camX=0;
-	private float camY=0;
+	private static Camera cam;
+//	private float camX=0;
+//	private float camY=0;
 	private Map map;
+	public static PlayerFrog bestFrog;
 	//ENTITIES
-	private ArrayList<Entity> entities;
+	private static ArrayList<Entity> entities;
 	
 	public Game(int id) { this.id = id; }
 	
@@ -32,9 +36,12 @@ public class Game extends BasicGameState
 	{
 		this.sbg=sbg;
 		entities = new ArrayList<Entity>();
+		bestFrog= new PlayerFrog(Main.getScreenWidth()/2,Main.getScreenHeight()/2);
+		entities.add(bestFrog);
+		entities.add(new Wanderer(500,500));
 		cam=new Camera(this);
-		entities.add(new Frog(200,200));
 		map=new Map(this);
+
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
@@ -49,7 +56,6 @@ public class Game extends BasicGameState
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException 
 	{
 		g.translate(-cam.getX(), -cam.getY());
-		g.drawString("GAME", 100, 100);
 		map.render(g);
 		for(Entity e: entities) {
 			e.render(g);
@@ -59,16 +65,34 @@ public class Game extends BasicGameState
 	public void keyPressed(int key, char c)
 	{
 		if(key==Input.KEY_M) sbg.enterState(Main.MAP_ID);
-		if(key==Input.KEY_W) camY-=300;
-		else if (key==Input.KEY_A) camX-=300;
-		else if (key==Input.KEY_S) camY+=300;
-		else if (key==Input.KEY_D) camX+=300;
+//		if(key==Input.KEY_W) camY-=300;
+//		else if (key==Input.KEY_A) {
+//			camX-=300;
+//		}
+//		else if (key==Input.KEY_S) camY+=300;
+//		else if (key==Input.KEY_D) camX+=300;
+		if (key==Input.KEY_O) bestFrog.modifyJumpDistance(1.2f);
+		if (key==Input.KEY_P) bestFrog.modifyJumpTimer(0.8f);
+		if (key==Input.KEY_N) 
+			for(int i=0; i<25; i++)
+			{entities.add(new Wanderer((float)(1000*Math.random()),(float)(1000*Math.random())));}
+		if (key==Input.KEY_B) 
+			for(int i=0; i<5; i++)
+			{entities.add(new Follower((float)(1000*Math.random()),(float)(1000*Math.random())));}
 	}
+	public void mousePressed(int button, int x, int y)
+	{
+		bestFrog.startJump(x+getCamX(), y+getCamY());
+ 	}
 	public void mouseWheelMoved(int change)
 	{
 		
 	}
+	public static void addEntity(Entity guy)
+	{
+		entities.add(guy);
+	}
 	public int getID() { return id; }
-	public float getCamX() { return camX; }
-	public float getCamY() { return camY; }
+	public static float getCamX() { return cam.getX(); }
+	public static float getCamY() { return cam.getY(); }
 }

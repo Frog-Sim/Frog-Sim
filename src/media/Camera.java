@@ -1,6 +1,7 @@
 package media;
 
 import core.Game;
+import core.Main;
 
 public class Camera {
 	private float xPos;
@@ -19,9 +20,9 @@ public class Camera {
 	public float getY() { return yPos; }
 
 	public void update() {
-		float newX = g.getCamX();
+		float newX = Game.bestFrog.getX()- Main.getScreenWidth()/2;
 		xPos += (newX - xPos) * EASING;
-		float newY = g.getCamY();
+		float newY = Game.bestFrog.getY()-Main.getScreenHeight()/2;
 		yPos += (newY - yPos) * EASING;
 	}
 }
