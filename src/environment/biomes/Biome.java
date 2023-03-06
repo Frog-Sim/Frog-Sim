@@ -8,9 +8,9 @@ import environment.Tile;
 public abstract class Biome {
 	protected Tile tile;
 
-	public Biome(Tile t)
+	public Biome()
 	{
-		tile=t;
+
 	}
 
 	public void setTile(Tile t)

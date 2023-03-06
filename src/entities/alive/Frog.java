@@ -17,7 +17,7 @@ public class Frog extends Animal{
 	protected Point destination;
 //	protected SpriteSheet me;
 	
-	public Frog(float x, float y) { super(x, y); jumpTimer=30; jumpDistance=400; canJump=true; }
+	public Frog(float x, float y) { super(x, y, FROG_SIZE, FROG_SIZE); jumpTimer=30; jumpDistance=200; canJump=true; }
 	public void update() {
 		if(isJumping)
 		{
@@ -67,6 +67,16 @@ public class Frog extends Animal{
 			destination= new Point(targetX, targetY);
 		}
 	}
+	public void startJump()
+	{
+		if(canJump)
+		{
+			canJump=false;
+			curJumpTime=0;
+			isJumping=true;
+			destination= new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
+		}
+	}
 	public void render(Graphics g) {
 		g.setColor(Color.white);
 		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
@@ -78,5 +88,13 @@ public class Frog extends Animal{
 	public void modifyJumpTimer(float multi)
 	{
 		jumpTimer*=multi;
+	}
+	public void setJumpDistance(float jump)
+	{
+		jumpDistance=jump;
+	}
+	public void setJumpTimer(float timer)
+	{
+		jumpTimer=timer;
 	}
 }

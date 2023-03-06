@@ -1,3 +1,4 @@
+
 package environment;
 
 import org.newdawn.slick.Graphics;
@@ -18,16 +19,17 @@ public class Tile {
 
 	public void update()
 	{
-		biome.update();
+		if(biome!=null) biome.update();
 	}
 	
 	public void render(Graphics g) 
 	{
-		biome.render(g);
+		if(biome!=null) biome.render(g);
 	}
 
 	public void setBiome(Biome b) {
 		biome=b;
+		b.setTile(this);
 	}
 	
 	public int getX() {	return x; }
