@@ -13,12 +13,13 @@ import environment.biomes.Grass;
 
 public class Map {
 	private Tile[][] tiles;
-	public static int TILE_SIZE=10;
+	public static int TILE_SIZE=120;
 	public int seed;
 	private FastNoiseLite noise;
 	public Map(Game g) {
 		seed=(int)(Math.random()*2000);
 		noise=new FastNoiseLite(seed);
+		noise.SetFractalType(FastNoiseLite.FractalType.PingPong);
 		tiles = new Tile[getTilesHorizontal()][getTilesVertical()];
 	}
 	public void update() {
@@ -52,10 +53,14 @@ public class Map {
 	}
 
 	public void generateTileAdvancedNoise(int x, int y) {
+		float xTile = getXMinus(x); float yTile = getYMinus(y);
 		float SCALE = .2f;
 		float noiseValue=noise.GetNoise(x*SCALE, y*SCALE);
-		if(noiseValue<.2) tiles[(int) getXMinus(x)][(int) getYMinus(y)].setBiome(new Grass(noiseValue));
-		else tiles[(int) getXMinus(x)][(int) getYMinus(y)].setBiome(new Snow(noiseValue));
+		System.out.println(noiseValue);
+		if(noiseValue<.2) tiles[(int) xTile][(int) yTile].setBiome(new Grass(noiseValue));
+		else tiles[(int) xTile][(int) yTile].setBiome(new Snow(noiseValue));
+//		if(noiseValue<.042 && noiseValue>.041)
+//			tiles[(int) getXMinus(x)][(int) getYMinus(y)]
 //		if(noiseValue<.1) tiles[x][y].setTerrain(new Grass(noiseValue));
 //		else tiles[x][y].setTerrain(new Ocean(noiseValue));
 	}

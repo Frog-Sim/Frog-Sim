@@ -16,23 +16,24 @@ import entities.alive.Frog;
 import entities.alive.PlayerFrog;
 import entities.alive.Follower;
 import entities.alive.Wanderer;
+import entities.obstacles.Obstacle;
 import environment.Map;
 import media.Camera;
 
-public class Game extends BasicGameState 
-{	
+public class Game extends BasicGameState
+{
 	private int id;
 	private StateBasedGame sbg;
 	private static Camera cam;
-//	private float camX=0;
+	//	private float camX=0;
 //	private float camY=0;
 	private Map map;
 	public static PlayerFrog bestFrog;
 	//ENTITIES
 	private static ArrayList<Entity> entities;
-	
+
 	public Game(int id) { this.id = id; }
-	
+
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
 	{
 		this.sbg=sbg;
@@ -47,7 +48,7 @@ public class Game extends BasicGameState
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
-	{	
+	{
 		cam.update();
 		map.update();
 		for(Entity e: entities) {
@@ -55,7 +56,7 @@ public class Game extends BasicGameState
 		}
 	}
 
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException 
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
 	{
 		g.translate(-cam.getX(), -cam.getY());
 		map.render(g);
@@ -75,20 +76,20 @@ public class Game extends BasicGameState
 //		else if (key==Input.KEY_D) camX+=300;
 		if (key==Input.KEY_O) bestFrog.modifyJumpDistance(1.2f);
 		if (key==Input.KEY_P) bestFrog.modifyJumpTimer(0.8f);
-		if (key==Input.KEY_N) 
+		if (key==Input.KEY_N)
 			for(int i=0; i<25; i++)
 			{entities.add(new Wanderer((float)(1000*Math.random()),(float)(1000*Math.random())));}
-		if (key==Input.KEY_B) 
+		if (key==Input.KEY_B)
 			for(int i=0; i<5; i++)
 			{entities.add(new Follower((float)(1000*Math.random()),(float)(1000*Math.random())));}
 	}
 	public void mousePressed(int button, int x, int y)
 	{
 		bestFrog.startJump(x+getCamX(), y+getCamY());
- 	}
+	}
 	public void mouseWheelMoved(int change)
 	{
-		
+
 	}
 	public static void addEntity(Entity guy)
 	{
@@ -97,4 +98,8 @@ public class Game extends BasicGameState
 	public int getID() { return id; }
 	public static float getCamX() { return cam.getX(); }
 	public static float getCamY() { return cam.getY(); }
+	public static ArrayList<Entity> getEntities()
+	{
+		return entities;
+	}
 }

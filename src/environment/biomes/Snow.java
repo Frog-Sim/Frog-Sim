@@ -24,8 +24,6 @@ public class Snow extends Biome{
 
     public void render(Graphics g)
     {
-        g.setColor(Color.white);
-//        g.drawImage(ImageLoader.frogImage, tile.getX() * Map.TILE_SIZE + Game.getCamX(), tile.getY() * Map.TILE_SIZE + Game.getCamY());
-		g.fillRect(tile.getX() * Map.TILE_SIZE + Game.getCamX(), tile.getY() * Map.TILE_SIZE + Game.getCamY(), Map.TILE_SIZE, Map.TILE_SIZE);
+        g.drawImage(ImageLoader.snowOne, tile.getX() * Map.TILE_SIZE + Game.getCamX(), tile.getY() * Map.TILE_SIZE + Game.getCamY());
     }
 }
