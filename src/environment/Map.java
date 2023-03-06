@@ -12,8 +12,10 @@ import environment.biomes.Grass;
 
 
 public class Map {
-	private Tile[][] tiles;
+	public static int updateRadius=4;
 	public static int TILE_SIZE=120;
+
+	private Tile[][] tiles;
 	public int seed;
 	private FastNoiseLite noise;
 	public Map(Game g) {
@@ -24,12 +26,13 @@ public class Map {
 	}
 	public void update() {
 
-		for(int i = 0; i < getTilesHorizontal(); i++)
+		for(int i = 0-updateRadius; i < getTilesHorizontal()+updateRadius; i++)
 		{
 //			System.out.println("rows: "+tiles.size());
-			for(int j = 0; j < getTilesVertical(); j++)
+			for(int j = 0-updateRadius; j < getTilesVertical()+updateRadius; j++)
 			{
 //				System.out.println("col: "+tiles.get(i).size());
+
 				tiles[i][j] = new Tile(i, j);
 				generateTileAdvancedNoise((int) getXPlus(i), (int) getYPlus(j));
 			}
@@ -56,7 +59,6 @@ public class Map {
 		float xTile = getXMinus(x); float yTile = getYMinus(y);
 		float SCALE = .2f;
 		float noiseValue=noise.GetNoise(x*SCALE, y*SCALE);
-		System.out.println(noiseValue);
 		if(noiseValue<.2) tiles[(int) xTile][(int) yTile].setBiome(new Grass(noiseValue));
 		else tiles[(int) xTile][(int) yTile].setBiome(new Snow(noiseValue));
 //		if(noiseValue<.042 && noiseValue>.041)

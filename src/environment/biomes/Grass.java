@@ -10,11 +10,9 @@ import environment.Map;
 import environment.Tile;
 
 public class Grass extends Biome{
-	float elevation;
 	
 	public Grass(float noiseValue) {
-		super();
-		elevation=noiseValue;
+		super(noiseValue);
 	}
 
 	public void update() 
@@ -24,6 +22,7 @@ public class Grass extends Biome{
 
 	public void render(Graphics g)
 	{
-		g.drawImage(ImageLoader.grassOne, tile.getX() * Map.TILE_SIZE + Game.getCamX(), tile.getY() * Map.TILE_SIZE + Game.getCamY());
+		if((int)(Math.abs(bigNoiseValue)%2)==0) g.drawImage(ImageLoader.grassTwo, tile.getX() * Map.TILE_SIZE + Game.getCamX(), tile.getY() * Map.TILE_SIZE + Game.getCamY());
+		else g.drawImage(ImageLoader.grassOne, tile.getX() * Map.TILE_SIZE + Game.getCamX(), tile.getY() * Map.TILE_SIZE + Game.getCamY());
 	}
 }

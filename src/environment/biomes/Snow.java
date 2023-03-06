@@ -10,11 +10,9 @@ import environment.Map;
 import environment.Tile;
 
 public class Snow extends Biome{
-    float elevation;
 
     public Snow(float noiseValue) {
-        super();
-        elevation=noiseValue;
+        super(noiseValue);
     }
 
     public void update()

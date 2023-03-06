@@ -6,18 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a8a7fcf2-68d8-440c-aecd-f403a222a693" name="Changes" comment="Do a lot of stuff #2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/core/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/core/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/entities/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/entities/Entity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/entities/alive/Frog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/entities/alive/Frog.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FrogSim/environment/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/environment/Map.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Pool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/Pool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/alive/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/alive/Frog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/Frog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/alive/Toad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/Toad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/obstacles/Obstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/obstacles/Obstacle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/environment/biomes/Grass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/environment/biomes/Grass.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/environment/biomes/Biome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Biome.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/biomes/Grass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Grass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/biomes/Snow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Snow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/media/ImageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/ImageLoader.java" afterDir="false" />
