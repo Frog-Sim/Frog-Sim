@@ -8,9 +8,9 @@ import environment.biomes.Biome;
 
 public class Tile {
 	protected Biome biome;
-	protected int x;
-	protected int y;
-	public Tile(int x, int y)
+	protected float x;
+	protected float y;
+	public Tile(float x, float y)
 	{
 		this.x = x;
 		this.y = y;
@@ -32,8 +32,8 @@ public class Tile {
 		b.setTile(this);
 	}
 	
-	public int getX() {	return x; }
-	public int getY() {	return y; }
+	public float getX() {	return x; }
+	public float getY() {	return y; }
 	
 	public Biome getTerrain() {
 		return biome;

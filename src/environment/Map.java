@@ -22,19 +22,19 @@ public class Map {
 		seed=(int)(Math.random()*2000);
 		noise=new FastNoiseLite(seed);
 		noise.SetFractalType(FastNoiseLite.FractalType.PingPong);
-		tiles = new Tile[getTilesHorizontal()][getTilesVertical()];
+		tiles = new Tile[getTilesHorizontal()+1][getTilesVertical()+1];
 	}
 	public void update() {
 
-		for(int i = 0-updateRadius; i < getTilesHorizontal()+updateRadius; i++)
+		for(int i = 0; i < getTilesHorizontal(); i++)
 		{
 //			System.out.println("rows: "+tiles.size());
-			for(int j = 0-updateRadius; j < getTilesVertical()+updateRadius; j++)
+			for(int j = 0; j < getTilesVertical(); j++)
 			{
 //				System.out.println("col: "+tiles.get(i).size());
 
 				tiles[i][j] = new Tile(i, j);
-				generateTileAdvancedNoise((int) getXPlus(i), (int) getYPlus(j));
+				generateTileAdvancedNoise((int)(getXPlus(i)), (int) getYPlus(j));
 			}
 		}
 		for(int i = 0; i < getTilesHorizontal(); i++)

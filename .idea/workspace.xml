@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8a7fcf2-68d8-440c-aecd-f403a222a693" name="Changes" comment="Do a lot of stuff #2">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_28_2023_7_48_AM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_28_2023_7_48_AM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FrogSim/environment/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/environment/Map.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FrogSim/environment/biomes/Grass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/environment/biomes/Grass.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/Map.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/environment/biomes/Biome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Biome.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/environment/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/Tile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/biomes/Grass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Grass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/environment/biomes/Snow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Snow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/ImageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/ImageLoader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
