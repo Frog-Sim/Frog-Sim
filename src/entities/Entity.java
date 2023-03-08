@@ -16,33 +16,33 @@ public abstract class Entity {
 	protected float angle;
 	protected float height;
 	protected float width;
-
+	
 	public abstract void update();
 	public abstract void render(Graphics g);
 	public Entity(float x,float y, float width, float height) { xPos=x; yPos=y; this.width=width; this.height= height;}
-
-	public final float getAngleToward(float targetX, float targetY)
+	
+	public final float getAngleToward(float targetX, float targetY) 
 	{
 		float yDiff = targetY - yPos;
 		float xDiff = targetX - xPos;
 
 		float angle = (float) Math.atan2(yDiff, xDiff);
 
-//		if (angle < 0)
+//		if (angle < 0) 
 //		{
 //			angle = 360 + angle;
 //		}
 
 		return angle;
 	}
-	public final float getAngleToward(Entity frog)
+	public final float getAngleToward(Entity frog) 
 	{
 		float yDiff = frog.getY() - yPos;
 		float xDiff = frog.getX() - xPos;
 
 		float angle = (float) Math.atan2(yDiff, xDiff);
 
-//		if (angle < 0)
+//		if (angle < 0) 
 //		{
 //			angle = 360 + angle;
 //		}
@@ -75,7 +75,7 @@ public abstract class Entity {
 		}
 		else
 		{
-			return true;
-		}
+	    	return true;
+	    }
 	}
 }

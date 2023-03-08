@@ -17,6 +17,8 @@ import entities.alive.PlayerFrog;
 import entities.alive.Follower;
 import entities.alive.Wanderer;
 import entities.obstacles.Obstacle;
+import entities.obstacles.Rock;
+import entities.obstacles.Tree;
 import environment.Map;
 import media.Camera;
 
@@ -42,6 +44,11 @@ public class Game extends BasicGameState
 		bestFrog= new PlayerFrog(Main.getScreenWidth()/2,Main.getScreenHeight()/2);
 		entities.add(bestFrog);
 		entities.add(new Wanderer(500,500));
+		for(int i=0;i<10;i++)
+		{
+			entities.add(new Rock(100*i,200*i));
+		}
+		entities.add(new Tree(-100,1000));
 		cam=new Camera(this);
 		map=new Map(this);
 
@@ -51,9 +58,13 @@ public class Game extends BasicGameState
 	{
 		cam.update();
 		map.update();
-		for(Entity e: entities) {
-			e.update();
+		for(int i=0; i<entities.size(); i++)
+		{
+			entities.get(i).update();
 		}
+//		for(Entity e: entities) {
+//			e.update();
+//		}
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
@@ -74,8 +85,8 @@ public class Game extends BasicGameState
 //		}
 //		else if (key==Input.KEY_S) camY+=300;
 //		else if (key==Input.KEY_D) camX+=300;
-		if (key==Input.KEY_O) bestFrog.modifyJumpDistance(1.2f);
-		if (key==Input.KEY_P) bestFrog.modifyJumpTimer(0.8f);
+		if (key==Input.KEY_O) bestFrog.getPack().modifyJumpDistance(1.2f);
+		if (key==Input.KEY_P) bestFrog.getPack().modifyJumpTimer(0.8f);
 		if (key==Input.KEY_N)
 			for(int i=0; i<25; i++)
 			{entities.add(new Wanderer((float)(1000*Math.random()),(float)(1000*Math.random())));}
@@ -94,6 +105,10 @@ public class Game extends BasicGameState
 	public static void addEntity(Entity guy)
 	{
 		entities.add(guy);
+	}
+	public static void removeEntity(Entity guy)
+	{
+		entities.remove(guy);
 	}
 	public int getID() { return id; }
 	public static float getCamX() { return cam.getX(); }

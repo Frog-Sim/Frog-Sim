@@ -29,6 +29,6 @@ public abstract class Animal extends Entity{
 				return;
 			}
 		}
-
+		
 	}
 }
