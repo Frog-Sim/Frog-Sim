@@ -13,7 +13,7 @@ public class Pack {
 	private boolean battling;
 	public Pack()
 	{
-		
+		frogs= new ArrayList<Frog>();
 	}
 	public void modifyJumpDistance(float multi)
 	{
@@ -30,5 +30,28 @@ public class Pack {
 		{
 			f.setJumpTimer(moveTimer);
 		}
+	}
+	public int getOrbital() {
+		for(int i=0; i<20; i++)
+		{
+			if(frogs.size()<4*Math.pow(3, i)-1)
+			{
+				return i;
+			}
+				
+		}
+		return 1;
+	}
+	public void addFrog(Frog f)
+	{
+		frogs.add(f);
+	}
+	public float getJumpDist()
+	{
+		return moveDistance;
+	}
+	public float getJumpTimer()
+	{
+		return moveTimer;
 	}
 }

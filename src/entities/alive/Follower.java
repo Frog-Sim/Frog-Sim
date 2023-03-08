@@ -4,17 +4,30 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import core.Game;
+import grouping.Pack;
 
 public class Follower extends Frog{
 	
-	public static final float ORBITAL_SIZE=150; 
+	public static final float ORBITAL_SIZE=210; 
 	private int orbital;
 	private int direction;
+	private Pack myPack;
 	
 	public Follower(float x, float y) {
 		super(x, y);
-		orbital=3;
-		direction = 1;
+		myPack=Game.bestFrog.getPack();
+		orbital=myPack.getOrbital();
+		myPack.addFrog(this);
+		if(orbital %2 == 0)
+		{
+			direction = 1;
+		}
+		else
+		{
+			direction = -1;
+		}
+		this.jumpDistance=myPack.getJumpDist();
+		this.jumpTimer=myPack.getJumpTimer();
 		// TODO Auto-generated constructor stub
 	}
 	public void update() {
