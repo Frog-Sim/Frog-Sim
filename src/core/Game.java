@@ -43,7 +43,7 @@ public class Game extends BasicGameState
 		entities = new ArrayList<Entity>();
 		bestFrog= new PlayerFrog(Main.getScreenWidth()/2,Main.getScreenHeight()/2);
 		entities.add(bestFrog);
-		entities.add(new Wanderer(500,500));
+//		entities.add(new Wanderer(500,500));
 		for(int i=0;i<10;i++)
 		{
 			entities.add(new Rock(100*i,200*i));
@@ -111,8 +111,8 @@ public class Game extends BasicGameState
 		entities.remove(guy);
 	}
 	public int getID() { return id; }
-	public static float getCamX() { return cam.getX(); }
-	public static float getCamY() { return cam.getY(); }
+	public static int getCamX() { return cam.getX(); }
+	public static int getCamY() { return cam.getY(); }
 	public static ArrayList<Entity> getEntities()
 	{
 		return entities;

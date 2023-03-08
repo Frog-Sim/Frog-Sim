@@ -22,33 +22,32 @@ public class Map {
 		seed=(int)(Math.random()*2000);
 		noise=new FastNoiseLite(seed);
 		noise.SetFractalType(FastNoiseLite.FractalType.PingPong);
-		tiles = new Tile[getTilesHorizontal()+1][getTilesVertical()+1];
-	}
-	public void update() {
-
-		for(int i = 0; i < getTilesHorizontal(); i++)
+		tiles = new Tile[getTilesHorizontal()*5+2][getTilesVertical()*5+2];
+		for(int i = 0; i < getTilesHorizontal()*5+2; i++)
 		{
-//			System.out.println("rows: "+tiles.size());
-			for(int j = 0; j < getTilesVertical(); j++)
+//			System.out.println("rows: "+tiles.length);
+			for(int j = 0; j < getTilesVertical()*5+2; j++)
 			{
-//				System.out.println("col: "+tiles.get(i).size());
-
-				tiles[i][j] = new Tile(i, j);
-				generateTileAdvancedNoise((int)(getXPlus(i)), (int) getYPlus(j));
+//				System.out.println("col: "+tiles[i].length);
+				tiles[i][j] = new Tile(i*TILE_SIZE-TILE_SIZE, j*TILE_SIZE-TILE_SIZE);
+				generateTileAdvancedNoise(i, j);
 			}
 		}
-		for(int i = 0; i < getTilesHorizontal(); i++)
+	}
+	public void update() {
+		for(int i = 0; i < tiles.length; i++)
 		{
-			for(int j = 0; j < getTilesVertical(); j++)
+			for(int j = 0; j < tiles[i].length; j++)
 			{
+				generateTileAdvancedNoise(i, j);
 				tiles[i][j].update();
 			}
 		}
 	}
 	public void render(Graphics g) {
-		for(int i = 0; i < getTilesHorizontal(); i++)
+		for(int i = 0; i < tiles.length; i++)
 		{
-			for(int j = 0; j < getTilesVertical(); j++)
+			for(int j = 0; j < tiles[i].length; j++)
 			{
 				tiles[i][j].render(g);
 			}
@@ -56,11 +55,11 @@ public class Map {
 	}
 
 	public void generateTileAdvancedNoise(int x, int y) {
-		float xTile = getXMinus(x); float yTile = getYMinus(y);
+		int xTile = x; int yTile = y;
 		float SCALE = .2f;
 		float noiseValue=noise.GetNoise(x*SCALE, y*SCALE);
-		if(noiseValue<.2) tiles[(int) xTile][(int) yTile].setBiome(new Grass(noiseValue));
-		else tiles[(int) xTile][(int) yTile].setBiome(new Snow(noiseValue));
+		if(noiseValue<.2) tiles[xTile][yTile].setBiome(new Grass(noiseValue));
+		else tiles[xTile][yTile].setBiome(new Snow(noiseValue));
 //		if(noiseValue<.042 && noiseValue>.041)
 //			tiles[(int) getXMinus(x)][(int) getYMinus(y)]
 //		if(noiseValue<.1) tiles[x][y].setTerrain(new Grass(noiseValue));
@@ -80,16 +79,16 @@ public class Map {
 	{
 	return tiles[x][y];
 	}
-	public float getXPlus(int i) {
-		return (i+Game.getCamX()/32-Main.getScreenWidth()/2);
+	public int getXPlus(int i) {
+		return (i+Game.getCamX());
 	}
-	public float getYPlus(int j) {
-		return (j+Game.getCamY()/32-Main.getScreenHeight()/2);
+	public int getYPlus(int j) {
+		return (j+Game.getCamY());
 	}
-	public float getXMinus(int i) {
-		return (i-Game.getCamX()/32+Main.getScreenWidth()/2);
+	public int getXMinus(int i) {
+		return (i-Game.getCamX());
 	}
-	public float getYMinus(int j) {
-		return (j-Game.getCamY()/32+Main.getScreenHeight()/2);
+	public int getYMinus(int j) {
+		return (j-Game.getCamY());
 	}
 }

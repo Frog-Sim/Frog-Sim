@@ -14,7 +14,6 @@ public abstract class Biome {
 	{
 		this.noiseValue=noiseValue;
 		bigNoiseValue=calculateBigNoiseValue(noiseValue);
-		System.out.println(bigNoiseValue);
 	}
 
 	public void setTile(Tile t)

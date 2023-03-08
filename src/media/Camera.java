@@ -4,8 +4,8 @@ import core.Game;
 import core.Main;
 
 public class Camera {
-	private float xPos;
-	private float yPos;
+	private int xPos;
+	private int yPos;
 	
 	private final static float EASING = .06f;
 	
@@ -16,8 +16,8 @@ public class Camera {
 		this.g=g;
 	}
 
-	public float getX() { return xPos; }
-	public float getY() { return yPos; }
+	public int getX() { return xPos; }
+	public int getY() { return yPos; }
 
 	public void update() {
 		float newX = Game.bestFrog.getX()- Main.getScreenWidth()/2;

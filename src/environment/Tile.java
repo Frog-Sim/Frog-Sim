@@ -1,6 +1,7 @@
 
 package environment;
 
+import core.Game;
 import org.newdawn.slick.Graphics;
 
 import environment.biomes.Biome;
@@ -8,12 +9,14 @@ import environment.biomes.Biome;
 
 public class Tile {
 	protected Biome biome;
+	protected float initX;
+	protected float initY;
 	protected float x;
 	protected float y;
 	public Tile(float x, float y)
 	{
-		this.x = x;
-		this.y = y;
+		this.x=x;
+		this.y=y;
 	}
 	
 
