@@ -48,8 +48,8 @@ public class Map {
         return TILE_SIZE;
     }
 
-    public void decreaseTileSize(int size) {
-        TILE_SIZE -= size;
+    public void zoom(float scale) {
+        TILE_SIZE *= scale;
         ImageLoader.scaleImage(TILE_SIZE, TILE_SIZE);
     }
 
@@ -108,7 +108,6 @@ public class Map {
                 t.update();
             }
         }
-        System.out.println(tiles.size());
     }
 
     public void render(Graphics g) {

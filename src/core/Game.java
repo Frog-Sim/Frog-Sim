@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class Game extends BasicGameState {
     public static PlayerFrog bestFrog;
+    public static float zoomScale;
     private static Camera cam;
     //ENTITIES
     private static ArrayList<Entity> entities;
@@ -55,6 +56,7 @@ public class Game extends BasicGameState {
 
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.sbg = sbg;
+        zoomScale = 1;
         ImageLoader.init();
         entities = new ArrayList<Entity>();
         bestFrog = new PlayerFrog(Main.getScreenWidth() / 2, Main.getScreenHeight() / 2);
@@ -107,12 +109,15 @@ public class Game extends BasicGameState {
                 entities.add(new Follower((float) (1000 * Math.random()), (float) (1000 * Math.random())));
             }
         if (key == Input.KEY_1) {
-            map.decreaseTileSize(50);
+            zoomScale *= .9;
+            map.zoom(.9F);
+            System.out.println("ZoomScale: " + zoomScale);
+            System.out.println("MapSize: " + Map.TILE_SIZE);
         }
     }
 
     public void mousePressed(int button, int x, int y) {
-        bestFrog.startJump(x + getCamX(), y + getCamY());
+        bestFrog.startJump(x + getCamX() * zoomScale, y + getCamY() * zoomScale);
     }
 
     public void mouseWheelMoved(int change) {
