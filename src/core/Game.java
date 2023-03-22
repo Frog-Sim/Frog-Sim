@@ -42,11 +42,11 @@ public class Game extends BasicGameState {
         entities.remove(guy);
     }
 
-    public static int getCamX() {
+    public static float getCamX() {
         return cam.getX();
     }
 
-    public static int getCamY() {
+    public static float getCamY() {
         return cam.getY();
     }
 
@@ -112,16 +112,15 @@ public class Game extends BasicGameState {
             zoomScale *= .9;
             map.zoom(.9F);
             System.out.println("ZoomScale: " + zoomScale);
-            System.out.println("MapSize: " + Map.TILE_SIZE);
         }
     }
 
     public void mousePressed(int button, int x, int y) {
-        bestFrog.startJump(x + getCamX() * zoomScale, y + getCamY() * zoomScale);
+        bestFrog.startJump((x + getCamX()) * zoomScale, (y + getCamY()) * zoomScale);
     }
 
     public void mouseWheelMoved(int change) {
-
+        Camera.zoom(change);
     }
 
     public int getID() {

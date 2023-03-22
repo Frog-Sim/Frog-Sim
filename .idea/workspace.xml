@@ -5,18 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8a7fcf2-68d8-440c-aecd-f403a222a693" name="Changes" comment="Do a lot of stuff #2">
+      <change afterPath="$PROJECT_DIR$/res/bigTree.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/clearTree.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/core/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/core/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/entities/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/entities/Entity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/entities/obstacles/Tree.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/entities/obstacles/Tree.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FrogSim/environment/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/environment/Map.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/environment/biomes/Grass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/environment/biomes/Grass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/media/Camera.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/media/Camera.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FrogSim/media/ImageLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FrogSim/media/ImageLoader.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/alive/Frog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/Frog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/alive/PlayerFrog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/PlayerFrog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/obstacles/Rock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/obstacles/Rock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entities/obstacles/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/obstacles/Tree.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/Map.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/environment/biomes/Grass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Grass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/environment/biomes/Snow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Snow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/media/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/media/ImageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/ImageLoader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,5 +144,16 @@
     <MESSAGE value="Do a lot of stuff" />
     <MESSAGE value="Do a lot of stuff #2" />
     <option name="LAST_COMMIT_MESSAGE" value="Do a lot of stuff #2" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/entities/alive/Animal.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

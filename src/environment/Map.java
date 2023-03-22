@@ -50,7 +50,9 @@ public class Map {
 
     public void zoom(float scale) {
         TILE_SIZE *= scale;
+        System.out.println("TILE_SIZE: " + TILE_SIZE);
         ImageLoader.scaleImage(TILE_SIZE, TILE_SIZE);
+        System.out.println("Imagex: " + ImageLoader.grassOne.getWidth() + " Imagey: " + ImageLoader.grassOne.getHeight());
     }
 
     public void clearTiles() {
