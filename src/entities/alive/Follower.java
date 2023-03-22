@@ -12,6 +12,7 @@ public class Follower extends Frog{
 	private int orbital;
 	private int direction;
 	private Pack myPack;
+	private Animal leader;
 	
 	public Follower(float x, float y) {
 		super(x, y);
@@ -28,24 +29,52 @@ public class Follower extends Frog{
 		}
 		this.jumpDistance=myPack.getJumpDist();
 		this.jumpTimer=myPack.getJumpTimer();
+		leader=myPack.alphaFrog;
+		// TODO Auto-generated constructor stub
+	}
+	public Follower(float x, float y, Pack pack) {
+		super(x, y);
+		myPack=pack;
+		orbital=myPack.getOrbital();
+		myPack.addFrog(this);
+		if(orbital %2 == 0)
+		{
+			direction = 1;
+		}
+		else
+		{
+			direction = -1;
+		}
+		this.jumpDistance=myPack.getJumpDist();
+		this.jumpTimer=myPack.getJumpTimer();
+		leader=myPack.alphaFrog;
 		// TODO Auto-generated constructor stub
 	}
 	public void update() {
 		if(inOrbital())
 		{
-			this.angle= (float) (getAngleToward(Game.bestFrog) + Math.PI/2*direction);
-			startJump();
+			if(jumpCooldown<-1)
+			{
+				startJump();
+			}
+			this.angle= (float) (getAngleTo(leader) + Math.PI/2*direction);
+			
 //			startJump((float)(xPos+50*Math.cos(angle)), (float)(yPos+50*Math.sin(angle)));
 		}
 		else {
-			if(getDistance(Game.bestFrog)<orbital*ORBITAL_SIZE)
+			if(getDistance(leader)-orbital*ORBITAL_SIZE>2000)
 			{
-				this.angle= (float) (getAngleToward(Game.bestFrog) - Math.PI);
+//				startSuperJump();
+			}
+			if(getDistance(leader)<orbital*ORBITAL_SIZE)
+			{
+				this.angle= (float) (getAngleTo(leader) - Math.PI);
 				startJump();
 			}
 			else
 			{
-				startJump((float)(Game.bestFrog.getX()+200*(Math.random()-0.5f)),(float)(Game.bestFrog.getY()+200*(Math.random()-0.5f)));
+				this.angle= (float) (getAngleTo(leader));
+				startJump();
 			}
 				
 		}
@@ -59,7 +88,11 @@ public class Follower extends Frog{
 	}
 	public boolean inOrbital()
 	{
-		return getDistance(Game.bestFrog)<(orbital*ORBITAL_SIZE)+ORBITAL_SIZE/2 && getDistance(Game.bestFrog)>(orbital*ORBITAL_SIZE)-ORBITAL_SIZE/2;
+		return getDistance(leader)<(orbital*ORBITAL_SIZE)+ORBITAL_SIZE/2 && getDistance(leader)>(orbital*ORBITAL_SIZE)-ORBITAL_SIZE/2;
+	}
+	public int getOrbital()
+	{
+		return orbital;
 	}
 	
 

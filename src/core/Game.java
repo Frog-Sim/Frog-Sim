@@ -6,19 +6,23 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import entities.Entity;
 import entities.alive.Frog;
 import entities.alive.PlayerFrog;
+import entities.alive.KingToad;
 import entities.alive.Follower;
 import entities.alive.Wanderer;
 import entities.obstacles.Obstacle;
 import entities.obstacles.Rock;
 import entities.obstacles.Tree;
 import environment.Map;
+import grouping.Pack;
 import media.Camera;
 
 public class Game extends BasicGameState 
@@ -30,6 +34,12 @@ public class Game extends BasicGameState
 //	private float camY=0;
 	private Map map;
 	public static PlayerFrog bestFrog;
+	public static Pack enemyPack1;
+	public static Pack enemyPack2;
+	public static Pack enemyPack3;
+	public static int time;
+	private int mouseX;
+	private int mouseY;
 	//ENTITIES
 	private static ArrayList<Entity> entities;
 	
@@ -49,13 +59,34 @@ public class Game extends BasicGameState
 		entities.add(new Tree(-100,1000));
 		cam=new Camera(this);
 		map=new Map(this);
+//		setupPacks();   
 
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
 	{	
+		mouseX=Mouse.getX();
+		mouseY=Mouse.getY();
+		if (mouseY > Main.getScreenHeight()/2) {
+	    	mouseY = Main.getScreenHeight()/2 - (mouseY - (Main.getScreenHeight()/2));
+	    } 
+		else if (mouseY < Main.getScreenHeight()/2) {
+	    	mouseY = Main.getScreenHeight()/2 + (-mouseY + (Main.getScreenHeight()/2));
+	    }
+		mouseX+=cam.getX();
+		mouseY+=cam.getY();
+		time++;
 		cam.update();
 		map.update();
+		if(bestFrog.getDistance(new Point(mouseX,mouseY))>150)
+		{
+			bestFrog.startJump(mouseX,mouseY);
+			bestFrog.getPack().moveAll(mouseX,mouseY);
+		}
+//		if(time%20==0)
+//		{
+//			entities.add(new Wanderer(mouseX,mouseY));
+//		}
 		for(int i=0; i<entities.size(); i++)
 		{
 			entities.get(i).update();
@@ -114,5 +145,36 @@ public class Game extends BasicGameState
 	public static ArrayList<Entity> getEntities()
 	{
 		return entities;
+	}
+	private void setupPacks()
+	{
+		KingToad kingToad1= new KingToad(-100,-300, enemyPack1);
+		KingToad kingToad2= new KingToad(-1000,-1000, enemyPack2);
+		KingToad kingToad3= new KingToad(-2000,-2000, enemyPack3);
+		entities.add(kingToad1); entities.add(kingToad2); entities.add(kingToad3);
+		enemyPack1= new Pack(kingToad1);
+		enemyPack1.boostAll(1.2f);
+		for(int i=0;i<10;i++)
+		{
+			Frog temp= new Follower(-100*i,-100,enemyPack1);
+			entities.add(temp);
+			enemyPack1.addFrog(temp);
+		}
+		enemyPack2= new Pack(kingToad2);
+		enemyPack2.boostAll(1.4f);
+		for(int i=0;i<20;i++)
+		{
+			Frog temp= new Follower(-1000-100*i,-1000,enemyPack2);
+			entities.add(temp);
+			enemyPack2.addFrog(temp);
+		}
+		enemyPack3= new Pack(kingToad3);
+		enemyPack3.boostAll(2.6f);
+		for(int i=0;i<30;i++)
+		{
+			Frog temp= new Follower(-3000-100*i,-3000,enemyPack3);
+			entities.add(temp);
+			enemyPack3.addFrog(temp);
+		}
 	}
 }

@@ -1,12 +1,14 @@
 package entities.alive;
 
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Point;
 
-public class Frog extends Animal{
+import core.Game;
+import grouping.Pack;
 
+public class KingToad extends Animal {
+	final static float TOAD_SIZE=256;
 	protected static final int FROG_SIZE=100;
 	protected float curJumpTime;
 	protected float jumpTimer;
@@ -15,10 +17,20 @@ public class Frog extends Animal{
 	protected boolean isJumping;
 	protected boolean canJump;
 	protected Point destination;
-//	protected SpriteSheet me;
-	
-	public Frog(float x, float y) { super(x, y, FROG_SIZE, FROG_SIZE); jumpTimer=30; jumpDistance=200; canJump=true; }
+	private Pack myArmy;
+	public KingToad (float x, float y, Pack army) { 
+		super(x,y,TOAD_SIZE,TOAD_SIZE);  
+		myArmy=army;
+		jumpTimer=30; jumpDistance=200; canJump=true;
+		flying=true;}
 	public void update() {
+		angle=getAngleTo(Game.bestFrog);
+		if(myArmy!=null)
+		{
+			myArmy.moveAll(angle);
+		}
+		
+		startJump();
 		if(isJumping)
 		{
 			jump();
@@ -27,11 +39,15 @@ public class Frog extends Animal{
 			jumpCooldown--;
 			canJump = jumpCooldown<0;
 		}
-		super.update();	
+		super.update();
+	}
+	public void render(Graphics g) {
+		g.setColor(Color.red);
+		g.fillOval(xPos, yPos, TOAD_SIZE, TOAD_SIZE);
 	}
 	private void jump() {
 		curJumpTime++;
-		if(curJumpTime>jumpTimer || getDistance(destination)<(jumpDistance/jumpTimer)*1.5f)
+		if(curJumpTime>jumpTimer) //|| getDistance(destination)<(jumpDistance/jumpTimer)*1.5f)
 		{
 			isJumping = false;
 			xVel=0;
@@ -42,6 +58,8 @@ public class Frog extends Animal{
 		float speed = jumpDistance/jumpTimer;
 		xVel=(float) (speed*Math.cos(angle));
 		yVel=(float) (speed*Math.sin(angle));
+		
+		
 	}
 	public void startJump(float angle)
 	{
@@ -74,9 +92,6 @@ public class Frog extends Animal{
 			isJumping=true;
 			destination= new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
 		}
-	}
-	public void render(Graphics g) {
-		super.render(g);
 	}
 	public void modifyHealth(float multi)
 	{
@@ -116,10 +131,4 @@ public class Frog extends Animal{
 	public void setJumpTimer(float timer){
 		jumpTimer=timer;
 	}
-	public void resetJump()
-	{
-		isJumping=false;
-		jumpCooldown=-100;
-	}
-	
 }

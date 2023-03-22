@@ -3,6 +3,8 @@ package entities;
 import org.newdawn.slick.Graphics;
 
 import core.Game;
+import entities.alive.Animal;
+import entities.alive.Follower;
 import entities.alive.Frog;
 import entities.alive.PlayerFrog;
 
@@ -21,33 +23,13 @@ public abstract class Entity {
 	public abstract void render(Graphics g);
 	public Entity(float x,float y, float width, float height) { xPos=x; yPos=y; this.width=width; this.height= height;}
 	
-	public final float getAngleToward(float targetX, float targetY) 
+	public final float getAngleTo(float targetX, float targetY) 
 	{
-		float yDiff = targetY - yPos;
-		float xDiff = targetX - xPos;
-
-		float angle = (float) Math.atan2(yDiff, xDiff);
-
-//		if (angle < 0) 
-//		{
-//			angle = 360 + angle;
-//		}
-
-		return angle;
+		return (float) Math.atan2(targetY - yPos, targetX - xPos);
 	}
-	public final float getAngleToward(Entity frog) 
+	public final float getAngleTo(Entity frog) 
 	{
-		float yDiff = frog.getY() - yPos;
-		float xDiff = frog.getX() - xPos;
-
-		float angle = (float) Math.atan2(yDiff, xDiff);
-
-//		if (angle < 0) 
-//		{
-//			angle = 360 + angle;
-//		}
-
-		return angle;
+		return (float) Math.atan2(frog.getY() - yPos, frog.getX() - xPos);
 	}
 	public float getX() {return xPos;}
 	public float getY() {return yPos;}
@@ -68,14 +50,27 @@ public abstract class Entity {
 		return (float) Math.sqrt(Math.pow(getCenterX()-e.getCenterX(), 2)+Math.pow(getCenterY()-e.getCenterY(), 2));
 	}
 	public boolean collideWith(Entity e)
-	{
-		if(getDistance(e)>0.5*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2))))
+	{	
+		if(this instanceof Animal && e instanceof Animal)
 		{
-			return false;
+			if(this instanceof Follower && e instanceof Follower)
+			{
+				if(((Follower)this).getOrbital() != ((Follower)e).getOrbital())
+				{
+					return false;
+				}
+				return getDistance(e)<0.3*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2)));
+			}
+			if(((Animal)this).isFlying() && ((Animal)e).isFlying())
+			{
+				return getDistance(e)<0.6*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2)));
+			}
+			else if(((Animal)this).isFlying() || ((Animal) e).isFlying())
+			{
+				return false;
+			}
 		}
-		else
-		{
-	    	return true;
-	    }
+		return getDistance(e)<0.6*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2)));
 	}
+	
 }
