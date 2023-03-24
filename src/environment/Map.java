@@ -1,87 +1,136 @@
 package environment;
 
-import java.util.ArrayList;
+import core.Game;
+import core.Main;
+import media.ImageLoader;
 
 import org.newdawn.slick.Graphics;
 
-import core.Game;
-import core.Main;
-import environment.biomes.Grass;
-
+import java.util.ArrayList;
 
 
 public class Map {
-	private Tile[][] tiles;
-	public static int TILE_SIZE;
-	public int seed;
-	private FastNoiseLite noise;
-	public Map(Game g) {
-		seed=(int)(Math.random()*2000);
-		noise=new FastNoiseLite(seed);
-		TILE_SIZE=40;
-		tiles = new Tile[getTilesHorizontal()][getTilesVertical()];
-	}
-	public void update() {
+    public static int TILE_SIZE = 250;
+    private static FastNoiseLite noise;
+    private static ArrayList<Tile> tiles;
+    public int seed;
 
-		for(int i = 0; i < getTilesHorizontal(); i++)
-		{
-//			System.out.println("rows: "+tiles.size());
-			for(int j = 0; j < getTilesVertical(); j++)
-			{
-//				System.out.println("col: "+tiles.get(i).size());
-				tiles[i][j] = new Tile(i, j);
-				generateTileAdvancedNoise((int) getXPlus(i), (int) getYPlus(j));
-			}
-		}
-		for(int i = 0; i < getTilesHorizontal(); i++)
-		{
-			for(int j = 0; j < getTilesVertical(); j++)
-			{
-				tiles[i][j].update();
-			}
-		}
-	}
-	public void render(Graphics g) {
-		for(int i = 0; i < getTilesHorizontal(); i++)
-		{
-			for(int j = 0; j < getTilesVertical(); j++)
-			{
-				tiles[i][j].render(g);
-			}
-		}
-	}
+    public Map(Game g) {
+        seed = (int) (Math.random() * 2000);
+        noise = new FastNoiseLite(seed);
+        noise.SetFractalType(FastNoiseLite.FractalType.PingPong);
+        tiles = new ArrayList<Tile>();
+        generateWorld();
+    }
 
-	public void generateTileAdvancedNoise(int x, int y) {
-		float SCALE = 1f;
-		float noiseValue=noise.GetNoise(x*SCALE, y*SCALE);
-		tiles[(int) getXMinus(x)][(int) getYMinus(y)].setBiome(new Grass(noiseValue));
-//		if(noiseValue<.1) tiles[x][y].setTerrain(new Grass(noiseValue));
-//		else tiles[x][y].setTerrain(new Ocean(noiseValue));
-	}
+    public static int getTilesHorizontal() {
+        return Main.getScreenWidth() / TILE_SIZE;
+    }
 
-	public static int getTilesHorizontal()
-	{
-		return Main.getScreenWidth() / TILE_SIZE;
-	}
-	
-	public static int getTilesVertical()
-	{
-		return Main.getScreenHeight() / TILE_SIZE;
-	}
-	public Tile getTile(int x, int y)
-	{
-	return tiles[x][y];
-	}
-	public float getXPlus(int i) {
-		return (i+Game.getCamX()/32-Main.getScreenWidth()/2);
-	}
-	public float getYPlus(int j) {
-		return (j+Game.getCamY()/32-Main.getScreenHeight()/2);
-	}
-	public float getXMinus(int i) {
-		return (i-Game.getCamX()/32+Main.getScreenWidth()/2);
-	}
-	public float getYMinus(int j) {
-		return (j-Game.getCamY()/32+Main.getScreenHeight()/2);
-	}
+    public static int getTilesVertical() {
+        return Main.getScreenHeight() / TILE_SIZE;
+    }
+
+    public static FastNoiseLite getNoise() {
+        return noise;
+    }
+
+    public void generateWorld() {
+        for (int i = 0; i < getTilesHorizontal() + 2; i++) {
+//			System.out.println("rows: "+tiles.length);
+            for (int j = 0; j < getTilesVertical() + 2; j++) {
+//				System.out.println("col: "+tiles[i].length);
+                tiles.add(new Tile(i * TILE_SIZE - TILE_SIZE, j * TILE_SIZE - TILE_SIZE));
+            }
+        }
+    }
+
+    public int getTileSize() {
+        return TILE_SIZE;
+    }
+
+    public void zoom(float scale) {
+        TILE_SIZE *= scale;
+        System.out.println("TILE_SIZE: " + TILE_SIZE);
+        ImageLoader.scaleImage(TILE_SIZE, TILE_SIZE);
+        System.out.println("Imagex: " + ImageLoader.grassOne.getWidth() + " Imagey: " + ImageLoader.grassOne.getHeight());
+    }
+
+    public void clearTiles() {
+        tiles.clear();
+    }
+
+    public void update() {
+        float TopY = Float.MAX_VALUE;
+        float BottomY = Float.MIN_VALUE;
+        float LeftX = Float.MAX_VALUE;
+        float RightX = Float.MIN_VALUE;
+        int xAdd = 0;
+        int yAdd = 0;
+        for (Tile t : tiles) {
+            if (t.getY() < TopY) TopY = t.getY();
+            if (t.getY() > BottomY) BottomY = t.getY();
+            if (t.getX() < LeftX) LeftX = t.getX();
+            if (t.getX() > RightX) RightX = t.getX();
+        }
+        if (Game.getCamX() < LeftX) {
+            xAdd = (int) ((LeftX - Game.getCamX()) / TILE_SIZE) + 1;
+            for (float i = LeftX; i > Game.getCamX() - TILE_SIZE; i -= TILE_SIZE) {
+                for (float j = TopY; j < BottomY + TILE_SIZE; j += TILE_SIZE) {
+                    tiles.add(new Tile(i, j));
+                }
+            }
+        }
+        if (Game.getCamX() + Main.getScreenWidth() > RightX) {
+            xAdd = (int) ((Game.getCamX() + Main.getScreenWidth() - RightX) / TILE_SIZE) + 1;
+            for (float i = RightX; i < Game.getCamX() + Main.getScreenWidth() + TILE_SIZE; i += TILE_SIZE) {
+                for (float j = TopY; j < BottomY + TILE_SIZE; j += TILE_SIZE) {
+                    tiles.add(new Tile(i, j));
+                }
+            }
+        }
+        if (Game.getCamY() < TopY) {
+            yAdd = (int) ((TopY - Game.getCamY()) / TILE_SIZE) + 1;
+            for (float i = LeftX; i < RightX + TILE_SIZE; i += TILE_SIZE) {
+                for (float j = TopY; j > Game.getCamY() - TILE_SIZE; j -= TILE_SIZE) {
+                    tiles.add(new Tile(i, j));
+                }
+            }
+        }
+        if (Game.getCamY() + Main.getScreenHeight() > BottomY) {
+            yAdd = (int) ((Game.getCamY() + Main.getScreenHeight() - BottomY) / TILE_SIZE) + 1;
+            for (float i = LeftX; i < RightX + TILE_SIZE; i += TILE_SIZE) {
+                for (float j = BottomY; j < Game.getCamY() + Main.getScreenHeight() + TILE_SIZE; j += TILE_SIZE) {
+                    tiles.add(new Tile(i, j));
+                }
+            }
+        }
+        for (Tile t : tiles) {
+            if (t.getX() > Game.getCamX() - TILE_SIZE && t.getX() < Game.getCamX() + Main.getScreenWidth() + TILE_SIZE
+                    && t.getY() > Game.getCamY() - TILE_SIZE && t.getY() < Game.getCamY() + Main.getScreenHeight() + TILE_SIZE) {
+                t.update();
+            }
+        }
+    }
+
+    public void render(Graphics g) {
+        for (Tile t : tiles) {
+            if (t.getX() > Game.getCamX() - TILE_SIZE && t.getX() < Game.getCamX() + Main.getScreenWidth() + TILE_SIZE
+                    && t.getY() > Game.getCamY() - TILE_SIZE && t.getY() < Game.getCamY() + Main.getScreenHeight() + TILE_SIZE) {
+                t.render(g);
+            }
+        }
+
+    }
+
+    public Tile getTile(float x, float y) {
+        for (Tile t : tiles) {
+            if (t.getX() == x && t.getY() == y) return t;
+        }
+        return null;
+    }
+
+    public ArrayList<Tile> getTiles() {
+        return tiles;
+    }
 }

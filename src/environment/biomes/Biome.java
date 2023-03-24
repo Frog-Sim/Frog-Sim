@@ -7,10 +7,13 @@ import environment.Tile;
 
 public abstract class Biome {
 	protected Tile tile;
-
-	public Biome()
+	protected float noiseValue;
+	protected float bigNoiseValue;
+	protected double rand = Math.random();
+	public Biome(float noiseValue)
 	{
-
+		this.noiseValue=noiseValue;
+		bigNoiseValue=calculateBigNoiseValue(noiseValue);
 	}
 
 	public void setTile(Tile t)
@@ -20,4 +23,8 @@ public abstract class Biome {
 
 	abstract public void update();
 	abstract public void render(Graphics g);
+	public float calculateBigNoiseValue (float value) {
+		if(Math.abs(value)>10) return value;
+		else return calculateBigNoiseValue(10*value);
+	}
 }

@@ -2,6 +2,7 @@ package entities.alive;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Point;
 
 import grouping.Pack;
 
@@ -37,5 +38,10 @@ public class PlayerFrog extends Frog{
 	{
 		return playerPack;
 	}
+	public void setDestPoint(Point p)
+	{
+		destinationPoint=p;
+	}
+	
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Point;
 
 import core.Game;
 import entities.Entity;
@@ -16,6 +17,7 @@ public abstract class Animal extends Entity{
 	protected float attackDamage;
 	protected float regen= 0.5f;
 	protected boolean flying;
+	public Point destinationPoint;
 	public void update()
 	{
 		xPos=this.xPos += xVel;

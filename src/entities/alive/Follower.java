@@ -51,7 +51,7 @@ public class Follower extends Frog{
 		// TODO Auto-generated constructor stub
 	}
 	public void update() {
-		if(inOrbital())
+		if(inOrbital() && !behindLeader())
 		{
 			if(jumpCooldown<-1)
 			{
@@ -85,6 +85,7 @@ public class Follower extends Frog{
 		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
 		g.setColor(Color.black);
 		g.drawLine(xPos, yPos, (float)(xPos+20*Math.cos(angle)), (float)(yPos+20*Math.sin(angle)));
+		super.render(g);
 	}
 	public boolean inOrbital()
 	{
@@ -94,6 +95,13 @@ public class Follower extends Frog{
 	{
 		return orbital;
 	}
-	
+	protected boolean behindLeader()
+	{
+		if(leader.destinationPoint != null)
+		{
+			return this.getDistance(leader.destinationPoint)>leader.getDistance(leader.destinationPoint);
+		}
+		return false;
+	}
 
 }

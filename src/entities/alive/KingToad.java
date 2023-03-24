@@ -39,6 +39,7 @@ public class KingToad extends Animal {
 			jumpCooldown--;
 			canJump = jumpCooldown<0;
 		}
+		destinationPoint=destination;
 		super.update();
 	}
 	public void render(Graphics g) {

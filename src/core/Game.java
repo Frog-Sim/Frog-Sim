@@ -24,6 +24,7 @@ import entities.obstacles.Tree;
 import environment.Map;
 import grouping.Pack;
 import media.Camera;
+import media.ImageLoader;
 
 public class Game extends BasicGameState 
 {	
@@ -33,6 +34,7 @@ public class Game extends BasicGameState
 //	private float camX=0;
 //	private float camY=0;
 	private Map map;
+	public static float zoomScale;
 	public static PlayerFrog bestFrog;
 	public static Pack enemyPack1;
 	public static Pack enemyPack2;
@@ -48,6 +50,8 @@ public class Game extends BasicGameState
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException 
 	{
 		this.sbg=sbg;
+		ImageLoader.init(); 
+		zoomScale = 1;
 		entities = new ArrayList<Entity>();
 		bestFrog= new PlayerFrog(Main.getScreenWidth()/2,Main.getScreenHeight()/2);
 		entities.add(bestFrog);
@@ -82,6 +86,11 @@ public class Game extends BasicGameState
 		{
 			bestFrog.startJump(mouseX,mouseY);
 			bestFrog.getPack().moveAll(mouseX,mouseY);
+			bestFrog.setDestPoint(new Point(mouseX,mouseY));
+		}
+		else
+		{
+			bestFrog.setDestPoint(null);
 		}
 //		if(time%20==0)
 //		{
