@@ -92,6 +92,7 @@ public class Game extends BasicGameState {
 
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_M) sbg.enterState(Main.MAP_ID);
+        if (key == Input.KEY_ESCAPE) sbg.enterState(Main.PAUSE_ID);
 //		if(key==Input.KEY_W) camY-=300;
 //		else if (key==Input.KEY_A) {
 //			camX-=300;
