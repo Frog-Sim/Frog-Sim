@@ -59,7 +59,7 @@ public abstract class Entity {
 				{
 					return false;
 				}
-				return getDistance(e)<0.3*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2)));
+				return getDistance(e)<0.5*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2)));
 			}
 			if(((Animal)this).isFlying() && ((Animal)e).isFlying())
 			{

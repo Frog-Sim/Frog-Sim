@@ -13,6 +13,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import entities.Entity;
+import entities.Pool;
 import entities.alive.Frog;
 import entities.alive.PlayerFrog;
 import entities.alive.KingToad;
@@ -44,6 +45,8 @@ public class Game extends BasicGameState
 	private int mouseY;
 	//ENTITIES
 	private static ArrayList<Entity> entities;
+	private static ArrayList<Pack> packs;
+	private static ArrayList<Pool> pools;
 	
 	public Game(int id) { this.id = id; }
 	
@@ -53,14 +56,19 @@ public class Game extends BasicGameState
 		ImageLoader.init(); 
 		zoomScale = 1;
 		entities = new ArrayList<Entity>();
+		packs = new ArrayList<Pack>();
+		pools = new ArrayList<Pool>();
 		bestFrog= new PlayerFrog(Main.getScreenWidth()/2,Main.getScreenHeight()/2);
 		entities.add(bestFrog);
 		entities.add(new Wanderer(500,500));
-		for(int i=0;i<10;i++)
-		{
-			entities.add(new Rock(100*i,200*i));
-		}
+//		for(int i=0;i<10;i++)
+//		{
+//			entities.add(new Rock(100*i,200*i));
+//		}
 		entities.add(new Tree(-100,1000));
+		Pool newPool = new Pool(000,000);
+		pools.add(newPool);
+		entities.add(newPool);
 		cam=new Camera(this);
 		map=new Map(this);
 //		setupPacks();   
@@ -148,12 +156,20 @@ public class Game extends BasicGameState
 	{
 		entities.remove(guy);
 	}
+	public static void removePool(Pool p)
+	{
+		pools.remove(p);
+	}
 	public int getID() { return id; }
 	public static float getCamX() { return cam.getX(); }
 	public static float getCamY() { return cam.getY(); }
 	public static ArrayList<Entity> getEntities()
 	{
 		return entities;
+	}
+	public static ArrayList<Pool> getPools()
+	{
+		return pools;
 	}
 	private void setupPacks()
 	{
