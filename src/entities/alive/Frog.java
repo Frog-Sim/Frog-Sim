@@ -3,7 +3,12 @@ package entities.alive;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Point;
+
+import core.Game;
+import media.ImageLoader;
 
 public class Frog extends Animal{
 
@@ -15,9 +20,27 @@ public class Frog extends Animal{
 	protected boolean isJumping;
 	protected boolean canJump;
 	protected Point destination;
-//	protected SpriteSheet me;
 	
-	public Frog(float x, float y) { super(x, y); jumpTimer=30; jumpDistance=400; canJump=true; }
+	protected Image image;
+	protected Color color;
+	protected Image imageAccent;
+	protected Color colorAccent;
+	protected Image imageExtra;
+	protected Color colorExtra;
+	protected Image imageJump;
+	protected SpriteSheet sheet;
+
+	public Frog(float x, float y) { 
+		super(x, y, FROG_SIZE, FROG_SIZE); jumpTimer=30; jumpDistance=200; canJump=true; 
+		sheet=ImageLoader.frogOne;
+		image=sheet.getSprite(0,0);
+		imageAccent=sheet.getSprite(0, 1);
+		imageExtra=sheet.getSprite(0, (int)(Math.random()*3+2));
+		imageJump=sheet.getSprite(0, 5);
+		color=new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
+		colorAccent=new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
+		colorExtra=new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
+	}
 	public void update() {
 		if(isJumping)
 		{
@@ -42,8 +65,6 @@ public class Frog extends Animal{
 		float speed = jumpDistance/jumpTimer;
 		xVel=(float) (speed*Math.cos(angle));
 		yVel=(float) (speed*Math.sin(angle));
-		
-		
 	}
 	public void startJump(float angle)
 	{
@@ -61,17 +82,62 @@ public class Frog extends Animal{
 		if(canJump)
 		{
 			canJump=false;
-			this.angle=getAngleToward(targetX,targetY) ;
+			this.angle=getAngleTo(targetX,targetY) ;
 			curJumpTime=0;
 			isJumping=true;
 			destination= new Point(targetX, targetY);
 		}
 	}
-	public void render(Graphics g) {
-		g.setColor(Color.white);
-		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
+	public void startJump()
+	{
+		if(canJump)
+		{
+			canJump=false;
+			curJumpTime=0;
+			isJumping=true;
+			destination= new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
+		}
 	}
-	public void modifyJumpDistance(float multi)
+	public void render(Graphics g) {
+		super.render(g);
+		if (image != null) 
+		{
+			Image tmp = image.getScaledCopy(Game.zoomScale);
+			tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
+			tmp.setRotation(angle);
+			tmp.draw(xPos, yPos, color);
+		}
+		if (imageAccent != null) 
+		{
+			
+			Image tmp = imageAccent.getScaledCopy(Game.zoomScale);
+			tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
+			tmp.setRotation(angle);
+			tmp.draw(xPos, yPos, colorAccent);
+		}
+		if (imageExtra != null) 
+		{
+			Image tmp = imageExtra.getScaledCopy(Game.zoomScale);
+			tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
+			tmp.setRotation(angle);
+			tmp.draw(xPos, yPos, colorExtra);
+		}
+		if(imageJump!=null && isJumping) {
+			Image tmp = imageJump.getScaledCopy(Game.zoomScale);
+			tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
+			tmp.setRotation(angle);
+			tmp.draw(xPos, yPos, color);
+		}
+	}
+	public void modifyHealth(float multi)
+	{
+		maxHealth*=multi;
+	}
+	public void modifyAttackDamage(float multi)
+	{
+		attackDamage*=multi;
+	}
+	public void modifyAttackSpeed(float multi)
 	{
 		jumpDistance*=multi;
 	}
@@ -79,4 +145,32 @@ public class Frog extends Animal{
 	{
 		jumpTimer*=multi;
 	}
+
+	public void modifyJumpDistance(float multi)
+	{
+		jumpDistance*=multi;
+	}
+
+
+	public void setHealthBonus(float newHealth) {
+		this.maxHealth=newHealth;
+	}
+	public void setAttackDamageBonus(float newAttack) {
+		this.attackDamage=newAttack;
+	}
+	public void setAttackSpeedBonus(float newAttack) {
+		this.attackSpeed=newAttack;
+	}
+	public void setJumpDistance(float jump){
+		jumpDistance=jump;
+	}
+	public void setJumpTimer(float timer){
+		jumpTimer=timer;
+	}
+	public void resetJump()
+	{
+		isJumping=false;
+		jumpCooldown=-100;
+	}
+
 }
