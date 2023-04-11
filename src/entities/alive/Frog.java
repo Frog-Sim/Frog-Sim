@@ -29,9 +29,13 @@ public class Frog extends Animal{
 	protected Color colorExtra;
 	protected Image imageJump;
 	protected SpriteSheet sheet;
-
-	public Frog(float x, float y) { 
-		super(x, y, FROG_SIZE, FROG_SIZE); jumpTimer=30; jumpDistance=200; canJump=true; 
+	
+	public Frog(float x, float y) 
+	{ 
+		super(x, y, FROG_SIZE, FROG_SIZE); 
+		jumpTimer=30; 
+		jumpDistance=200; 
+		canJump=true; 
 		sheet=ImageLoader.frogOne;
 		image=sheet.getSprite(0,0);
 		imageAccent=sheet.getSprite(0, 1);
@@ -63,15 +67,15 @@ public class Frog extends Animal{
 			return;
 		}
 		float speed = jumpDistance/jumpTimer;
-		xVel=(float) (speed*Math.cos(angle));
-		yVel=(float) (speed*Math.sin(angle));
+		xVel=(float) (speed*Math.cos(getAngle()));
+		yVel=(float) (speed*Math.sin(getAngle()));
 	}
 	public void startJump(float angle)
 	{
 		if(canJump)
 		{
 			canJump=false;
-			this.angle=angle;
+			this.setAngle(angle);
 			curJumpTime=0;
 			isJumping=true;
 			destination= new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
@@ -82,7 +86,7 @@ public class Frog extends Animal{
 		if(canJump)
 		{
 			canJump=false;
-			this.angle=getAngleTo(targetX,targetY) ;
+			this.setAngle(getAngleTo(targetX,targetY)) ;
 			curJumpTime=0;
 			isJumping=true;
 			destination= new Point(targetX, targetY);
@@ -104,7 +108,7 @@ public class Frog extends Animal{
 		{
 			Image tmp = image.getScaledCopy(Game.zoomScale);
 			tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
-			tmp.setRotation(angle);
+			tmp.rotate(90 + (float) ((180/Math.PI)*angle));
 			tmp.draw(xPos, yPos, color);
 		}
 		if (imageAccent != null) 
@@ -112,20 +116,20 @@ public class Frog extends Animal{
 			
 			Image tmp = imageAccent.getScaledCopy(Game.zoomScale);
 			tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
-			tmp.setRotation(angle);
+			tmp.rotate(90 + (float) ((180/Math.PI)*angle));
 			tmp.draw(xPos, yPos, colorAccent);
 		}
 		if (imageExtra != null) 
 		{
 			Image tmp = imageExtra.getScaledCopy(Game.zoomScale);
 			tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
-			tmp.setRotation(angle);
+			tmp.rotate(90 + (float) ((180/Math.PI)*angle));
 			tmp.draw(xPos, yPos, colorExtra);
 		}
 		if(imageJump!=null && isJumping) {
 			Image tmp = imageJump.getScaledCopy(Game.zoomScale);
 			tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
-			tmp.setRotation(angle);
+			tmp.rotate(90 + (float) ((180/Math.PI)*angle));
 			tmp.draw(xPos, yPos, color);
 		}
 	}
@@ -145,13 +149,13 @@ public class Frog extends Animal{
 	{
 		jumpTimer*=multi;
 	}
-
+	
 	public void modifyJumpDistance(float multi)
 	{
 		jumpDistance*=multi;
 	}
-
-
+	
+	
 	public void setHealthBonus(float newHealth) {
 		this.maxHealth=newHealth;
 	}
@@ -172,5 +176,5 @@ public class Frog extends Animal{
 		isJumping=false;
 		jumpCooldown=-100;
 	}
-
+	
 }

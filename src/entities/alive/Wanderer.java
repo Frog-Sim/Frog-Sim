@@ -14,7 +14,7 @@ public class Wanderer extends Frog{
 		}
 		if(getDistance(Game.bestFrog)<100)
 		{
-			Game.addEntity(new Follower(xPos,yPos, color, colorAccent, colorExtra));
+			Game.addEntity(new Follower(xPos,yPos));
 			Game.removeEntity(this);
 		}
 		super.update();

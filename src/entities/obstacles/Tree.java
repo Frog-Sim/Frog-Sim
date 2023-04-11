@@ -11,7 +11,7 @@ public class Tree extends Entity{
 	public void render(Graphics g) {
 		g.setColor(Color.green);
 		g.fillRect(xPos, yPos, height, width);
-//		float testRadius= (float) Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2));
-//		g.drawOval(getCenterX()-testRadius, getCenterY()-testRadius, testRadius*2, testRadius*2);
+		float testRadius= (float) Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2));
+		g.drawOval(getCenterX()-testRadius, getCenterY()-testRadius, testRadius*2, testRadius*2);
 	}
 }

@@ -13,25 +13,6 @@ public class Follower extends Frog{
 	private int direction;
 	private Pack myPack;
 	private Animal leader;
-	
-	public Follower(float x, float y) {
-		super(x, y);
-		myPack=Game.bestFrog.getPack();
-		orbital=myPack.getOrbital();
-		myPack.addFrog(this);
-		if(orbital %2 == 0)
-		{
-			direction = 1;
-		}
-		else
-		{
-			direction = -1;
-		}
-		this.jumpDistance=myPack.getJumpDist();
-		this.jumpTimer=myPack.getJumpTimer();
-		leader=myPack.alphaFrog;
-		// TODO Auto-generated constructor stub
-	}
 	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra) {
 		super(x, y);
 		myPack=Game.bestFrog.getPack();
@@ -51,6 +32,24 @@ public class Follower extends Frog{
 		this.color=color;
 		this.colorExtra=colorExtra;
 		this.colorAccent=colorAccent;
+		// TODO Auto-generated constructor stub
+	}
+	public Follower(float x, float y) {
+		super(x, y);
+		myPack=Game.bestFrog.getPack();
+		orbital=myPack.getOrbital();
+		myPack.addFrog(this);
+		if(orbital %2 == 0)
+		{
+			direction = 1;
+		}
+		else
+		{
+			direction = -1;
+		}
+		this.jumpDistance=myPack.getJumpDist();
+		this.jumpTimer=myPack.getJumpTimer();
+		leader=myPack.alphaFrog;
 		// TODO Auto-generated constructor stub
 	}
 	public Follower(float x, float y, Pack pack) {
@@ -78,7 +77,7 @@ public class Follower extends Frog{
 			{
 				startJump();
 			}
-			this.angle= (float) (getAngleTo(leader) + Math.PI/2*direction);
+			this.setAngle((float) (getAngleTo(leader) + Math.PI/2*direction));
 			
 //			startJump((float)(xPos+50*Math.cos(angle)), (float)(yPos+50*Math.sin(angle)));
 		}
@@ -89,12 +88,12 @@ public class Follower extends Frog{
 			}
 			if(getDistance(leader)<orbital*ORBITAL_SIZE)
 			{
-				this.angle= (float) (getAngleTo(leader) - Math.PI);
+				this.setAngle((float) (getAngleTo(leader) - Math.PI));
 				startJump();
 			}
 			else
 			{
-				this.angle= (float) (getAngleTo(leader));
+				this.setAngle((float) (getAngleTo(leader)));
 				startJump();
 			}
 				
@@ -105,7 +104,7 @@ public class Follower extends Frog{
 		g.setColor(Color.white);
 		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
 		g.setColor(Color.black);
-		g.drawLine(xPos, yPos, (float)(xPos+20*Math.cos(angle)), (float)(yPos+20*Math.sin(angle)));
+		g.drawLine(xPos, yPos, (float)(xPos+20*Math.cos(getAngle())), (float)(yPos+20*Math.sin(getAngle())));
 		super.render(g);
 	}
 	public boolean inOrbital()

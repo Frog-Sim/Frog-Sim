@@ -8,8 +8,8 @@ import environment.biomes.Water;
 import org.newdawn.slick.Graphics;
 
 import core.Game;
+import entities.alive.Frog;
 import entities.alive.KingToad;
-import entities.alive.Toad;
 import entities.alive.Wanderer;
 import entities.obstacles.Rock;
 import entities.obstacles.Tree;
@@ -44,7 +44,7 @@ public class Tile {
         	double rand = Math.random();
         	if(rand<.01) Game.entities.add(new Wanderer(x,y));
         	else if (rand<.05) Game.entities.add(new Rock((float)(x+Math.random()*Map.TILE_SIZE),(float)(y+Math.random()*Map.TILE_SIZE)));
-        	else if (rand>.998) Game.entities.add(new Toad(x,y));
+        	else if (rand>.998) Game.entities.add(new Wanderer(x,y));
         	else if (rand>.995) Game.entities.add(new KingToad(x,y, Game.bestFrog.getPack()));
         }
     }
