@@ -24,10 +24,10 @@ public class KingToad extends Animal {
 		jumpTimer=30; jumpDistance=200; canJump=true;
 		flying=true;}
 	public void update() {
-		angle=getAngleTo(Game.bestFrog);
+		setAngle(getAngleTo(Game.bestFrog));
 		if(myArmy!=null)
 		{
-			myArmy.moveAll(angle);
+			myArmy.update();
 		}
 		
 		startJump();
@@ -57,8 +57,8 @@ public class KingToad extends Animal {
 			return;
 		}
 		float speed = jumpDistance/jumpTimer;
-		xVel=(float) (speed*Math.cos(angle));
-		yVel=(float) (speed*Math.sin(angle));
+		xVel=(float) (speed*Math.cos(getAngle()));
+		yVel=(float) (speed*Math.sin(getAngle()));
 		
 		
 	}
@@ -67,7 +67,7 @@ public class KingToad extends Animal {
 		if(canJump)
 		{
 			canJump=false;
-			this.angle=angle;
+			this.setAngle(angle);
 			curJumpTime=0;
 			isJumping=true;
 			destination= new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
@@ -78,7 +78,7 @@ public class KingToad extends Animal {
 		if(canJump)
 		{
 			canJump=false;
-			this.angle=getAngleTo(targetX,targetY) ;
+			this.setAngle(getAngleTo(targetX,targetY)) ;
 			curJumpTime=0;
 			isJumping=true;
 			destination= new Point(targetX, targetY);

@@ -40,15 +40,15 @@ public class Frog extends Animal{
 			return;
 		}
 		float speed = jumpDistance/jumpTimer;
-		xVel=(float) (speed*Math.cos(angle));
-		yVel=(float) (speed*Math.sin(angle));
+		xVel=(float) (speed*Math.cos(getAngle()));
+		yVel=(float) (speed*Math.sin(getAngle()));
 	}
 	public void startJump(float angle)
 	{
 		if(canJump)
 		{
 			canJump=false;
-			this.angle=angle;
+			this.setAngle(angle);
 			curJumpTime=0;
 			isJumping=true;
 			destination= new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
@@ -59,7 +59,7 @@ public class Frog extends Animal{
 		if(canJump)
 		{
 			canJump=false;
-			this.angle=getAngleTo(targetX,targetY) ;
+			this.setAngle(getAngleTo(targetX,targetY)) ;
 			curJumpTime=0;
 			isJumping=true;
 			destination= new Point(targetX, targetY);

@@ -27,6 +27,14 @@ public class Pack {
 		frogs= new ArrayList<Frog>();
 //		frogs.add(alpha);
 	}
+	public void update()
+	{
+		moveAll(alphaFrog.getAngle());
+		if(battling)
+		{
+			
+		}
+	}
 	public void modifyJumpDistance(float multi)
 	{
 		moveDistance*=multi;

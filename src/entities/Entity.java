@@ -15,7 +15,7 @@ public abstract class Entity {
 	protected float yPos;
 	protected float xVel;
 	protected float yVel;
-	protected float angle;
+	private float angle;
 	protected float height;
 	protected float width;
 	
@@ -71,6 +71,12 @@ public abstract class Entity {
 			}
 		}
 		return getDistance(e)<0.6*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2)));
+	}
+	public float getAngle() {
+		return angle;
+	}
+	public void setAngle(float angle) {
+		this.angle = angle;
 	}
 	
 }

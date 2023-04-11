@@ -57,7 +57,7 @@ public class Follower extends Frog{
 			{
 				startJump();
 			}
-			this.angle= (float) (getAngleTo(leader) + Math.PI/2*direction);
+			this.setAngle((float) (getAngleTo(leader) + Math.PI/2*direction));
 			
 //			startJump((float)(xPos+50*Math.cos(angle)), (float)(yPos+50*Math.sin(angle)));
 		}
@@ -68,12 +68,12 @@ public class Follower extends Frog{
 			}
 			if(getDistance(leader)<orbital*ORBITAL_SIZE)
 			{
-				this.angle= (float) (getAngleTo(leader) - Math.PI);
+				this.setAngle((float) (getAngleTo(leader) - Math.PI));
 				startJump();
 			}
 			else
 			{
-				this.angle= (float) (getAngleTo(leader));
+				this.setAngle((float) (getAngleTo(leader)));
 				startJump();
 			}
 				
@@ -84,7 +84,7 @@ public class Follower extends Frog{
 		g.setColor(Color.white);
 		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
 		g.setColor(Color.black);
-		g.drawLine(xPos, yPos, (float)(xPos+20*Math.cos(angle)), (float)(yPos+20*Math.sin(angle)));
+		g.drawLine(xPos, yPos, (float)(xPos+20*Math.cos(getAngle())), (float)(yPos+20*Math.sin(getAngle())));
 		super.render(g);
 	}
 	public boolean inOrbital()

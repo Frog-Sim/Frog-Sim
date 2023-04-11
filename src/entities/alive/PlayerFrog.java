@@ -43,7 +43,7 @@ public class PlayerFrog extends Frog{
 			{
 				for(int j=0; j<playerPack.getFrogs().size()/2; j++)
 				{
-					Frog newFrog = new Follower((float)(pools.get(i).getX()*Math.random()*300-150), (float)(pools.get(i).getY()*Math.random()*300-150));
+					Frog newFrog = new Follower((float)(pools.get(i).getX()+Math.random()*300-150), (float)(pools.get(i).getY()+Math.random()*300-150));
 					Game.addEntity(newFrog);
 				}
 				Game.removePool(pools.get(i));
