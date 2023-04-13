@@ -51,7 +51,7 @@ public class Map {
     public void zoom(float scale) {
         TILE_SIZE *= scale;
         System.out.println("TILE_SIZE: " + TILE_SIZE);
-        ImageLoader.scaleImage(TILE_SIZE, TILE_SIZE);
+
         System.out.println("Imagex: " + ImageLoader.grassOne.getWidth() + " Imagey: " + ImageLoader.grassOne.getHeight());
     }
 
@@ -76,7 +76,7 @@ public class Map {
             xAdd = (int) ((LeftX - Game.getCamX()) / TILE_SIZE) + 1;
             for (float i = LeftX; i > Game.getCamX() - TILE_SIZE; i -= TILE_SIZE) {
                 for (float j = TopY; j < BottomY + TILE_SIZE; j += TILE_SIZE) {
-                    tiles.add(new Tile(i, j));
+                    addTile(i, j);
                 }
             }
         }
@@ -84,7 +84,7 @@ public class Map {
             xAdd = (int) ((Game.getCamX() + Main.getScreenWidth() - RightX) / TILE_SIZE) + 1;
             for (float i = RightX; i < Game.getCamX() + Main.getScreenWidth() + TILE_SIZE; i += TILE_SIZE) {
                 for (float j = TopY; j < BottomY + TILE_SIZE; j += TILE_SIZE) {
-                    tiles.add(new Tile(i, j));
+                    addTile(i, j);
                 }
             }
         }
@@ -92,7 +92,7 @@ public class Map {
             yAdd = (int) ((TopY - Game.getCamY()) / TILE_SIZE) + 1;
             for (float i = LeftX; i < RightX + TILE_SIZE; i += TILE_SIZE) {
                 for (float j = TopY; j > Game.getCamY() - TILE_SIZE; j -= TILE_SIZE) {
-                    tiles.add(new Tile(i, j));
+                    addTile(i, j);
                 }
             }
         }
@@ -100,7 +100,7 @@ public class Map {
             yAdd = (int) ((Game.getCamY() + Main.getScreenHeight() - BottomY) / TILE_SIZE) + 1;
             for (float i = LeftX; i < RightX + TILE_SIZE; i += TILE_SIZE) {
                 for (float j = BottomY; j < Game.getCamY() + Main.getScreenHeight() + TILE_SIZE; j += TILE_SIZE) {
-                    tiles.add(new Tile(i, j));
+                    addTile(i, j);
                 }
             }
         }
@@ -127,6 +127,13 @@ public class Map {
             if (t.getX() == x && t.getY() == y) return t;
         }
         return null;
+    }
+
+    public void addTile(float i, float j) {
+        for (Tile t : tiles) {
+            if (t.getX() == i && t.getY() == j) return;
+        }
+        tiles.add(new Tile(i, j));
     }
 
     public ArrayList<Tile> getTiles() {

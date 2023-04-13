@@ -1,81 +1,89 @@
 package entities;
 
+import entities.alive.Animal;
+import entities.alive.Follower;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Point;
 
 public abstract class Entity {
-    protected float xPos;
-    protected float yPos;
-    protected float xVel;
-    protected float yVel;
-    protected float angle;
-    protected float height;
-    protected float width;
+	protected float xPos;
+	protected float yPos;
+	protected float xVel;
+	protected float yVel;
+	protected float angle;
+	protected float height;
+	protected float width;
 
-    public Entity(float x, float y, float width, float height) {
-        xPos = x;
-        yPos = y;
-        this.width = width;
-        this.height = height;
-    }
+	public Entity(float x, float y, float width, float height) {
+		xPos = x;
+		yPos = y;
+		this.width = width;
+		this.height = height;
+	}
 
-    public abstract void update();
+	public abstract void update();
 
-    public abstract void render(Graphics g);
+	public abstract void render(Graphics g);
 
-    public final float getAngleToward(float targetX, float targetY) {
-        float yDiff = targetY - yPos;
-        float xDiff = targetX - xPos;
+	public final float getAngleTo(float targetX, float targetY) {
+		return (float) Math.atan2(targetY - yPos, targetX - xPos);
+	}
 
-        float angle = (float) Math.atan2(yDiff, xDiff);
+	public final float getAngleTo(Entity frog) {
+		return (float) Math.atan2(frog.getY() - yPos, frog.getX() - xPos);
+	}
 
-//		if (angle < 0) 
-//		{
-//			angle = 360 + angle;
-//		}
+	public float getX() {
+		return xPos;
+	}
 
-        return angle;
-    }
+	public float getY() {
+		return yPos;
+	}
 
-    public final float getAngleToward(Entity frog) {
-        float yDiff = frog.getY() - yPos;
-        float xDiff = frog.getX() - xPos;
+	public float getCenterX() {
+		return this.getX() + this.width / 2;
+	}
 
-        float angle = (float) Math.atan2(yDiff, xDiff);
+	public float getCenterY() {
+		return this.getY() + this.height / 2;
+	}
 
-//		if (angle < 0) 
-//		{
-//			angle = 360 + angle;
-//		}
+	public float getDistance(Point p) {
+		return (float) Math.sqrt(Math.pow(getCenterX() - p.getX(), 2) + Math.pow(getCenterY() - p.getY(), 2));
+	}
 
-        return angle;
-    }
+	protected float getDistance(Entity e) {
+		return (float) Math.sqrt(Math.pow(getCenterX() - e.getCenterX(), 2) + Math.pow(getCenterY() - e.getCenterY(), 2));
+	}
 
-    public float getX() {
-        return xPos;
-    }
+	public void zoom(float scale) {
 
-    public float getY() {
-        return yPos;
-    }
+	}
 
-    public float getCenterX() {
-        return this.getX() + this.width / 2;
-    }
+	public boolean collideWith(Entity e) {
+		if (this instanceof Animal && e instanceof Animal) {
+			if (this instanceof Follower && e instanceof Follower) {
+				if (((Follower) this).getOrbital() != ((Follower) e).getOrbital()) {
+					return false;
+				}
+				return getDistance(e) < 0.5 * (Math.sqrt(Math.pow(this.height / 2, 2) + Math.pow(this.width / 2, 2)) + Math.sqrt(Math.pow(e.height / 2, 2) + Math.pow(e.width / 2, 2)));
+			}
+			if (((Animal) this).isFlying() && ((Animal) e).isFlying()) {
+				return getDistance(e) < 0.6 * (Math.sqrt(Math.pow(this.height / 2, 2) + Math.pow(this.width / 2, 2)) + Math.sqrt(Math.pow(e.height / 2, 2) + Math.pow(e.width / 2, 2)));
+			} else if (((Animal) this).isFlying() || ((Animal) e).isFlying()) {
+				return false;
+			}
+		}
+		return getDistance(e) < 0.6 * (Math.sqrt(Math.pow(this.height / 2, 2) + Math.pow(this.width / 2, 2)) + Math.sqrt(Math.pow(e.height / 2, 2) + Math.pow(e.width / 2, 2)));
+	}
 
-    public float getCenterY() {
-        return this.getY() + this.height / 2;
-    }
+	public float getAngle() {
+		return angle;
+	}
 
-    public float getDistance(Point p) {
-        return (float) Math.sqrt(Math.pow(getCenterX() - p.getX(), 2) + Math.pow(getCenterY() - p.getY(), 2));
-    }
+	public void setAngle(float angle) {
+		this.angle = angle;
+	}
 
-    protected float getDistance(Entity e) {
-        return (float) Math.sqrt(Math.pow(getCenterX() - e.getCenterX(), 2) + Math.pow(getCenterY() - e.getCenterY(), 2));
-    }
-
-    public boolean collideWith(Entity e) {
-        return !(getDistance(e) > .5 * (Math.sqrt(Math.pow(this.height / 2, 2) + Math.pow(this.width / 2, 2)) + Math.sqrt(Math.pow(e.height / 2, 2) + Math.pow(e.width / 2, 2))));
-    }
 }

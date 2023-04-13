@@ -1,20 +1,18 @@
 package environment.biomes;
 
-import core.Game;
 import media.ImageLoader;
-import org.newdawn.slick.Graphics;
 
 public class Snow extends Biome {
 
     public Snow(float noiseValue) {
         super(noiseValue);
+        image = ImageLoader.snowOne;
+//        if (rand < .5) image = ImageLoader.grassOne;
+//        else image = ImageLoader.grassTwo;
     }
 
     public void update() {
-
+        image = ImageLoader.snowOne;
     }
 
-    public void render(Graphics g) {
-        g.drawImage(ImageLoader.snowOne, tile.getX() * Game.zoomScale, tile.getY() * Game.zoomScale);
-    }
 }
