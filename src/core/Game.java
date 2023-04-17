@@ -9,10 +9,7 @@ import grouping.Pack;
 import media.Camera;
 import media.ImageLoader;
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -135,6 +132,10 @@ public class Game extends BasicGameState {
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+        g.setColor(Color.yellow);
+        g.drawString("#Tiles: " + map.getTiles().size(), 25, 25);
+        g.drawString("#RenderTiles: " + map.renderedTiles, 25, 50);
+//        System.out.println("Total Tiles: " + map.getTiles().size());
         g.translate(-cam.getX(), -cam.getY());
         map.render(g);
 //        for (Entity e : entities) {
@@ -170,8 +171,10 @@ public class Game extends BasicGameState {
     public void mouseWheelMoved(int change) {
         if (change > 0) {
             zoom(2f);
+            //zoom in
         } else {
             zoom(.5f);
+            //zoom out
         }
     }
 
@@ -211,6 +214,7 @@ public class Game extends BasicGameState {
 
     public void zoom(float scale) {
         zoomScale *= scale;
+        ImageLoader.scaleImage((int) (map.getTileSize() * zoomScale), (int) (map.getTileSize() * zoomScale));
         map.zoom(scale);
         for (Entity e : entities) {
             e.zoom(scale);
@@ -218,6 +222,6 @@ public class Game extends BasicGameState {
         for (Pool p : pools) {
             p.zoom(scale);
         }
-        ImageLoader.scaleImage(map.getTileSize(), map.getTileSize());
+
     }
 }

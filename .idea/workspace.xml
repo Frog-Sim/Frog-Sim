@@ -7,23 +7,12 @@
     <list default="true" id="a8a7fcf2-68d8-440c-aecd-f403a222a693" name="Changes" comment="Do a lot of stuff #2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/Title.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Title.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Pool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/Pool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/alive/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/alive/Follower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/Follower.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/alive/Frog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/Frog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/alive/PlayerFrog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/PlayerFrog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/alive/Wanderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/alive/Wanderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/obstacles/Rock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/obstacles/Rock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/obstacles/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/obstacles/Tree.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/Map.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/Tile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/biomes/Biome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Biome.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/biomes/Grass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Grass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/environment/biomes/Snow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Snow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/grouping/Pack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/grouping/Pack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/environment/biomes/Water.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/biomes/Water.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/media/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/media/ImageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/ImageLoader.java" afterDir="false" />
     </list>

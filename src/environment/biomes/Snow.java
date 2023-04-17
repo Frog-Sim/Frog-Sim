@@ -11,6 +11,10 @@ public class Snow extends Biome {
 //        else image = ImageLoader.grassTwo;
     }
 
+    public void scaleImages() {
+        image = ImageLoader.snowOne;
+    }
+
     public void update() {
         image = ImageLoader.snowOne;
     }

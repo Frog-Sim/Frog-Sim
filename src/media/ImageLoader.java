@@ -59,6 +59,17 @@ public class ImageLoader {
 //        grassOne=grassOne.getScaledCopy(x,y);
     }
 
+    public static void scaleImage(float scale) {
+        grassOne = grassOne.getScaledCopy(scale);
+        grassTwo = grassTwo.getScaledCopy(scale);
+        snowOne = snowOne.getScaledCopy(scale);
+        bigTree = bigTree.getScaledCopy(scale);
+        clearBigTree = clearBigTree.getScaledCopy(scale);
+        waterOne = waterOne.getScaledCopy(scale);
+//        grassOne=grassOne.getScaledCopy(x,y);
+//        grassOne=grassOne.getScaledCopy(x,y);
+    }
+
     public static Image loadImage(String path) throws IOException, SlickException {
         BufferedImage bufferedImage = ImageIO.read(new File(path));
         Texture texture = BufferedImageUtil.getTexture("", bufferedImage);

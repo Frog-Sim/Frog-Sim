@@ -24,9 +24,9 @@ public class Camera {
     }
 
     public void update() {
-        float newX = (Game.bestFrog.getX() - Main.getScreenWidth() / 2) * Game.zoomScale;
+        float newX = (Game.bestFrog.getX() * Game.zoomScale - Main.getScreenWidth() / 2);
         xPos += (newX - xPos * Game.zoomScale) * EASING;
-        float newY = (Game.bestFrog.getY() - Main.getScreenHeight() / 2) * Game.zoomScale;
+        float newY = (Game.bestFrog.getY() * Game.zoomScale - Main.getScreenHeight() / 2);
         yPos += (newY - yPos * Game.zoomScale) * EASING;
     }
 }

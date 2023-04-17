@@ -9,6 +9,10 @@ public class Water extends Biome {
         image = ImageLoader.waterOne;
     }
 
+    public void scaleImages() {
+        image = ImageLoader.waterOne;
+    }
+
     public void update() {
         image = ImageLoader.waterOne;
     }

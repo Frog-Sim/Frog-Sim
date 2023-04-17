@@ -24,6 +24,8 @@ public abstract class Biome {
 
     abstract public void update();
 
+    abstract public void scaleImages();
+
     public void render(Graphics g) {
         g.drawImage(image, tile.getX() * Game.zoomScale, tile.getY() * Game.zoomScale);
     }
