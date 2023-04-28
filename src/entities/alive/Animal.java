@@ -10,16 +10,27 @@ import core.Game;
 import entities.Entity;
 
 public abstract class Animal extends Entity{
-	public Animal(float x, float y, float width, float height) { super(x,y,width,height); }
+	public Animal(float x, float y, float width, float height) { super(x,y,width,height);
+	destinationPoint= new Point(100, 100);
+	}
+	
 	protected float maxHealth=1000;
 	protected float curHealth=500;
-	protected float attackSpeed;
-	protected float attackDamage;
+	protected float attackSpeed=60;
+	protected float attackDamage=100;
+	protected int attackTimer;
 	protected float regen= 0.5f;
 	protected boolean flying;
 	public Point destinationPoint;
+	public abstract void onDeath();
 	public void update()
 	{
+		destinationPoint.setX((float) (getX()+1000*Math.cos(angle)));
+		destinationPoint.setY((float) (getY()+1000*Math.sin(angle)));
+		if(curHealth<0)
+		{
+			onDeath();
+		}
 		xPos=this.xPos += xVel;
 		yPos=this.yPos += yVel;
 		ArrayList<Entity> allEntities=Game.getEntities();
@@ -38,9 +49,8 @@ public abstract class Animal extends Entity{
 		if(curHealth<maxHealth)
 		{
 			curHealth+=regen;
-		}
-			
-		
+		}	
+		attackTimer++;
 	}
 	public void render(Graphics g)
 	{
@@ -52,6 +62,7 @@ public abstract class Animal extends Entity{
 		g.setColor(Color.red);
 		g.fillRect(xPos+curHealth/compressionFactor, yPos, (maxHealth-curHealth)/compressionFactor, 20);
 	}
+	
 	public boolean isFlying()
 	{
 		return flying;

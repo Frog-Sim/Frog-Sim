@@ -14,7 +14,7 @@ public class Wanderer extends Frog{
 		}
 		if(getDistance(Game.bestFrog)<100)
 		{
-			Game.addEntity(new Follower(xPos,yPos));
+			Game.addEntity(new Follower(xPos,yPos, color, colorAccent, colorExtra));
 			Game.removeEntity(this);
 		}
 		super.update();
@@ -23,5 +23,9 @@ public class Wanderer extends Frog{
 		g.setColor(Color.blue);
 		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
 		super.render(g);
+	}
+	public void onDeath()
+	{
+		Game.entities.remove(this);
 	}
 }

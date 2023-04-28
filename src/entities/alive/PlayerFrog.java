@@ -11,7 +11,8 @@ import entities.Pool;
 import grouping.Pack;
 
 public class PlayerFrog extends Frog{
-	private Pack playerPack;
+	public Pack playerPack;
+	public boolean idle;
 
 	public PlayerFrog(float x, float y) {
 		super(x, y);
@@ -25,6 +26,7 @@ public class PlayerFrog extends Frog{
 //		g.setColor(Color.white);
 //		g.drawString("X: "+xPos, xPos-10, yPos-10);
 //		g.drawString("Y: "+yPos, xPos-10, yPos-50);
+//		g.drawString("Angle: "+angle, xPos-10, yPos-50);
 //		float testRadius= (float) Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2));
 //		g.drawOval(getCenterX()-testRadius, getCenterY()-testRadius, testRadius*2, testRadius*2);
 		super.render(g);
@@ -41,7 +43,7 @@ public class PlayerFrog extends Frog{
 		{
 			if(getDistance(pools.get(i))<500)
 			{
-				for(int j=0; j<playerPack.getFrogs().size()/2; j++)
+				for(int j=0; j<playerPack.getFrogs().size()/2 && j<11; j++)
 				{
 					Frog newFrog = new Follower((float)(pools.get(i).getX()+Math.random()*300-150), (float)(pools.get(i).getY()+Math.random()*300-150));
 					Game.addEntity(newFrog);
@@ -49,16 +51,28 @@ public class PlayerFrog extends Frog{
 				Game.removePool(pools.get(i));
 			}
 		}
+		playerPack.update();
+		deathRing();
 		super.update();
 	}
 	public Pack getPack()
 	{
 		return playerPack;
 	}
+	private void deathRing()
+	{
+		
+	}
 	public void setDestPoint(Point p)
 	{
 		destinationPoint=p;
 	}
+	public void onDeath()
+	{
+		Game.entities.remove(this);
+		
+	}
+
 	
 
 }
