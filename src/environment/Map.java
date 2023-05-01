@@ -9,11 +9,10 @@ import java.util.ArrayList;
 
 
 public class Map {
-    public static final int TILE_SIZE = 250;
+    public static int TILE_SIZE = 250;
     private static FastNoiseLite noise;
     private static ArrayList<Tile> tiles;
     public int seed;
-    public int renderedTiles;
 
     public Map(Game g) {
         seed = (int) (Math.random() * 2000);
@@ -50,10 +49,9 @@ public class Map {
     }
 
     public void zoom(float scale) {
+        TILE_SIZE *= scale;
         System.out.println("TILE_SIZE: " + TILE_SIZE);
-        for (Tile t : tiles) {
-            t.zoom(scale);
-        }
+        ImageLoader.scaleImage(TILE_SIZE, TILE_SIZE);
         System.out.println("Imagex: " + ImageLoader.grassOne.getWidth() + " Imagey: " + ImageLoader.grassOne.getHeight());
     }
 
@@ -78,7 +76,7 @@ public class Map {
             xAdd = (int) ((LeftX - Game.getCamX()) / TILE_SIZE) + 1;
             for (float i = LeftX; i > Game.getCamX() - TILE_SIZE; i -= TILE_SIZE) {
                 for (float j = TopY; j < BottomY + TILE_SIZE; j += TILE_SIZE) {
-                    addTile(i, j);
+                	addTile(i,j);
                 }
             }
         }
@@ -86,7 +84,7 @@ public class Map {
             xAdd = (int) ((Game.getCamX() + Main.getScreenWidth() - RightX) / TILE_SIZE) + 1;
             for (float i = RightX; i < Game.getCamX() + Main.getScreenWidth() + TILE_SIZE; i += TILE_SIZE) {
                 for (float j = TopY; j < BottomY + TILE_SIZE; j += TILE_SIZE) {
-                    addTile(i, j);
+                	addTile(i,j);
                 }
             }
         }
@@ -94,7 +92,7 @@ public class Map {
             yAdd = (int) ((TopY - Game.getCamY()) / TILE_SIZE) + 1;
             for (float i = LeftX; i < RightX + TILE_SIZE; i += TILE_SIZE) {
                 for (float j = TopY; j > Game.getCamY() - TILE_SIZE; j -= TILE_SIZE) {
-                    addTile(i, j);
+                	addTile(i,j);
                 }
             }
         }
@@ -102,36 +100,26 @@ public class Map {
             yAdd = (int) ((Game.getCamY() + Main.getScreenHeight() - BottomY) / TILE_SIZE) + 1;
             for (float i = LeftX; i < RightX + TILE_SIZE; i += TILE_SIZE) {
                 for (float j = BottomY; j < Game.getCamY() + Main.getScreenHeight() + TILE_SIZE; j += TILE_SIZE) {
-                    addTile(i, j);
+                	addTile(i,j);
                 }
             }
         }
         for (Tile t : tiles) {
-            t.setFalse();
-//            if (t.getX() > Game.getCamX() - TILE_SIZE * Game.zoomScale && t.getX() < Game.getCamX() + Main.getScreenWidth() * Game.zoomScale + TILE_SIZE * Game.zoomScale
-//                    && t.getY() > Game.getCamY() - TILE_SIZE * Game.zoomScale && t.getY() < Game.getCamY() + Main.getScreenHeight() * Game.zoomScale + TILE_SIZE * Game.zoomScale) {
-//                t.setUpdateTrue();
-//                t.setRenderTrue();
-//            }
-            if (t.getX() > Game.getCamX() && t.getX() < Game.getCamX() + Main.getScreenWidth()
-                    && t.getY() > Game.getCamY() && t.getY() < Game.getCamY() + Main.getScreenHeight()) {
-                t.setUpdateTrue();
-                t.setRenderTrue();
+            if (t.getX() > Game.getCamX() - TILE_SIZE && t.getX() < Game.getCamX() + Main.getScreenWidth() + TILE_SIZE
+                    && t.getY() > Game.getCamY() - TILE_SIZE && t.getY() < Game.getCamY() + Main.getScreenHeight() + TILE_SIZE) {
+                t.update();
             }
-            if (t.getUpdate()) t.update();
         }
     }
 
     public void render(Graphics g) {
-        renderedTiles = 0;
         for (Tile t : tiles) {
-            if (t.getRender()) {
+            if (t.getX() > Game.getCamX() - TILE_SIZE && t.getX() < Game.getCamX() + Main.getScreenWidth() + TILE_SIZE
+                    && t.getY() > Game.getCamY() - TILE_SIZE && t.getY() < Game.getCamY() + Main.getScreenHeight() + TILE_SIZE) {
                 t.render(g);
-                renderedTiles++;
             }
-
         }
-//        System.out.println("rendered tiles: " + renderedTiles);
+
     }
 
     public Tile getTile(float x, float y) {
@@ -140,13 +128,11 @@ public class Map {
         }
         return null;
     }
-
     public void addTile(float i, float j) {
-        for (Tile t : tiles) {
-            if (t.getX() > i * Game.zoomScale && t.getX() < (i + TILE_SIZE) * Game.zoomScale &&
-                    t.getY() > j * Game.zoomScale && t.getY() < (j + TILE_SIZE) * Game.zoomScale) return;
-        }
-        tiles.add(new Tile(i, j));
+    	for(Tile t: tiles) {
+    		if(t.getX()==i && t.getY()==j) return;
+    	}
+    	tiles.add(new Tile(i,j));
     }
 
     public ArrayList<Tile> getTiles() {

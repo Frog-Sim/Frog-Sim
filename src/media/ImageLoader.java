@@ -7,11 +7,12 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class ImageLoader {
     public static Image grassOne;
@@ -20,8 +21,10 @@ public class ImageLoader {
     public static Image bigTree;
     public static Image clearBigTree;
     public static Image waterOne;
-    public static SpriteSheet frogOne;
+    
     private static Image frogOneImage;
+    public static SpriteSheet frogOne;
+    
     private static ArrayList<Image> images;
 
     public static void init() throws SlickException, IOException {
@@ -41,10 +44,10 @@ public class ImageLoader {
         clearBigTree = loadImage("res/clearTree.png");
         clearBigTree = clearBigTree.getScaledCopy(Map.TILE_SIZE * 9, Map.TILE_SIZE * 9);
         images.add(clearBigTree);
-        waterOne = loadImage("res/water.png");
-        waterOne = waterOne.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        waterOne=loadImage("res/water.png");
+        waterOne=waterOne.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
         images.add(waterOne);
-
+        
         frogOne = new SpriteSheet(loadImage("res/frogOne.png").getScaledCopy(100, 700), 100, 100);
     }
 
@@ -54,22 +57,10 @@ public class ImageLoader {
         snowOne = snowOne.getScaledCopy(x, y);
         bigTree = bigTree.getScaledCopy(x, y);
         clearBigTree = clearBigTree.getScaledCopy(x, y);
-        waterOne = waterOne.getScaledCopy(x, y);
+        waterOne=waterOne.getScaledCopy(x, y);
 //        grassOne=grassOne.getScaledCopy(x,y);
 //        grassOne=grassOne.getScaledCopy(x,y);
     }
-
-    public static void scaleImage(float scale) {
-        grassOne = grassOne.getScaledCopy(scale);
-        grassTwo = grassTwo.getScaledCopy(scale);
-        snowOne = snowOne.getScaledCopy(scale);
-        bigTree = bigTree.getScaledCopy(scale);
-        clearBigTree = clearBigTree.getScaledCopy(scale);
-        waterOne = waterOne.getScaledCopy(scale);
-//        grassOne=grassOne.getScaledCopy(x,y);
-//        grassOne=grassOne.getScaledCopy(x,y);
-    }
-
     public static Image loadImage(String path) throws IOException, SlickException {
         BufferedImage bufferedImage = ImageIO.read(new File(path));
         Texture texture = BufferedImageUtil.getTexture("", bufferedImage);
