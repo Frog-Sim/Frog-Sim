@@ -1,11 +1,15 @@
 package entities.alive;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Point;
 
+import animations.Animation;
 import core.Game;
 import grouping.Pack;
+import media.ImageLoader;
 
 public class KingToad extends Animal {
 	final static float TOAD_SIZE=256;
@@ -21,16 +25,24 @@ public class KingToad extends Animal {
 	public KingToad (float x, float y, Pack army) { 
 		super(x,y,TOAD_SIZE,TOAD_SIZE);  
 		myArmy=army;
-		jumpTimer=30; jumpDistance=200; canJump=true;
+		jumpTimer=30; jumpDistance=200; canJump=true; attackDamage+=10000;
 		flying=true;}
+	public KingToad (float x, float y) { 
+		super(x,y,TOAD_SIZE,TOAD_SIZE);  
+		jumpTimer=30; jumpDistance=200; canJump=true; attackDamage+=10000;
+		flying=true;}
+	public void setPack(Pack p)
+	{
+		myArmy=p;
+	}
 	public void update() {
-		setAngle(getAngleTo(Game.bestFrog));
+		
 		if(myArmy!=null)
 		{
-			myArmy.update();
+			myArmy.update(); 
 		}
 		
-		startJump();
+		startJump(getAngleTo(Game.bestFrog));
 		if(isJumping)
 		{
 			jump();
@@ -45,6 +57,7 @@ public class KingToad extends Animal {
 	public void render(Graphics g) {
 		g.setColor(Color.red);
 		g.fillOval(xPos, yPos, TOAD_SIZE, TOAD_SIZE);
+		super.render(g);
 	}
 	private void jump() {
 		curJumpTime++;
@@ -61,6 +74,41 @@ public class KingToad extends Animal {
 		yVel=(float) (speed*Math.sin(getAngle()));
 		
 		
+	}
+	public void attackClosest()
+	{
+		Pack enemy=null;
+		if(attackTimer>attackSpeed)
+		{	
+			enemy = myArmy.getEnemyPack();
+			if (enemy != null)
+			{
+				ArrayList<Frog> enemyFrogs = enemy.getFrogs();
+				Animal target=null;
+			
+				float minDist=300;
+				for(Frog f: enemyFrogs)
+				{
+					if(this.getDistance(f)<minDist)
+					{
+						target=f;
+						minDist=this.getDistance(f);
+					}
+				}
+				Animal a=enemy.alphaFrog;
+				if(this.getDistance(a)<minDist)
+				{
+					target=a;
+				}
+				
+				
+				if(target != null)
+				{
+					target.curHealth-=attackDamage;
+					attackTimer =0;
+				}
+			}
+		}
 	}
 	public void startJump(float angle)
 	{
@@ -98,6 +146,10 @@ public class KingToad extends Animal {
 	{
 		maxHealth*=multi;
 	}
+	public void modifyRegen(float multi)
+	{
+		regen*=multi;
+	}
 	public void modifyAttackDamage(float multi)
 	{
 		attackDamage*=multi;
@@ -131,5 +183,12 @@ public class KingToad extends Animal {
 	}
 	public void setJumpTimer(float timer){
 		jumpTimer=timer;
+	}
+	public void onDeath()
+	{
+		Game.bestFrog.playerPack.randomBoost(1.01f);
+		myArmy.disband();
+		Game.entities.remove(this);
+		Game.animations.add(new Animation(xPos,yPos,ImageLoader.frogOne, 50));
 	}
 }

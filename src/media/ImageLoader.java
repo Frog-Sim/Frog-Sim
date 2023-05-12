@@ -21,6 +21,10 @@ public class ImageLoader {
     public static Image bigTree;
     public static Image clearBigTree;
     public static Image waterOne;
+    public static Image sandOne;
+    public static Image sandTwo;
+    public static Image sandThree;
+    public static Image sandFour;
     
     private static Image frogOneImage;
     public static SpriteSheet frogOne;
@@ -47,8 +51,21 @@ public class ImageLoader {
         waterOne=loadImage("res/water.png");
         waterOne=waterOne.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
         images.add(waterOne);
+        sandOne=loadImage("res/sandTexture.png");
+        sandOne=sandOne.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        images.add(sandOne);
+        sandTwo=loadImage("res/sandTexture2.png");
+        sandTwo=sandTwo.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        images.add(sandTwo);
+        sandThree=loadImage("res/sandTexture3.png");
+        sandThree=sandThree.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        images.add(sandThree);
+        sandFour=loadImage("res/sandTexture4.png");
+        sandFour=sandFour.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        images.add(sandFour);
         
-        frogOne=new SpriteSheet(loadImage("res/frogOne.png").getScaledCopy(100, 600), 100, 100);
+        
+        frogOne = new SpriteSheet(loadImage("res/frogOne.png").getScaledCopy(100, 700), 100, 100);
     }
 
     public static void scaleImage(int x, int y) {

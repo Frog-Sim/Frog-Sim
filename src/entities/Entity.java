@@ -46,7 +46,7 @@ public abstract class Entity {
 		return (float) Math.sqrt(Math.pow(getCenterX()-p.getX(), 2)+Math.pow(getCenterY()-p.getY(), 2));
 	}
 
-	protected float getDistance(Entity e) {
+	public float getDistance(Entity e) {
 		return (float) Math.sqrt(Math.pow(getCenterX()-e.getCenterX(), 2)+Math.pow(getCenterY()-e.getCenterY(), 2));
 	}
 	public boolean collideWith(Entity e)

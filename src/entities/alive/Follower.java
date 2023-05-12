@@ -1,10 +1,15 @@
 package entities.alive;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import animations.Animation;
 import core.Game;
+import entities.Entity;
 import grouping.Pack;
+import media.ImageLoader;
 
 public class Follower extends Frog{
 	
@@ -13,11 +18,14 @@ public class Follower extends Frog{
 	private int direction;
 	private Pack myPack;
 	private Animal leader;
-	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra) {
-		super(x, y);
+	private Animal target;
+	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra, int decal) {
+		super(x, y, false);
+		colorAccent = new Color(Color.black);
 		myPack=Game.bestFrog.getPack();
 		orbital=myPack.getOrbital();
 		myPack.addFrog(this);
+		this.decal=decal;
 		if(orbital %2 == 0)
 		{
 			direction = 1;
@@ -32,10 +40,10 @@ public class Follower extends Frog{
 		this.color=color;
 		this.colorExtra=colorExtra;
 		this.colorAccent=colorAccent;
-		// TODO Auto-generated constructor stub
 	}
 	public Follower(float x, float y) {
-		super(x, y);
+		super(x, y, false);
+		colorAccent = new Color(Color.black);
 		myPack=Game.bestFrog.getPack();
 		orbital=myPack.getOrbital();
 		myPack.addFrog(this);
@@ -50,10 +58,10 @@ public class Follower extends Frog{
 		this.jumpDistance=myPack.getJumpDist();
 		this.jumpTimer=myPack.getJumpTimer();
 		leader=myPack.alphaFrog;
-		// TODO Auto-generated constructor stub
 	}
 	public Follower(float x, float y, Pack pack) {
-		super(x, y);
+		super(x, y, false);
+		colorAccent = new Color(Color.black);
 		myPack=pack;
 		orbital=myPack.getOrbital();
 		myPack.addFrog(this);
@@ -68,48 +76,115 @@ public class Follower extends Frog{
 		this.jumpDistance=myPack.getJumpDist();
 		this.jumpTimer=myPack.getJumpTimer();
 		leader=myPack.alphaFrog;
-		// TODO Auto-generated constructor stub
 	}
 	public void update() {
-		if(inOrbital() && !behindLeader())
+		if(myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog)myPack.alphaFrog).idle==true)
 		{
-			if(jumpCooldown<-1)
+			if((myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog)myPack.alphaFrog).idle==true))
 			{
-				startJump();
+				resetJump();
 			}
-			this.setAngle((float) (getAngleTo(leader) + Math.PI/2*direction));
-			
-//			startJump((float)(xPos+50*Math.cos(angle)), (float)(yPos+50*Math.sin(angle)));
+			if(inOrbital()) //&& !behindLeader())
+			{
+				if(jumpCooldown<-1)
+				{
+					startJump((float) (getAngleTo(leader) + Math.PI/2*direction));
+				}
+			}
+			else {
+
+				if(getDistance(leader)<orbital*ORBITAL_SIZE)
+				{
+					startJump((float) (getAngleTo(leader) - Math.PI));
+				}
+				else
+				{
+					startJump((float) (getAngleTo(leader)));
+				}
+					
+			}
 		}
-		else {
-			if(getDistance(leader)-orbital*ORBITAL_SIZE>2000)
-			{
-//				startSuperJump();
-			}
-			if(getDistance(leader)<orbital*ORBITAL_SIZE)
-			{
-				this.setAngle((float) (getAngleTo(leader) - Math.PI));
-				startJump();
-			}
-			else
-			{
-				this.setAngle((float) (getAngleTo(leader)));
-				startJump();
-			}
-				
-		}
+		
 		super.update();
 	}
+	public void attackClosest()
+	{
+		Pack enemy=null;
+		if(attackTimer>attackSpeed)
+		{	
+			if(this instanceof Follower)
+			{
+				enemy = myPack.getEnemyPack();
+			}
+			if (enemy != null)
+			{
+				ArrayList<Frog> enemyFrogs = enemy.getFrogs();
+				Animal target=null;
+			
+				float minDist=300;
+				for(Frog f: enemyFrogs)
+				{
+					if(this.getDistance(f)<minDist)
+					{
+						target=f;
+						minDist=this.getDistance(f);
+					}
+				}
+				Animal a=enemy.alphaFrog;
+				if(this.getDistance(a)<minDist)
+				{
+					target=a;
+				}
+				
+				
+				if(target != null)
+				{
+					this.target=target;
+					target.curHealth-=attackDamage;
+					attackTimer =0;
+				}
+			}
+		}
+	}
 	public void render(Graphics g) {
-		g.setColor(Color.white);
-		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
-		g.setColor(Color.black);
-		g.drawLine(xPos, yPos, (float)(xPos+20*Math.cos(getAngle())), (float)(yPos+20*Math.sin(getAngle())));
+		
 		super.render(g);
 	}
 	public boolean inOrbital()
 	{
-		return getDistance(leader)<(orbital*ORBITAL_SIZE)+ORBITAL_SIZE/2 && getDistance(leader)>(orbital*ORBITAL_SIZE)-ORBITAL_SIZE/2;
+		return getDistance(leader)<(orbital*ORBITAL_SIZE)+ORBITAL_SIZE/10 && getDistance(leader)>(orbital*ORBITAL_SIZE)-ORBITAL_SIZE/10;
+	}
+	public void moveToClosestEnemy()
+	{
+		Pack enemys= myPack.getEnemyPack();
+			if(enemys != null)
+			{
+				float minDist=1000000000;
+				Animal target=null;
+				ArrayList<Frog> efrg= enemys.getFrogs();
+				for(Animal a: efrg)
+				{
+					if(getDistance(a)<minDist)
+					{
+						target=a;
+						minDist=getDistance(a);
+					}
+				}
+				Animal e=myPack.getEnemyPack().alphaFrog;
+				if(getDistance(e)<minDist)
+				{
+					target=e;
+				}
+				if(target != null)
+				{
+					startJump(target.getX(),target.getY());
+				}
+				else
+				{
+					this.xVel=0;
+					this.yVel=0;
+				}
+			}
 	}
 	public int getOrbital()
 	{
@@ -122,6 +197,11 @@ public class Follower extends Frog{
 			return this.getDistance(leader.destinationPoint)>leader.getDistance(leader.destinationPoint);
 		}
 		return false;
+	}
+	public void onDeath()
+	{
+		Game.entities.remove(this);
+		Game.animations.add(new Animation(100,100,ImageLoader.frogOne, 50));
 	}
 
 }

@@ -13,6 +13,7 @@ import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import animations.Animation;
 import entities.Entity;
 import entities.Pool;
 import entities.alive.Frog;
@@ -31,7 +32,7 @@ import media.ImageLoader;
 public class Game extends BasicGameState 
 {	
 	private int id;
-	private StateBasedGame sbg;
+	public static StateBasedGame sbg;
 	private static Camera cam;
 //	private float camX=0;
 //	private float camY=0;
@@ -46,8 +47,9 @@ public class Game extends BasicGameState
 	private int mouseY;
 	//ENTITIES
 	public static ArrayList<Entity> entities;
-	private static ArrayList<Pack> packs;
+	public static ArrayList<Pack> packs;
 	private static ArrayList<Pool> pools;
+	public static ArrayList<Animation> animations;
 	
 	public Game(int id) { this.id = id; }
 	
@@ -64,20 +66,18 @@ public class Game extends BasicGameState
 		entities = new ArrayList<Entity>();
 		packs = new ArrayList<Pack>();
 		pools = new ArrayList<Pool>();
+		animations = new ArrayList<Animation>();
 		bestFrog= new PlayerFrog(Main.getScreenWidth()/2,Main.getScreenHeight()/2);
 		entities.add(bestFrog);
-		entities.add(new Wanderer(500,500));
 //		for(int i=0;i<10;i++)
 //		{
 //			entities.add(new Rock(100*i,200*i));
 //		}
 		entities.add(new Tree(-100,1000));
-		Pool newPool = new Pool(000,000);
-		pools.add(newPool);
-		entities.add(newPool);
+		createPool(-100,-100);
 		cam=new Camera(this);
 		map=new Map(this);
-//		setupPacks();   
+		setupPacks();   
 
 	}
 
@@ -99,12 +99,17 @@ public class Game extends BasicGameState
 		if(bestFrog.getDistance(new Point(mouseX,mouseY))>150)
 		{
 			bestFrog.startJump(mouseX,mouseY);
-			bestFrog.getPack().moveAll(mouseX,mouseY);
+			if(bestFrog.playerPack.battling=false)
+			{
+				bestFrog.getPack().moveAll(mouseX,mouseY);
+			}
 			bestFrog.setDestPoint(new Point(mouseX,mouseY));
+			bestFrog.idle=false;
 		}
 		else
 		{
-			bestFrog.setDestPoint(null);
+			bestFrog.idle=true;
+//			bestFrog.setDestPoint(null);
 		}
 //		if(time%20==0)
 //		{
@@ -113,6 +118,10 @@ public class Game extends BasicGameState
 		for(int i=0; i<entities.size(); i++)
 		{
 			entities.get(i).update();
+		}
+		for(int i=0; i<animations.size(); i++)
+		{
+			animations.get(i).update();
 		}
 //		for(Entity e: entities) {
 //			e.update();
@@ -123,8 +132,11 @@ public class Game extends BasicGameState
 	{
 		g.translate(-cam.getX(), -cam.getY());
 		map.render(g);
-		for(Entity e: entities) {
-			e.render(g);
+		for (int i = entities.size() - 1; i >= 0; i--) {
+			entities.get(i).render(g);
+		}
+		for(int i=0; i<animations.size(); i++) {
+			animations.get(i).render(g);
 		}
 	}
 
@@ -162,9 +174,21 @@ public class Game extends BasicGameState
 	{
 		entities.remove(guy);
 	}
+	public static void addPack(Pack guy)
+	{
+		packs.add(guy);
+	}
+	public static void removePack(Pack guy)
+	{
+		packs.remove(guy);
+	}
 	public static void removePool(Pool p)
 	{
 		pools.remove(p);
+	}
+	public static void removeAnimation(Animation a)
+	{
+		animations.remove(a);
 	}
 	public int getID() { return id; }
 	public static float getCamX() { return cam.getX(); }
@@ -177,35 +201,50 @@ public class Game extends BasicGameState
 	{
 		return pools;
 	}
+	public static ArrayList<Pack> getPacks()
+	{
+		return packs;
+	}
 	private void setupPacks()
 	{
-		KingToad kingToad1= new KingToad(-100,-300, enemyPack1);
-		KingToad kingToad2= new KingToad(-1000,-1000, enemyPack2);
-		KingToad kingToad3= new KingToad(-2000,-2000, enemyPack3);
+		
+		KingToad kingToad1= new KingToad(-10000,-30000, enemyPack1);
+		KingToad kingToad2= new KingToad(15000,30000, enemyPack2);
+		KingToad kingToad3= new KingToad(20000,20000, enemyPack3);
 		entities.add(kingToad1); entities.add(kingToad2); entities.add(kingToad3);
 		enemyPack1= new Pack(kingToad1);
 		enemyPack1.boostAll(1.2f);
+		kingToad1.setPack(enemyPack1);
 		for(int i=0;i<10;i++)
 		{
-			Frog temp= new Follower(-100*i,-100,enemyPack1);
+			Frog temp= new Follower(-10000+i*10,-30000,enemyPack1);
 			entities.add(temp);
 			enemyPack1.addFrog(temp);
 		}
 		enemyPack2= new Pack(kingToad2);
 		enemyPack2.boostAll(1.4f);
+		kingToad2.setPack(enemyPack2);
 		for(int i=0;i<20;i++)
 		{
-			Frog temp= new Follower(-1000-100*i,-1000,enemyPack2);
+			Frog temp= new Follower(15000+i*10,30000,enemyPack2);
 			entities.add(temp);
 			enemyPack2.addFrog(temp);
 		}
 		enemyPack3= new Pack(kingToad3);
 		enemyPack3.boostAll(2.6f);
+		enemyPack3.boostAllAttack(10);
+		kingToad3.setPack(enemyPack3);
 		for(int i=0;i<30;i++)
 		{
-			Frog temp= new Follower(-3000-100*i,-3000,enemyPack3);
+			Frog temp= new Follower(20000+i*10,20000,enemyPack3);
 			entities.add(temp);
 			enemyPack3.addFrog(temp);
 		}
 	}
+	public static void createPool(float x, float y){
+		Pool newPool = new Pool(x,y);
+		pools.add(newPool);
+		entities.add(newPool);
+	}
+	
 }
