@@ -20,8 +20,7 @@ public class Wanderer extends Frog{
 		super.update();
 	}
 	public void render(Graphics g) {
-		g.setColor(Color.blue);
-		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
+	
 		super.render(g);
 	}
 	public void onDeath()

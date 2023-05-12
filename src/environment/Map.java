@@ -49,9 +49,9 @@ public class Map {
     }
 
     public void zoom(float scale) {
-        TILE_SIZE *= scale;
+//        TILE_SIZE *= scale;
         System.out.println("TILE_SIZE: " + TILE_SIZE);
-        ImageLoader.scaleImage(TILE_SIZE, TILE_SIZE);
+//        ImageLoader.scaleImage(TILE_SIZE, TILE_SIZE);
         System.out.println("Imagex: " + ImageLoader.grassOne.getWidth() + " Imagey: " + ImageLoader.grassOne.getHeight());
     }
 
@@ -81,7 +81,7 @@ public class Map {
             }
         }
         if (Game.getCamX() + Main.getScreenWidth() > RightX) {
-            xAdd = (int) ((Game.getCamX() + Main.getScreenWidth() - RightX) / TILE_SIZE) + 1;
+            xAdd = (int) (((Game.getCamX() + Main.getScreenWidth())*Game.zoomScale - RightX) / TILE_SIZE) + 1;
             for (float i = RightX; i < Game.getCamX() + Main.getScreenWidth() + TILE_SIZE; i += TILE_SIZE) {
                 for (float j = TopY; j < BottomY + TILE_SIZE; j += TILE_SIZE) {
                 	addTile(i,j);
@@ -138,4 +138,11 @@ public class Map {
     public ArrayList<Tile> getTiles() {
         return tiles;
     }
+
+	public void badRender(Graphics g) {
+		for (Tile t : tiles) {
+                t.render(g);
+            }
+        
+	}
 }

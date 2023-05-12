@@ -24,11 +24,13 @@ public class KingToad extends Animal {
 		super(x,y,TOAD_SIZE,TOAD_SIZE);  
 		myArmy=army;
 		jumpTimer=30; jumpDistance=200; canJump=true; attackDamage+=10000;
-		flying=true;}
+//		flying=true;
+		}
 	public KingToad (float x, float y) { 
 		super(x,y,TOAD_SIZE,TOAD_SIZE);  
 		jumpTimer=30; jumpDistance=200; canJump=true; attackDamage+=10000;
-		flying=true;}
+//		flying=true;
+		}
 	public void setPack(Pack p)
 	{
 		myArmy=p;

@@ -14,11 +14,12 @@ public class Follower extends Frog{
 	public static final float ORBITAL_SIZE=210; 
 	private int orbital;
 	private int direction;
-	private Pack myPack;
+	public Pack myPack;
 	private Animal leader;
 	private Animal target;
 	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra) {
 		super(x, y);
+		colorAccent = new Color(Color.black);
 		myPack=Game.bestFrog.getPack();
 		orbital=myPack.getOrbital();
 		myPack.addFrog(this);
@@ -39,6 +40,7 @@ public class Follower extends Frog{
 	}
 	public Follower(float x, float y) {
 		super(x, y);
+		colorAccent = new Color(Color.black);
 		myPack=Game.bestFrog.getPack();
 		orbital=myPack.getOrbital();
 		myPack.addFrog(this);
@@ -56,6 +58,7 @@ public class Follower extends Frog{
 	}
 	public Follower(float x, float y, Pack pack) {
 		super(x, y);
+		colorAccent = new Color(Color.black);
 		myPack=pack;
 		orbital=myPack.getOrbital();
 		myPack.addFrog(this);
@@ -72,12 +75,9 @@ public class Follower extends Frog{
 		leader=myPack.alphaFrog;
 	}
 	public void update() {
-		if(myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog)myPack.alphaFrog).idle==true)
+		if(myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog)myPack.alphaFrog).idle==true && !myPack.battling)
 		{
-			if((myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog)myPack.alphaFrog).idle==true))
-			{
-				resetJump();
-			}
+			resetJump();
 			if(inOrbital()) //&& !behindLeader())
 			{
 				if(jumpCooldown<-1)
@@ -98,7 +98,6 @@ public class Follower extends Frog{
 					
 			}
 		}
-		
 		super.update();
 	}
 	public void attackClosest()
@@ -141,16 +140,6 @@ public class Follower extends Frog{
 		}
 	}
 	public void render(Graphics g) {
-		g.setColor(Color.white);
-		g.fillOval(xPos, yPos, FROG_SIZE, FROG_SIZE);
-		g.setColor(Color.black);
-		g.drawLine(xPos, yPos, (float)(xPos+20*Math.cos(getAngle())), (float)(yPos+20*Math.sin(getAngle())));
-		
-		if(attackTimer<40 && target != null)
-		{
-			g.setColor(Color.pink);
-			g.drawLine(this.getCenterX(),this.getCenterY(), target.getCenterX(),target.getCenterY());
-		}
 		
 		super.render(g);
 	}
@@ -181,13 +170,17 @@ public class Follower extends Frog{
 				}
 				if(target != null)
 				{
+					resetJump();
 					startJump(target.getX(),target.getY());
 				}
 				else
 				{
-					this.xVel=0;
-					this.yVel=0;
+					this.startJump(0);
 				}
+			}
+			else
+			{
+				System.out.println("STUPPID");
 			}
 	}
 	public int getOrbital()

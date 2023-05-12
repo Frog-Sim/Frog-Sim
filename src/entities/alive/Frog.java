@@ -37,14 +37,30 @@ public class Frog extends Animal{
 		jumpDistance=200; 
 		canJump=true; 
 		sheet=ImageLoader.frogOne;
-		image=sheet.getSprite(0,0);
-		imageAccent=sheet.getSprite(0, 1);
-		imageExtra=sheet.getSprite(0, (int)(Math.random()*3+2));
-		imageJump=sheet.getSprite(0, 5);
-		color=new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
-		colorAccent=new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
-		colorExtra=new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
+		image = sheet.getSprite(0, 0);
+        imageAccent = sheet.getSprite(0, 1);
+        imageExtra = sheet.getSprite(0, (int) (Math.random() * 3 + 2));
+        imageJump = sheet.getSprite(0, 5);
+        color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
+        colorAccent = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
+        colorExtra = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
 	}
+	
+	public Frog(float x, float y, boolean player) {
+        super(x, y, FROG_SIZE, FROG_SIZE);
+        jumpTimer = 30;
+        jumpDistance = 200;
+        canJump = true;
+        sheet = ImageLoader.frogOne;
+        image = sheet.getSprite(0, 0);
+        imageAccent = sheet.getSprite(0, 1);
+        imageExtra = sheet.getSprite(0, 6);
+        imageJump = sheet.getSprite(0, 5);
+        this.color = new Color(Color.white);
+        this.colorAccent = new Color(Color.black);
+        this.colorExtra = new Color(Color.white);
+    }
+	
 	public void update() {
 		
 		if(isJumping)
@@ -180,6 +196,8 @@ public class Frog extends Animal{
 	public void resetJump()
 	{
 		isJumping=false;
+		this.xVel=0;
+		this.yVel=0;
 		jumpCooldown=-100;
 	}
 	@Override

@@ -36,12 +36,14 @@ public class Game extends BasicGameState
 //	private float camX=0;
 //	private float camY=0;
 	private Map map;
-	public static float zoomScale;
+	public static float zoomScale=1;
+	public static float idealZoomScale=1;
 	public static PlayerFrog bestFrog;
 	public static Pack enemyPack1;
 	public static Pack enemyPack2;
 	public static Pack enemyPack3;
 	public static int time;
+	final private float ZOOM_RATE=0.001f;
 	private int mouseX;
 	private int mouseY;
 	//ENTITIES
@@ -61,6 +63,7 @@ public class Game extends BasicGameState
 			e.printStackTrace();
 		} 
 		zoomScale = 1;
+		idealZoomScale=1;
 		entities = new ArrayList<Entity>();
 		packs = new ArrayList<Pack>();
 		pools = new ArrayList<Pool>();
@@ -81,14 +84,19 @@ public class Game extends BasicGameState
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException
 	{	
-		mouseX=Mouse.getX();
-		mouseY=Mouse.getY();
+		updateZoom();
+		
+		mouseX=(int) (Mouse.getX());
+		mouseY=(int) (Mouse.getY());
 		if (mouseY > Main.getScreenHeight()/2) {
 	    	mouseY = Main.getScreenHeight()/2 - (mouseY - (Main.getScreenHeight()/2));
 	    } 
 		else if (mouseY < Main.getScreenHeight()/2) {
 	    	mouseY = Main.getScreenHeight()/2 + (-mouseY + (Main.getScreenHeight()/2));
 	    }
+		mouseX/=zoomScale;
+		mouseY/=zoomScale;
+		
 		mouseX+=cam.getX();
 		mouseY+=cam.getY();
 		time++;
@@ -107,28 +115,38 @@ public class Game extends BasicGameState
 		else
 		{
 			bestFrog.idle=true;
-//			bestFrog.setDestPoint(null);
 		}
-//		if(time%20==0)
-//		{
-//			entities.add(new Wanderer(mouseX,mouseY));
-//		}
+
 		for(int i=0; i<entities.size(); i++)
 		{
 			entities.get(i).update();
 		}
-//		for(Entity e: entities) {
-//			e.update();
-//		}
+	}
+
+	private void updateZoom() {
+		idealZoomScale=(float) (Math.pow(2, -(float)bestFrog.getPack().getFrogs().size()/100));
+		if(zoomScale < idealZoomScale)
+		{
+			zoomScale = Math.min(zoomScale + ZOOM_RATE, idealZoomScale);
+		}
+		
+		if(zoomScale > idealZoomScale)
+		{
+			zoomScale = Math.max(zoomScale - ZOOM_RATE, idealZoomScale);
+		}
+		zoom(1-((zoomScale-idealZoomScale)/2));
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException 
 	{
+		g.scale(zoomScale,zoomScale);
 		g.translate(-cam.getX(), -cam.getY());
-		map.render(g);
-		for(Entity e: entities) {
-			e.render(g);
-		}
+		map.badRender(g);
+		for (int i = entities.size() - 1; i >= 0; i--) entities.get(i).render(g);
+//		g.scale(0.1f,0.1f);
+//		g.translate(-cam.getX(), -cam.getY());
+//		map.render(g);
+//		for (int i = entities.size() - 1; i >= 0; i--) entities.get(i).render(g);
 	}
 
 	public void keyPressed(int key, char c)
@@ -151,11 +169,17 @@ public class Game extends BasicGameState
 	}
 	public void mousePressed(int button, int x, int y)
 	{
-		bestFrog.startJump(x+getCamX(), y+getCamY());
+		//bestFrog.startJump(x+getCamX(), y+getCamY());
  	}
 	public void mouseWheelMoved(int change)
 	{
-		
+		if (change > 0) {
+            zoom(1.02f);
+            //zoom in
+        } else {
+            zoom(.98f);
+            //zoom out
+        }
 	}
 	public static void addEntity(Entity guy)
 	{
@@ -192,6 +216,7 @@ public class Game extends BasicGameState
 	{
 		return packs;
 	}
+
 	private void setupPacks()
 	{
 		
@@ -233,5 +258,10 @@ public class Game extends BasicGameState
 		pools.add(newPool);
 		entities.add(newPool);
 	}
-	
+	 public void zoom(float scale) {
+	        zoomScale *= scale;
+	    }
+	 public void setZoom(float scale) {
+	        zoomScale = scale;
+	    }
 }

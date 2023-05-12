@@ -16,6 +16,6 @@ public class Water extends Biome {
     }
 
     public void render(Graphics g) {
-        g.drawImage(ImageLoader.waterOne, tile.getX() * Game.zoomScale, tile.getY() * Game.zoomScale);
+        g.drawImage(ImageLoader.waterOne, tile.getX() , tile.getY() );
     }
 }

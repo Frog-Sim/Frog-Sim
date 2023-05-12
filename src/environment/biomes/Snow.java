@@ -16,6 +16,6 @@ public class Snow extends Biome {
     }
 
     public void render(Graphics g) {
-        g.drawImage(ImageLoader.snowOne, tile.getX() * Game.zoomScale, tile.getY() * Game.zoomScale);
+        g.drawImage(ImageLoader.snowOne, tile.getX(), tile.getY() );
     }
 }

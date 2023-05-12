@@ -48,19 +48,19 @@ public class ImageLoader {
         waterOne=waterOne.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
         images.add(waterOne);
         
-        frogOne=new SpriteSheet(loadImage("res/frogOne.png").getScaledCopy(100, 600), 100, 100);
+        frogOne = new SpriteSheet(loadImage("res/frogOne.png").getScaledCopy(100, 700), 100, 100);
     }
 
-    public static void scaleImage(int x, int y) {
-        grassOne = grassOne.getScaledCopy(x, y);
-        grassTwo = grassTwo.getScaledCopy(x, y);
-        snowOne = snowOne.getScaledCopy(x, y);
-        bigTree = bigTree.getScaledCopy(x, y);
-        clearBigTree = clearBigTree.getScaledCopy(x, y);
-        waterOne=waterOne.getScaledCopy(x, y);
-//        grassOne=grassOne.getScaledCopy(x,y);
-//        grassOne=grassOne.getScaledCopy(x,y);
-    }
+//    public static void scaleImage(int x, int y) {
+//        grassOne = grassOne.getScaledCopy(x, y);
+//        grassTwo = grassTwo.getScaledCopy(x, y);
+//        snowOne = snowOne.getScaledCopy(x, y);
+//        bigTree = bigTree.getScaledCopy(x, y);
+//        clearBigTree = clearBigTree.getScaledCopy(x, y);
+//        waterOne=waterOne.getScaledCopy(x, y);
+////        grassOne=grassOne.getScaledCopy(x,y);
+////        grassOne=grassOne.getScaledCopy(x,y);
+//    }
     public static Image loadImage(String path) throws IOException, SlickException {
         BufferedImage bufferedImage = ImageIO.read(new File(path));
         Texture texture = BufferedImageUtil.getTexture("", bufferedImage);
