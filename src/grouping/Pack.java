@@ -168,10 +168,6 @@ public class Pack {
 			((KingToad) alphaFrog).modifyAttackSpeed(multi);
 		}
 	}
-	public float getAttackSpeed()
-	{
-		return attackSpeedBonus;
-	}
 	public void modifyJumpTimer(float multi)
 	{
 		moveTimer*=multi;

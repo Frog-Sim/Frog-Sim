@@ -7,7 +7,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Point;
 
 import core.Game;
-import core.Main;
 import entities.Pool;
 import grouping.Pack;
 
@@ -70,7 +69,7 @@ public class PlayerFrog extends Frog{
 	public void onDeath()
 	{
 		Game.entities.remove(this);
-		Game.sbg.enterState(Main.DEATH_ID);
+		
 	}
 
 	

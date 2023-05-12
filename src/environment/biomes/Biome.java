@@ -6,7 +6,6 @@ import environment.Tile;
 
 
 public abstract class Biome {
-	public final static float BIOME_SCALE = .0025f;
 	protected Tile tile;
 	protected float noiseValue;
 	protected float bigNoiseValue;

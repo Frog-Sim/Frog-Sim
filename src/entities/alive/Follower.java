@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import animations.Animation;
 import core.Game;
 import entities.Entity;
 import grouping.Pack;
-import media.ImageLoader;
 
 public class Follower extends Frog{
 	
@@ -19,13 +17,12 @@ public class Follower extends Frog{
 	private Pack myPack;
 	private Animal leader;
 	private Animal target;
-	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra, int decal) {
-		super(x, y, false);
+	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra) {
+		super(x, y);
 		colorAccent = new Color(Color.black);
 		myPack=Game.bestFrog.getPack();
 		orbital=myPack.getOrbital();
 		myPack.addFrog(this);
-		this.decal=decal;
 		if(orbital %2 == 0)
 		{
 			direction = 1;
@@ -42,7 +39,7 @@ public class Follower extends Frog{
 		this.colorAccent=colorAccent;
 	}
 	public Follower(float x, float y) {
-		super(x, y, false);
+		super(x, y);
 		colorAccent = new Color(Color.black);
 		myPack=Game.bestFrog.getPack();
 		orbital=myPack.getOrbital();
@@ -60,7 +57,7 @@ public class Follower extends Frog{
 		leader=myPack.alphaFrog;
 	}
 	public Follower(float x, float y, Pack pack) {
-		super(x, y, false);
+		super(x, y);
 		colorAccent = new Color(Color.black);
 		myPack=pack;
 		orbital=myPack.getOrbital();
@@ -201,7 +198,6 @@ public class Follower extends Frog{
 	public void onDeath()
 	{
 		Game.entities.remove(this);
-		Game.animations.add(new Animation(100,100,ImageLoader.frogOne, 50));
 	}
 
 }
