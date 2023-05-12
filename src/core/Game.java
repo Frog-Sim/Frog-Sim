@@ -13,6 +13,7 @@ import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import animations.Animation;
 import entities.Entity;
 import entities.Pool;
 import entities.alive.Frog;
@@ -31,7 +32,7 @@ import media.ImageLoader;
 public class Game extends BasicGameState 
 {	
 	private int id;
-	private StateBasedGame sbg;
+	public static StateBasedGame sbg;
 	private static Camera cam;
 //	private float camX=0;
 //	private float camY=0;
@@ -48,6 +49,7 @@ public class Game extends BasicGameState
 	public static ArrayList<Entity> entities;
 	public static ArrayList<Pack> packs;
 	private static ArrayList<Pool> pools;
+	public static ArrayList<Animation> animations;
 	
 	public Game(int id) { this.id = id; }
 	
@@ -64,9 +66,9 @@ public class Game extends BasicGameState
 		entities = new ArrayList<Entity>();
 		packs = new ArrayList<Pack>();
 		pools = new ArrayList<Pool>();
+		animations = new ArrayList<Animation>();
 		bestFrog= new PlayerFrog(Main.getScreenWidth()/2,Main.getScreenHeight()/2);
 		entities.add(bestFrog);
-		entities.add(new Wanderer(500,500));
 //		for(int i=0;i<10;i++)
 //		{
 //			entities.add(new Rock(100*i,200*i));
@@ -117,6 +119,10 @@ public class Game extends BasicGameState
 		{
 			entities.get(i).update();
 		}
+		for(int i=0; i<animations.size(); i++)
+		{
+			animations.get(i).update();
+		}
 //		for(Entity e: entities) {
 //			e.update();
 //		}
@@ -126,7 +132,12 @@ public class Game extends BasicGameState
 	{
 		g.translate(-cam.getX(), -cam.getY());
 		map.render(g);
-		for (int i = entities.size() - 1; i >= 0; i--) entities.get(i).render(g);
+		for (int i = entities.size() - 1; i >= 0; i--) {
+			entities.get(i).render(g);
+		}
+		for(int i=0; i<animations.size(); i++) {
+			animations.get(i).render(g);
+		}
 	}
 
 	public void keyPressed(int key, char c)
@@ -174,6 +185,10 @@ public class Game extends BasicGameState
 	public static void removePool(Pool p)
 	{
 		pools.remove(p);
+	}
+	public static void removeAnimation(Animation a)
+	{
+		animations.remove(a);
 	}
 	public int getID() { return id; }
 	public static float getCamX() { return cam.getX(); }

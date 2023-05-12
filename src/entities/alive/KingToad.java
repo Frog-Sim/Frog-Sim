@@ -6,8 +6,10 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Point;
 
+import animations.Animation;
 import core.Game;
 import grouping.Pack;
+import media.ImageLoader;
 
 public class KingToad extends Animal {
 	final static float TOAD_SIZE=256;
@@ -187,5 +189,6 @@ public class KingToad extends Animal {
 		Game.bestFrog.playerPack.randomBoost(1.01f);
 		myArmy.disband();
 		Game.entities.remove(this);
+		Game.animations.add(new Animation(xPos,yPos,ImageLoader.frogOne, 50));
 	}
 }
