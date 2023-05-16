@@ -28,7 +28,8 @@ public class PlayerFrog extends Frog{
 //		g.drawString("Angle: "+angle, xPos-10, yPos-50);
 //		float testRadius= (float) Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2));
 //		g.drawOval(getCenterX()-testRadius, getCenterY()-testRadius, testRadius*2, testRadius*2);
-		super.render(g);
+
+			super.render(g);
 	}
 	public void update()
 	{

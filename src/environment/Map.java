@@ -11,16 +11,34 @@ import java.util.ArrayList;
 public class Map {
     public static int TILE_SIZE = 250;
     private static FastNoiseLite noise;
+    private static FastNoiseLite noiseTwo;
+    private static FastNoiseLite grassNoise;
+    private static FastNoiseLite snowNoise;
+    private static FastNoiseLite waterNoise;
+    private static FastNoiseLite desertNoise;
     private static ArrayList<Tile> tiles;
     public int seed;
 
     public Map(Game g) {
         seed = (int) (Math.random() * 2000);
         noise = new FastNoiseLite(seed);
+        seed = (int) (Math.random() * 2000);
+        noiseTwo = new FastNoiseLite(seed);
+        seed = (int) (Math.random() * 2000);
+        grassNoise = new FastNoiseLite(seed);
+        seed = (int) (Math.random() * 2000);
+        snowNoise = new FastNoiseLite(seed);
+        seed = (int) (Math.random() * 2000);
+        waterNoise = new FastNoiseLite(seed);
+        seed = (int) (Math.random() * 2000);
+        desertNoise = new FastNoiseLite(seed);
+
         noise.SetFractalType(FastNoiseLite.FractalType.PingPong);
+        noiseTwo.SetFractalType(FastNoiseLite.FractalType.PingPong);
         tiles = new ArrayList<Tile>();
         generateWorld();
     }
+
 
     public static int getTilesHorizontal() {
         return Main.getScreenWidth() / TILE_SIZE;
@@ -32,6 +50,21 @@ public class Map {
 
     public static FastNoiseLite getNoise() {
         return noise;
+    }
+    public static FastNoiseLite getNoiseTwo() {
+        return noiseTwo;
+    }
+    public static FastNoiseLite getNoiseGrass() {
+        return grassNoise;
+    }
+    public static FastNoiseLite getNoiseSnow() {
+        return snowNoise;
+    }
+    public static FastNoiseLite getNoiseWater() {
+        return waterNoise;
+    }
+    public static FastNoiseLite getNoiseDesert() {
+        return desertNoise;
     }
 
     public void generateWorld() {
