@@ -31,7 +31,7 @@ public class Title extends BasicGameState {
         this.sbg = sbg;
         y = Main.getScreenHeight() / 2;
         x = Main.getScreenWidth() / 2;
-        frog = new Image("res/pikachu.jpg");
+        frog = new Image("res/grassOne.png");
         scaleNum = 128;
         tick = 0;
         angle = 0;
@@ -67,8 +67,6 @@ public class Title extends BasicGameState {
         // This code renders shapes and images every frame.
         g.drawRect(10, 10, 30, 30);
         g.drawImage(frog, Main.getScreenWidth() / 2 - frog.getWidth() / 2, Main.getScreenHeight() / 2 - frog.getHeight() / 2);
-        g.drawString("Frog Sim", 100, 100);
-        g.drawString("" + scaleNum, 10, 80);
     }
 
     public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
