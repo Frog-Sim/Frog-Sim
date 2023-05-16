@@ -39,7 +39,7 @@ public class PlayerFrog extends Frog {
     }
 
     public void update() {
-        curHealth -= 2;
+//        curHealth -= 4;
         super.update();
 //        tick++;
 //        if (spinner) {

@@ -32,6 +32,7 @@ public class ImageLoader {
     public static SpriteSheet frogOne;
     public static Image deathSkull;
     public static Image deathSmoke;
+    public static Image deathToad;
     private static Image frogOneImage;
     private static ArrayList<Image> images;
 
@@ -82,6 +83,8 @@ public class ImageLoader {
         images.add(deathSkull);
         deathSmoke = loadImage("res/smoke.png");
         images.add(deathSmoke);
+        deathToad = loadImage("res/deadToad.png").getScaledCopy(256, 256);
+        images.add(deathToad);
 
         frogOne = new SpriteSheet(loadImage("res/frogOne.png").getScaledCopy(100, 700), 100, 100);
     }

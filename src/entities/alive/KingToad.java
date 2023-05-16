@@ -1,6 +1,7 @@
 package entities.alive;
 
 import core.Game;
+import entities.death.KingToadDeath;
 import grouping.Pack;
 import media.ImageLoader;
 import org.newdawn.slick.Color;
@@ -201,8 +202,10 @@ public class KingToad extends Animal {
     }
 
     public void onDeath() {
+        KingToadDeath death = new KingToadDeath(this.xPos, this.yPos, 20, 20);
         Game.bestFrog.playerPack.randomBoost(1.01f);
         myArmy.disband();
+        Game.entities.add(death);
         Game.entities.remove(this);
     }
 }

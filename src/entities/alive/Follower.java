@@ -68,6 +68,7 @@ public class Follower extends Frog {
     }
 
     public void update() {
+        super.update();
         if (myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog) myPack.alphaFrog).idle) {
             if ((myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog) myPack.alphaFrog).idle)) {
                 resetJump();
@@ -88,7 +89,7 @@ public class Follower extends Frog {
             }
         }
 
-        super.update();
+
     }
 
     public void attackClosest() {
