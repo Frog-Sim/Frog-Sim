@@ -21,6 +21,8 @@ public class Follower extends Frog{
 	private Animal leader;
 	private Animal target;
 	private boolean spinner;
+	private float deathAngle;
+	private float deathAccel;
 	private int tick; 
 	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra, int extra) {
 		super(x, y, extra);
@@ -83,6 +85,8 @@ public class Follower extends Frog{
 		if (spinner) {
             tick++;
             this.setAngle(tick);
+            xPos+=(float)(deathAccel*Math.cos(deathAngle));
+			yPos+=(float)(deathAccel*Math.sin(deathAngle));
             this.image = this.image.getScaledCopy(this.image.getWidth() + tick, this.image.getHeight() + tick);
             this.imageAccent = this.imageAccent.getScaledCopy(this.imageAccent.getWidth() + tick, this.imageAccent.getHeight() + tick);
             this.imageExtra = this.imageExtra.getScaledCopy(this.imageExtra.getWidth() + tick, this.imageExtra.getHeight() + tick);
@@ -215,15 +219,15 @@ public class Follower extends Frog{
 	}
 	public void onDeath()
 	{
-		if(Math.random()<2)
+		if(Math.random()<0.9f)
 		{
 			spinner = true;
+			deathAngle=(float) (Math.random()*Math.PI);
+			deathAccel=(float)Math.random()*10;
 		}
 		else{
-			
-		
-		Game.entities.remove(this);
-		Game.animations.add(new Death(xPos,yPos));
+			Game.entities.remove(this);
+			Game.animations.add(new Death(xPos,yPos));
 		}
 		
 	}

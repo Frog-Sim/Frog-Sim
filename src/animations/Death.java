@@ -24,8 +24,6 @@ public class Death {
 		case 2:
 			skull = new Skull(xPos, yPos);
 			break;
-		case 3:
-			
 		}
 	}
 	public void update() {

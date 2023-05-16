@@ -20,7 +20,6 @@ public class Animation {
 		this.yPos=yPos;
 		this.sprite=sprite;
 		slides=sprite.getHorizontalCount();
-		System.out.println(slides);
 		timer=0;
 		curSlide=0;
 		this.slideTimer=slideTimer;

@@ -54,6 +54,10 @@ public abstract class Animal extends Entity{
 	}
 	public void render(Graphics g)
 	{
+		if(curHealth<0)
+		{
+			return;
+		}
 		float opacity = 1-(curHealth/maxHealth);
 		if(curHealth<maxHealth)
 		{

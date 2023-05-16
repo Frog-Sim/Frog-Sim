@@ -251,10 +251,14 @@ public class Frog extends Animal{
 	}
 	public void resetJump()
 	{
-		isJumping=false;
-		this.xVel=0;
-		this.yVel=0;
-		jumpCooldown=-100;
+		if(Math.random()<0.1f)
+		{
+			isJumping=false;
+			this.xVel=0;
+			this.yVel=0;
+			jumpCooldown=-100;
+		}
+		
 	}
 	@Override
 	public void onDeath() {
