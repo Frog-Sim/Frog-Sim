@@ -13,24 +13,44 @@ public class Animation {
 	protected int timer;
 	protected int slideTimer;
 	protected int curSlide;
+	protected boolean alive;
 	
 	public Animation(float xPos, float yPos, SpriteSheet sprite, int slideTimer) {
 		this.xPos=xPos;
 		this.yPos=yPos;
 		this.sprite=sprite;
-		slides=sprite.getVerticalCount();
+		slides=sprite.getHorizontalCount();
+		System.out.println(slides);
 		timer=0;
 		curSlide=0;
 		this.slideTimer=slideTimer;
+		alive=true;
+	}
+	
+	public Animation(float xPos, float yPos, int slideTimer) {
+		this.xPos=xPos;
+		this.yPos=yPos;
+		timer=0;
+		curSlide=0;
+		this.slideTimer=slideTimer;
+		alive=true;
 	}
 	
 	public void update() {
 		timer++;
 		if(timer%slideTimer==0) curSlide++;
-		if(curSlide>=slides) Game.removeAnimation(this);
+		if(curSlide>=slides) alive=false;
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(sprite.getSprite(0, curSlide), xPos, yPos);
+		if(curSlide<slides) {
+		g.drawImage(sprite.getSprite(curSlide, 0), xPos, yPos);
+		}
 	}
+	
+	public void setSprite(SpriteSheet sprite) {
+		this.sprite=sprite;
+		slides=sprite.getHorizontalCount();
+	}
+	public boolean getAlive() { return alive; }
 }

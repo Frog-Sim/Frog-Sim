@@ -12,11 +12,16 @@ public class Main extends StateBasedGame {
     public static final int GAME_ID = 2;
     public static final int MAP_ID = 3;
     public static final int PAUSE_ID = 4;
+    public static final int DEATH_ID = 5;
+    public static final int END_ID = 6;
     private static AppGameContainer appgc;
     private final BasicGameState title;
     private final BasicGameState map;
     private final BasicGameState pause;
     public BasicGameState game;
+    private final BasicGameState death;
+    private final BasicGameState end;
+    
 
     public Main(String name) {
         super(name);
@@ -24,6 +29,8 @@ public class Main extends StateBasedGame {
         game = new Game(GAME_ID);
         map = new MapView(MAP_ID);
         pause = new Pause(PAUSE_ID);
+        death = new DeathScreen(DEATH_ID);
+        end = new End(END_ID);
     }
 
     public static int getScreenWidth() {
@@ -56,5 +63,7 @@ public class Main extends StateBasedGame {
         addState(game);
         addState(map);
         addState(pause);
+        addState(end);
+        addState(death);
     }
 }

@@ -5,20 +5,23 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import animations.Animation;
+import animations.Death;
 import core.Game;
 import entities.Entity;
 import grouping.Pack;
+import media.ImageLoader;
 
 public class Follower extends Frog{
 	
 	public static final float ORBITAL_SIZE=210; 
 	private int orbital;
 	private int direction;
-	private Pack myPack;
+	public Pack myPack;
 	private Animal leader;
 	private Animal target;
-	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra) {
-		super(x, y);
+	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra, int extra) {
+		super(x, y, extra);
 		colorAccent = new Color(Color.black);
 		myPack=Game.bestFrog.getPack();
 		orbital=myPack.getOrbital();
@@ -75,12 +78,9 @@ public class Follower extends Frog{
 		leader=myPack.alphaFrog;
 	}
 	public void update() {
-		if(myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog)myPack.alphaFrog).idle==true)
+		if(myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog)myPack.alphaFrog).idle==true && !myPack.battling)
 		{
-			if((myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog)myPack.alphaFrog).idle==true))
-			{
-				resetJump();
-			}
+			resetJump();
 			if(inOrbital()) //&& !behindLeader())
 			{
 				if(jumpCooldown<-1)
@@ -101,7 +101,6 @@ public class Follower extends Frog{
 					
 			}
 		}
-		
 		super.update();
 	}
 	public void attackClosest()
@@ -144,8 +143,9 @@ public class Follower extends Frog{
 		}
 	}
 	public void render(Graphics g) {
+
+			super.render(g, inOrbital());
 		
-		super.render(g);
 	}
 	public boolean inOrbital()
 	{
@@ -174,13 +174,17 @@ public class Follower extends Frog{
 				}
 				if(target != null)
 				{
+					resetJump();
 					startJump(target.getX(),target.getY());
 				}
 				else
 				{
-					this.xVel=0;
-					this.yVel=0;
+					this.startJump(0);
 				}
+			}
+			else
+			{
+				System.out.println("STUPPID");
 			}
 	}
 	public int getOrbital()
@@ -198,6 +202,7 @@ public class Follower extends Frog{
 	public void onDeath()
 	{
 		Game.entities.remove(this);
+		Game.animations.add(new Death(xPos,yPos));
 	}
 
 }
