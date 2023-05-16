@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import animations.Animation;
+import animations.Death;
 import core.Game;
 import entities.Entity;
 import grouping.Pack;
+import media.ImageLoader;
 
 public class Follower extends Frog{
 	
@@ -17,8 +20,10 @@ public class Follower extends Frog{
 	public Pack myPack;
 	private Animal leader;
 	private Animal target;
-	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra) {
-		super(x, y);
+	private boolean spinner;
+	private int tick; 
+	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra, int extra) {
+		super(x, y, extra);
 		colorAccent = new Color(Color.black);
 		myPack=Game.bestFrog.getPack();
 		orbital=myPack.getOrbital();
@@ -75,6 +80,18 @@ public class Follower extends Frog{
 		leader=myPack.alphaFrog;
 	}
 	public void update() {
+		if (spinner) {
+            tick++;
+            this.setAngle(tick);
+            this.image = this.image.getScaledCopy(this.image.getWidth() + tick, this.image.getHeight() + tick);
+            this.imageAccent = this.imageAccent.getScaledCopy(this.imageAccent.getWidth() + tick, this.imageAccent.getHeight() + tick);
+            this.imageExtra = this.imageExtra.getScaledCopy(this.imageExtra.getWidth() + tick, this.imageExtra.getHeight() + tick);
+            this.imageJump = this.imageJump.getScaledCopy(this.imageJump.getWidth() + tick, this.imageJump.getHeight() + tick);
+
+            if (tick >= 140) {
+                Game.entities.remove(this);
+            }
+        }
 		if(myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog)myPack.alphaFrog).idle==true && !myPack.battling)
 		{
 			resetJump();
@@ -140,8 +157,9 @@ public class Follower extends Frog{
 		}
 	}
 	public void render(Graphics g) {
+
+			super.render(g, inOrbital());
 		
-		super.render(g);
 	}
 	public boolean inOrbital()
 	{
@@ -197,7 +215,17 @@ public class Follower extends Frog{
 	}
 	public void onDeath()
 	{
+		if(Math.random()<2)
+		{
+			spinner = true;
+		}
+		else{
+			
+		
 		Game.entities.remove(this);
+		Game.animations.add(new Death(xPos,yPos));
+		}
+		
 	}
 
 }

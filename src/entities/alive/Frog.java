@@ -7,6 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Point;
 
+import animations.Smoke;
 import core.Game;
 import media.ImageLoader;
 
@@ -26,9 +27,11 @@ public class Frog extends Animal{
 	protected Image imageAccent;
 	protected Color colorAccent;
 	protected Image imageExtra;
+	protected int extra;
 	protected Color colorExtra;
 	protected Image imageJump;
 	protected SpriteSheet sheet;
+	protected int decal;
 	
 	public Frog(float x, float y) 
 	{ 
@@ -39,7 +42,24 @@ public class Frog extends Animal{
 		sheet=ImageLoader.frogOne;
 		image = sheet.getSprite(0, 0);
         imageAccent = sheet.getSprite(0, 1);
-        imageExtra = sheet.getSprite(0, (int) (Math.random() * 3 + 2));
+        extra=(int) (Math.random() * 3 + 2);
+        imageExtra = sheet.getSprite(0, extra);
+        imageJump = sheet.getSprite(0, 5);
+        color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
+        colorAccent = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
+        colorExtra = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
+	}
+	
+	public Frog(float x, float y, int extra) 
+	{ 
+		super(x, y, FROG_SIZE, FROG_SIZE); 
+		jumpTimer=30; 
+		jumpDistance=200; 
+		canJump=true; 
+		sheet=ImageLoader.frogOne;
+		image = sheet.getSprite(0, 0);
+        imageAccent = sheet.getSprite(0, 1);
+        imageExtra = sheet.getSprite(0, extra);
         imageJump = sheet.getSprite(0, 5);
         color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
         colorAccent = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
@@ -47,18 +67,27 @@ public class Frog extends Animal{
 	}
 	
 	public Frog(float x, float y, boolean player) {
-        super(x, y, FROG_SIZE, FROG_SIZE);
-        jumpTimer = 30;
-        jumpDistance = 200;
-        canJump = true;
-        sheet = ImageLoader.frogOne;
-        image = sheet.getSprite(0, 0);
-        imageAccent = sheet.getSprite(0, 1);
-        imageExtra = sheet.getSprite(0, 6);
-        imageJump = sheet.getSprite(0, 5);
-        this.color = new Color(Color.white);
-        this.colorAccent = new Color(Color.black);
-        this.colorExtra = new Color(Color.white);
+		super(x, y, FROG_SIZE, FROG_SIZE); 
+		jumpTimer=30; 
+		jumpDistance=200; 
+		canJump=true; 
+		sheet=ImageLoader.frogOne;
+		image = sheet.getSprite(0, 0);
+		imageAccent = sheet.getSprite(0, 1);
+
+		imageJump = sheet.getSprite(0, 5);
+		if(player) {
+			this.color = new Color(Color.white);
+			this.colorAccent = new Color(Color.black);
+			this.colorExtra = new Color(Color.white);
+			imageExtra = sheet.getSprite(0, 6);
+		} else {
+			color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
+			colorAccent = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
+			colorExtra = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
+			decal=(int)(Math.random() * 3 + 2);
+			imageExtra = sheet.getSprite(0, decal);
+		}
     }
 	
 	public void update() {
@@ -122,9 +151,12 @@ public class Frog extends Animal{
 	
 	public void render(Graphics g) {
 		super.render(g);
-		if (image != null) 
+		Image bodyImage;
+		if(isJumping) bodyImage=imageJump;
+		else bodyImage=image;
+		if (bodyImage != null) 
 		{
-			Image tmp = image.getScaledCopy(Game.zoomScale);
+			Image tmp = bodyImage.getScaledCopy(Game.zoomScale);
 			tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
 			tmp.rotate(90 + (float) ((180/Math.PI)*angle));
 			tmp.draw(xPos, yPos, color);
@@ -144,12 +176,36 @@ public class Frog extends Animal{
 			tmp.rotate(90 + (float) ((180/Math.PI)*angle));
 			tmp.draw(xPos, yPos, colorExtra);
 		}
-		if(imageJump!=null && isJumping) {
-			Image tmp = imageJump.getScaledCopy(Game.zoomScale);
+		
+	}
+	public void render(Graphics g, boolean inOrbital) {
+		super.render(g);
+		Image bodyImage;
+		if(isJumping || inOrbital) bodyImage=imageJump;
+		else bodyImage=image;
+		if (bodyImage != null) 
+		{
+			Image tmp = bodyImage.getScaledCopy(Game.zoomScale);
 			tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
 			tmp.rotate(90 + (float) ((180/Math.PI)*angle));
 			tmp.draw(xPos, yPos, color);
 		}
+		if (imageAccent != null) 
+		{
+			
+			Image tmp = imageAccent.getScaledCopy(Game.zoomScale);
+			tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
+			tmp.rotate(90 + (float) ((180/Math.PI)*angle));
+			tmp.draw(xPos, yPos, colorAccent);
+		}
+		if (imageExtra != null) 
+		{
+			Image tmp = imageExtra.getScaledCopy(Game.zoomScale);
+			tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
+			tmp.rotate(90 + (float) ((180/Math.PI)*angle));
+			tmp.draw(xPos, yPos, colorExtra);
+		}
+		
 	}
 	public void modifyHealth(float multi)
 	{
@@ -202,7 +258,6 @@ public class Frog extends Animal{
 	}
 	@Override
 	public void onDeath() {
-		// TODO Auto-generated method stub
 		
 	}
 	

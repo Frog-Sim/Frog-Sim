@@ -13,6 +13,8 @@ import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import animations.Animation;
+import animations.Death;
 import entities.Entity;
 import entities.Pool;
 import entities.alive.Frog;
@@ -20,7 +22,6 @@ import entities.alive.PlayerFrog;
 import entities.alive.KingToad;
 import entities.alive.Follower;
 import entities.alive.Wanderer;
-import entities.obstacles.Obstacle;
 import entities.obstacles.Rock;
 import entities.obstacles.Tree;
 import environment.Map;
@@ -44,6 +45,8 @@ public class Game extends BasicGameState
 	public static Pack enemyPack3;
 	public static int time;
 	final private float ZOOM_RATE=0.001f;
+	public static ArrayList<Death> animations;
+
 	private int mouseX;
 	private int mouseY;
 	//ENTITIES
@@ -67,6 +70,7 @@ public class Game extends BasicGameState
 		entities = new ArrayList<Entity>();
 		packs = new ArrayList<Pack>();
 		pools = new ArrayList<Pool>();
+		animations = new ArrayList<Death>();
 		bestFrog= new PlayerFrog(Main.getScreenWidth()/2,Main.getScreenHeight()/2);
 		entities.add(bestFrog);
 		entities.add(new Wanderer(500,500));
@@ -121,6 +125,10 @@ public class Game extends BasicGameState
 		{
 			entities.get(i).update();
 		}
+		for(int i=0; i<animations.size(); i++)
+		{
+			animations.get(i).update();
+		}
 	}
 
 	private void updateZoom() {
@@ -141,12 +149,15 @@ public class Game extends BasicGameState
 	{
 		g.scale(zoomScale,zoomScale);
 		g.translate(-cam.getX(), -cam.getY());
-		map.badRender(g);
+		map.render(g);
 		for (int i = entities.size() - 1; i >= 0; i--) entities.get(i).render(g);
 //		g.scale(0.1f,0.1f);
 //		g.translate(-cam.getX(), -cam.getY());
 //		map.render(g);
 //		for (int i = entities.size() - 1; i >= 0; i--) entities.get(i).render(g);
+		for(int i=0; i<animations.size(); i++) {
+			animations.get(i).render(g);
+		}
 	}
 
 	public void keyPressed(int key, char c)
@@ -173,13 +184,13 @@ public class Game extends BasicGameState
  	}
 	public void mouseWheelMoved(int change)
 	{
-		if (change > 0) {
-            zoom(1.02f);
-            //zoom in
-        } else {
-            zoom(.98f);
-            //zoom out
-        }
+//		if (change > 0) {
+//            zoom(1.02f);
+//            //zoom in
+//        } else {
+//            zoom(.98f);
+//            //zoom out
+//        }
 	}
 	public static void addEntity(Entity guy)
 	{
@@ -200,6 +211,10 @@ public class Game extends BasicGameState
 	public static void removePool(Pool p)
 	{
 		pools.remove(p);
+	}
+	public static void removeAnimation(Death d)
+	{
+		animations.remove(d);
 	}
 	public int getID() { return id; }
 	public static float getCamX() { return cam.getX(); }

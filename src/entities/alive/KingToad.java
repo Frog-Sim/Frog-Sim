@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Point;
 
+import animations.Animation;
 import core.Game;
 import grouping.Pack;
+import media.ImageLoader;
 
 public class KingToad extends Animal {
 	final static float TOAD_SIZE=256;
@@ -55,9 +58,11 @@ public class KingToad extends Animal {
 		super.update();
 	}
 	public void render(Graphics g) {
-		g.setColor(Color.red);
-		g.fillOval(xPos, yPos, TOAD_SIZE, TOAD_SIZE);
 		super.render(g);
+		Image tmp = ImageLoader.toad.getScaledCopy(Game.zoomScale);
+		tmp.setCenterOfRotation(tmp.getWidth() / 2 * Game.zoomScale, tmp.getHeight() / 2 * Game.zoomScale);
+		tmp.rotate(90 + (float) ((180/Math.PI)*angle));
+		tmp.draw(xPos, yPos);
 	}
 	private void jump() {
 		curJumpTime++;
@@ -189,5 +194,6 @@ public class KingToad extends Animal {
 		Game.bestFrog.playerPack.randomBoost(1.01f);
 		myArmy.disband();
 		Game.entities.remove(this);
+//		Game.animations.add(new Animation(this.getCenterX(), this.getCenterY(),ImageLoader.frogOne, 50));
 	}
 }

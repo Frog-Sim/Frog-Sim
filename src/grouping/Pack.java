@@ -288,4 +288,7 @@ public class Pack {
 			
 		}
 	}
+	public float getAttackSpeed() {
+		return attackSpeedBonus;
+	}
 }

@@ -54,13 +54,18 @@ public abstract class Animal extends Entity{
 	}
 	public void render(Graphics g)
 	{
-		float compressionFactor=maxHealth/128;
-		g.setColor(new Color(0,0,0));
-		g.drawRect(xPos-1, yPos-1, 128+1, 21);
-		g.setColor(Color.green);
-		g.fillRect(xPos, yPos, curHealth/compressionFactor, 20);
-		g.setColor(Color.red);
-		g.fillRect(xPos+curHealth/compressionFactor, yPos, (maxHealth-curHealth)/compressionFactor, 20);
+		float opacity = 1-(curHealth/maxHealth);
+		if(curHealth<maxHealth)
+		{
+			float compressionFactor=maxHealth/128;
+			g.setColor(new Color(0,0,0, opacity));
+			g.drawRect(xPos-1, yPos-1, 128+1, 21);
+			g.setColor(new Color(0,255,0, opacity));
+			g.fillRect(xPos, yPos, curHealth/compressionFactor, 20);
+			g.setColor(new Color(255,0,0, opacity));
+			g.fillRect(xPos+curHealth/compressionFactor, yPos, (maxHealth-curHealth)/compressionFactor, 20);
+		}
+		
 	}
 	
 	public boolean isFlying()
