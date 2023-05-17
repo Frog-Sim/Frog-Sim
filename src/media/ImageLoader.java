@@ -19,19 +19,43 @@ public class ImageLoader {
     public static Image grassThree;
     public static Image grassFour;
     public static Image grassFive;
+    
     public static Image snowOne;
     public static Image snowTwo;
     public static Image snowThree;
     public static Image snowFour;
     public static Image snowFive;
+    
+    public static Image sandOne;
+    public static Image sandTwo;
+    public static Image sandThree;
+    public static Image sandFour;
+    public static Image sandFive;
+    
+    public static Image waterOne;
+    public static Image waterTwo;
+    public static Image waterThree;
+    public static Image waterFour;
+    public static Image waterFive;
+    public static Image waterSix;
+    
     public static Image bigTree;
     public static Image clearBigTree;
-    public static Image waterOne;
+    public static Image boulder;
+    public static Image lilypad;
+    public static Image tumbleweed;
+    
     public static Image pool;
     public static Image toad;
+    public static Image toadCrown;
     public static SpriteSheet frogOne;
+    
     public static Image deathSkull;
-    private static Image frogOneImage;
+    public static Image deathSmoke;
+    public static SpriteSheet explosion;
+    
+    
+    
     private static ArrayList<Image> images;
 
     public static void init() throws SlickException, IOException {
@@ -60,24 +84,58 @@ public class ImageLoader {
         snowFive = loadImage("res/snowFive.png");
         snowFive = snowFive.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
         images.add(snowOne);
+        
+        sandOne=loadImage("res/sandTexture.png");
+        sandOne=sandOne.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        images.add(sandOne);
+        sandTwo=loadImage("res/sandTexture2.png");
+        sandTwo=sandTwo.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        images.add(sandTwo);
+        sandThree=loadImage("res/sandTexture3.png");
+        sandThree=sandThree.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        images.add(sandThree);
+        sandFour=loadImage("res/sandTexture4.png");
+        sandFour=sandFour.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        images.add(sandFour);
+        sandFive=loadImage("res/sandTexture5.png").getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
 
         bigTree = loadImage("res/largeTree.png");
         bigTree = bigTree.getScaledCopy(Map.TILE_SIZE * 9, Map.TILE_SIZE * 9);
-        images.add(bigTree);
+        images.add(bigTree);        
         clearBigTree = loadImage("res/clearTree.png");
         clearBigTree = clearBigTree.getScaledCopy(Map.TILE_SIZE * 9, Map.TILE_SIZE * 9);
         images.add(clearBigTree);
+        boulder = loadImage("res/boulder.png");
+        boulder=boulder.getScaledCopy(150,150);
+        images.add(boulder);
+        lilypad=loadImage("res/lilypad.png");
+        lilypad=lilypad.getScaledCopy(150,150);
+        tumbleweed=loadImage("res/tumbleweed.png");
+        tumbleweed=tumbleweed.getScaledCopy(150, 150);
+        pool = loadImage("res/breeding pool.png").getScaledCopy(200, 200);
+        images.add(pool);
+        
         waterOne = loadImage("res/water.png");
         waterOne = waterOne.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
         images.add(waterOne);
-        pool = loadImage("res/breeding pool.png").getScaledCopy(200, 200);
-        images.add(pool);
-
+        waterTwo = loadImage("res/waterTwo.png").getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        waterThree = loadImage("res/waterThree.png").getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        waterFour = loadImage("res/waterFour.png").getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        waterFive = loadImage("res/waterFive.png").getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        waterSix = loadImage("res/waterSix.png").getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        
+        
         toad = loadImage("res/toad.png").getScaledCopy(256, 256);
+        toadCrown=loadImage("res/toadCrown.png").getScaledCopy(256,256);
         images.add(toad);
         deathSkull = loadImage("res/skull.png");
+        deathSkull=deathSkull.getScaledCopy(Map.TILE_SIZE/2, Map.TILE_SIZE/2);
         images.add(deathSkull);
-        frogOne = new SpriteSheet(loadImage("res/frogOne.png").getScaledCopy(100, 700), 100, 100);
+        deathSmoke = loadImage("res/smoke.png");
+        deathSmoke=deathSmoke.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        images.add(deathSmoke);
+        frogOne = new SpriteSheet(loadImage("res/froggy.png").getScaledCopy(100, 700), 100, 100);
+        explosion = new SpriteSheet(loadImage("res/explosion.png").getScaledCopy(Map.TILE_SIZE*12, Map.TILE_SIZE), Map.TILE_SIZE, Map.TILE_SIZE);
     }
 
     public static void scaleImage(int x, int y) {

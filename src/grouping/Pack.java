@@ -49,12 +49,12 @@ public class Pack {
 			}
 			for(Frog f: frogs)
 			{
-				if(!(f instanceof Follower))
+				if((f instanceof Follower))
 				{
-					continue;
+					((Follower) f).attackClosest();
+					((Follower) f).moveToClosestEnemy(); 
 				}
-				((Follower) f).attackClosest();
-				((Follower) f).moveToClosestEnemy();
+				
 			}
 		}
 		else
@@ -275,5 +275,20 @@ public class Pack {
 	public Pack getEnemyPack()
 	{
 		return enemyPack;
+	}
+	public void allAttackClosest()
+	{
+		for(Frog f: frogs)
+		{
+			if((f instanceof Follower))
+			{
+				((Follower) f).attackClosest();
+				((Follower) f).moveToClosestEnemy(); 
+			}
+			
+		}
+	}
+	public float getAttackSpeed() {
+		return attackSpeedBonus;
 	}
 }

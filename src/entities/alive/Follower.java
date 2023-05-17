@@ -5,21 +5,29 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import animations.Animation;
+import animations.Death;
 import core.Game;
+import core.Title;
 import entities.Entity;
 import grouping.Pack;
+import media.ImageLoader;
 
 public class Follower extends Frog{
 	
 	public static final float ORBITAL_SIZE=210; 
 	private int orbital;
 	private int direction;
-	private Pack myPack;
+	public Pack myPack;
 	private Animal leader;
 	private Animal target;
-	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra) {
-		super(x, y);
-		colorAccent = new Color(Color.black);
+	private boolean spinner;
+	private float deathAngle;
+	private float deathAccel;
+	private int tick; 
+	public Follower(float x, float y, Color color, Color colorAccent, Color colorExtra, int extra) {
+		super(x, y, extra);
+		colorAccent = Color.green;
 		myPack=Game.bestFrog.getPack();
 		orbital=myPack.getOrbital();
 		myPack.addFrog(this);
@@ -40,7 +48,7 @@ public class Follower extends Frog{
 	}
 	public Follower(float x, float y) {
 		super(x, y);
-		colorAccent = new Color(Color.black);
+		colorAccent = Color.green;
 		myPack=Game.bestFrog.getPack();
 		orbital=myPack.getOrbital();
 		myPack.addFrog(this);
@@ -58,7 +66,7 @@ public class Follower extends Frog{
 	}
 	public Follower(float x, float y, Pack pack) {
 		super(x, y);
-		colorAccent = new Color(Color.black);
+		colorAccent = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random()*255));
 		myPack=pack;
 		orbital=myPack.getOrbital();
 		myPack.addFrog(this);
@@ -75,12 +83,23 @@ public class Follower extends Frog{
 		leader=myPack.alphaFrog;
 	}
 	public void update() {
-		if(myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog)myPack.alphaFrog).idle==true)
+		if (spinner) {
+            tick++;
+            this.setAngle(tick);
+            xPos+=(float)(deathAccel*Math.cos(deathAngle));
+			yPos+=(float)(deathAccel*Math.sin(deathAngle));
+            this.image = this.image.getScaledCopy(this.image.getWidth() + tick, this.image.getHeight() + tick);
+            this.imageAccent = this.imageAccent.getScaledCopy(this.imageAccent.getWidth() + tick, this.imageAccent.getHeight() + tick);
+            this.imageExtra = this.imageExtra.getScaledCopy(this.imageExtra.getWidth() + tick, this.imageExtra.getHeight() + tick);
+            this.imageJump = this.imageJump.getScaledCopy(this.imageJump.getWidth() + tick, this.imageJump.getHeight() + tick);
+
+            if (tick >= 140) {
+                Game.entities.remove(this);
+            }
+        }
+		if(myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog)myPack.alphaFrog).idle==true && !myPack.battling)
 		{
-			if((myPack.alphaFrog instanceof PlayerFrog && ((PlayerFrog)myPack.alphaFrog).idle==true))
-			{
-				resetJump();
-			}
+			resetJump();
 			if(inOrbital()) //&& !behindLeader())
 			{
 				if(jumpCooldown<-1)
@@ -101,7 +120,6 @@ public class Follower extends Frog{
 					
 			}
 		}
-		
 		super.update();
 	}
 	public void attackClosest()
@@ -144,8 +162,9 @@ public class Follower extends Frog{
 		}
 	}
 	public void render(Graphics g) {
+
+			super.render(g, inOrbital());
 		
-		super.render(g);
 	}
 	public boolean inOrbital()
 	{
@@ -174,13 +193,17 @@ public class Follower extends Frog{
 				}
 				if(target != null)
 				{
+					resetJump();
 					startJump(target.getX(),target.getY());
 				}
 				else
 				{
-					this.xVel=0;
-					this.yVel=0;
+					this.startJump(0);
 				}
+			}
+			else
+			{
+				System.out.println("STUPPID");
 			}
 	}
 	public int getOrbital()
@@ -197,7 +220,22 @@ public class Follower extends Frog{
 	}
 	public void onDeath()
 	{
-		Game.entities.remove(this);
+		if(Math.random()<0.9f)
+		{
+			spinner = true;
+			deathAngle=(float) (Math.random()*Math.PI);
+			deathAccel=(float)Math.random()*5+5;
+		}
+		else{
+			Game.entities.remove(this);
+			Game.animations.add(new Death(xPos,yPos));
+		}
+		Title.clickSound.play();
+		
 	}
 
+	public void turnEvil() {
+		colorAccent=Color.red;
+	}
+	
 }

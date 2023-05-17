@@ -18,11 +18,13 @@ public class Camera {
 
 	public float getX() { return xPos; }
 	public float getY() { return yPos; }
+	public void moveX(float x) {xPos+=x;} 
+	public void moveY(float x) {yPos+=x;} 
 
 	public void update() {
-		float newX = Game.bestFrog.getX()- Main.getScreenWidth()/2;
+		float newX = (Game.bestFrog.getX() - Main.getScreenWidth()/2/Game.zoomScale);
 		xPos += (newX - xPos) * EASING;
-		float newY = Game.bestFrog.getY()-Main.getScreenHeight()/2;
+		float newY = (Game.bestFrog.getY() - Main.getScreenHeight()/2/Game.zoomScale);
 		yPos += (newY - yPos) * EASING;
 	}
 }

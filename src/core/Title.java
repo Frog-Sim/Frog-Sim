@@ -1,21 +1,48 @@
 package core;
 
-import org.newdawn.slick.*;
+import core.Main;
+import environment.Map;
+
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Title extends BasicGameState {
     private final int id;
-    int width = 0;
-    int x;
-    int y;
-    int height = 0;
-    int tick;
-    Image frog;
-    int scaleNum;
-    int angle;
-    boolean grow;
-    private StateBasedGame sbg;
+    StateBasedGame sbg;
+
+    private Image titleText;
+    private Image backgroundImage;
+
+    public static Sound clickSound;
+    
+    public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
+        arg0.setShowFPS(true);
+        this.sbg = arg1;
+        titleText = new Image("res/toad.png");
+        titleText=titleText.getScaledCopy(Map.TILE_SIZE, Map.TILE_SIZE);
+        backgroundImage = new Image("res/titleScreen.png");
+        
+        clickSound = new Sound("res/Audio/Frog.wav");
+    }
+
+    public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
+        arg2.drawImage(backgroundImage, 0, 0);
+        arg2.drawImage(titleText, (float) ((Main.getScreenWidth()) - (titleText.getWidth() *1.5)), (Main.getScreenHeight() / 2) - (titleText.getHeight() / 2));
+        arg2.drawImage(titleText, (float) ((Main.getScreenWidth()) - (titleText.getWidth() *1.5)), (Main.getScreenHeight() / 2) - 4*(titleText.getHeight() / 2));
+        arg2.drawImage(titleText, (float) ((Main.getScreenWidth()) - (titleText.getWidth() *1.5)), (float) ((Main.getScreenHeight() / 2) + 2.5*(titleText.getHeight() / 2)));
+        arg2.drawImage(titleText, (float) ((Main.getScreenWidth()) - (titleText.getWidth() *3)), (float) ((Main.getScreenHeight() / 2) + 2.5*(titleText.getHeight() / 2)));
+        arg2.drawImage(titleText, (float) ((Main.getScreenWidth()) - (titleText.getWidth() *5)), (float) ((Main.getScreenHeight() / 2) + 2.5*(titleText.getHeight() / 2)));
+    }
+
+    public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+        
+    }
 
     public Title(int id) {
         this.id = id;
@@ -25,64 +52,15 @@ public class Title extends BasicGameState {
         return id;
     }
 
-    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        // This code happens when you enter a game state for the *first time.*
-        gc.setShowFPS(true);
-        this.sbg = sbg;
-        y = Main.getScreenHeight() / 2;
-        x = Main.getScreenWidth() / 2;
-        frog = new Image("res/grassOne.png");
-        scaleNum = 128;
-        tick = 0;
-        angle = 0;
-        grow = true;
-    }
-
-    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        // This is updates your game's logic every frame.  NO DRAWING.
-
-        tick++;
-        angle++;
-        if (scaleNum == 150) {
-            grow = false;
-        }
-        if (scaleNum == 128) {
-            grow = true;
-        }
-        if (tick == 2) {
-            if (grow) {
-                scaleNum += 1;
-            } else {
-                scaleNum -= 1;
-            }
-            tick = 0;
-            frog = frog.getScaledCopy(frog.getWidth() - scaleNum, frog.getHeight() - scaleNum);
-            frog.rotate(angle);
-        }
-
-
-    }
-
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        // This code renders shapes and images every frame.
-        g.drawRect(10, 10, 30, 30);
-        g.drawImage(frog, Main.getScreenWidth() / 2 - frog.getWidth() / 2, Main.getScreenHeight() / 2 - frog.getHeight() / 2);
-    }
-
-    public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        // This code happens when you enter a gameState.
-    }
-
-    public void leave(GameContainer gc, StateBasedGame sbg) {
-        // This code happens when you leave a gameState.
-    }
-
     public void keyPressed(int key, char c) {
-        // This code happens every time the user presses a key
-        if (key == Input.KEY_SPACE) sbg.enterState(Main.GAME_ID);
+    	if(key==Input.KEY_SPACE) {
+        sbg.enterState(Main.GAME_ID);
+    	}
+    	
     }
 
     public void mousePressed(int button, int x, int y) {
-        // This code happens every time the user presses the mouse
+    	clickSound.play();
     }
+
 }

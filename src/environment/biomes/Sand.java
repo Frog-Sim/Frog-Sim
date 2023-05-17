@@ -15,11 +15,10 @@ public class Sand extends Biome {
     }
 
     public void render(Graphics g) {
-//		g.setColor(new Color(30,(int)(255*noiseValue+30),30));
-//		g.fillRect(tile.getX(), tile.getY(), Map.TILE_SIZE, Map.TILE_SIZE);
-        if (rand < .25) g.drawImage(ImageLoader.sandOne, tile.getX(), tile.getY());
-        else if (rand < .5) g.drawImage(ImageLoader.sandTwo, tile.getX() * Game.zoomScale, tile.getY() * Game.zoomScale);
-        else if (rand < .75) g.drawImage(ImageLoader.sandThree, tile.getX() * Game.zoomScale, tile.getY() * Game.zoomScale); 
-        else g.drawImage(ImageLoader.sandFour, tile.getX() * Game.zoomScale, tile.getY() * Game.zoomScale);
+        if (rand < .2) g.drawImage(ImageLoader.sandOne, tile.getX(), tile.getY());
+        else if (rand < .4) g.drawImage(ImageLoader.sandTwo, tile.getX() , tile.getY() );
+        else if (rand < .6) g.drawImage(ImageLoader.sandThree, tile.getX() , tile.getY()); 
+        else if (rand<.8) g.drawImage(ImageLoader.sandFive, tile.getX(), tile.getY());
+        else g.drawImage(ImageLoader.sandFour, tile.getX() , tile.getY() );
     }
 }

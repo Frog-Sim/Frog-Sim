@@ -43,11 +43,11 @@ public abstract class Entity {
 	}
 	public float getDistance(Point p)
 	{
-		return (float) Math.sqrt(Math.pow(getCenterX()-p.getX(), 2)+Math.pow(getCenterY()-p.getY(), 2));
+		return (1/Game.zoomScale)*(float) Math.sqrt(Math.pow(getCenterX()-p.getX(), 2)+Math.pow(getCenterY()-p.getY(), 2));
 	}
 
 	public float getDistance(Entity e) {
-		return (float) Math.sqrt(Math.pow(getCenterX()-e.getCenterX(), 2)+Math.pow(getCenterY()-e.getCenterY(), 2));
+		return (1/Game.zoomScale)*(float) Math.sqrt(Math.pow(getCenterX()-e.getCenterX(), 2)+Math.pow(getCenterY()-e.getCenterY(), 2));
 	}
 	public boolean collideWith(Entity e)
 	{	
@@ -55,11 +55,15 @@ public abstract class Entity {
 		{
 			if(this instanceof Follower && e instanceof Follower)
 			{
+				if(((Follower)this).myPack != ((Follower)e).myPack)
+				{
+					return getDistance(e)<1*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2)));
+				}
 				if(((Follower)this).getOrbital() != ((Follower)e).getOrbital())
 				{
-					return false;
+					return getDistance(e)<0.4*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2)));
 				}
-				return getDistance(e)<0.5*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2)));
+				return getDistance(e)<0.6*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2)));
 			}
 			if(((Animal)this).isFlying() && ((Animal)e).isFlying())
 			{
@@ -70,7 +74,7 @@ public abstract class Entity {
 				return false;
 			}
 		}
-		return getDistance(e)<0.6*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2)));
+		return getDistance(e)<0.8*(Math.sqrt(Math.pow(this.height/2, 2)+Math.pow(this.width/2, 2))+Math.sqrt(Math.pow(e.height/2, 2)+Math.pow(e.width/2, 2)));
 	}
 	public float getAngle() {
 		return angle;
